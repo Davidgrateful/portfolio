@@ -4,7 +4,7 @@
  */
 
 import { useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import Lenis from "lenis";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -22,8 +22,21 @@ import ProjectDetail from "./pages/ProjectDetail";
 import Web3Portfolio from "./pages/Web3Portfolio";
 import Web3Works from "./pages/Web3Works";
 import Web3About from "./pages/Web3About";
+import Events from "./pages/Events";
+import EventDetail from "./pages/EventDetail";
+import Services from "./pages/Services";
+import Blog from "./pages/Blog";
+import BlogDetail from "./pages/BlogDetail";
 
-export default function App() {
+// Dashboard Imports
+import LoginPage from "./pages/dashboard/LoginPage";
+import DashboardHome from "./pages/dashboard/DashboardHome";
+import DashboardProjects from "./pages/dashboard/DashboardProjects";
+import DashboardBlog from "./pages/dashboard/DashboardBlog";
+import DashboardEcosystem from "./pages/dashboard/DashboardEcosystem";
+import DashboardLayout from "./pages/dashboard/DashboardLayout";
+
+function App() {
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.2,
@@ -47,16 +60,23 @@ export default function App() {
     };
   }, []);
 
+  const location = useLocation();
+  const isDashboard = location.pathname.startsWith('/dashboard') || location.pathname === '/login';
+
   return (
-    <Router>
+    <>
       <ScrollToTop />
-      <div className="bg-main text-sec min-h-screen font-sans selection:bg-sec selection:text-main transition-colors duration-700">
-        <BackgroundWave />
-        <Preloader />
-        <CustomCursor />
-        <Navbar />
-        <MusicPlayer />
-        <Web3Badge />
+      <div className={`text-sec min-h-screen font-sans selection:bg-sec selection:text-main transition-colors duration-700 ${isDashboard ? 'bg-[#0a0a0a]' : 'bg-main'}`}>
+        {!isDashboard && (
+          <>
+            <BackgroundWave />
+            <Preloader />
+            <CustomCursor />
+            <Navbar />
+            <MusicPlayer />
+            <Web3Badge />
+          </>
+        )}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/works" element={<Works />} />
@@ -65,9 +85,45 @@ export default function App() {
           <Route path="/web3" element={<Web3Portfolio />} />
           <Route path="/web3-works" element={<Web3Works />} />
           <Route path="/web3-about" element={<Web3About />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/events/:slug" element={<EventDetail />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:id" element={<BlogDetail />} />
+
+          {/* Dashboard Hub */}
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/dashboard" element={
+            <DashboardLayout>
+              <DashboardHome />
+            </DashboardLayout>
+          } />
+          <Route path="/dashboard/projects" element={
+            <DashboardLayout>
+              <DashboardProjects />
+            </DashboardLayout>
+          } />
+          <Route path="/dashboard/blog" element={
+            <DashboardLayout>
+              <DashboardBlog />
+            </DashboardLayout>
+          } />
+          <Route path="/dashboard/ecosystem" element={
+            <DashboardLayout>
+              <DashboardEcosystem />
+            </DashboardLayout>
+          } />
         </Routes>
-        <Footer />
+        {!isDashboard && <Footer />}
       </div>
+    </>
+  );
+}
+
+export default function Root() {
+  return (
+    <Router>
+      <App />
     </Router>
   );
 }

@@ -1,18 +1,12 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion } from 'motion/react';
-import { useLocation } from 'react-router-dom';
 import MagneticButton from './MagneticButton';
+import { usePhase } from '../hooks/usePhase';
 
 export default function MusicPlayer() {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
-  const location = useLocation();
-  
-  const web3ProjectSlugs = ["harapay", "arcle", "ai-sales-inbox"];
-  const isWeb3Path = location.pathname.startsWith("/web3");
-  const isWeb3Project = location.pathname.startsWith("/project/") && 
-                        web3ProjectSlugs.some(slug => location.pathname.includes(slug));
-  const isWeb3 = isWeb3Path || isWeb3Project;
+  const { isWeb3 } = usePhase();
 
   const web2Music = "https://cdn.pixabay.com/audio/2022/05/27/audio_1808fbf07a.mp3";
   const web3Music = "https://cdn.pixabay.com/audio/2026/02/20/audio_91db1f3017.mp3";

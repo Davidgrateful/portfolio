@@ -36,14 +36,14 @@ export default function Footer() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isProjectPage]);
 
-  const bgClass = isProjectPage ? "text-sec" : "bg-sec text-main";
+  const bgClass = isProjectPage ? "text-sec" : "bg-[#1e1e1e] text-[#e7e7e7]";
   const footerStyle = isProjectPage ? { backgroundColor: `hsl(${scrollHue}, 85%, 60%)` } : {};
-  const textMutedClass = isProjectPage ? "text-sec/40" : "text-main/40";
-  const textNormalClass = isProjectPage ? "text-sec/90" : "text-main/90";
-  const hoverClass = isProjectPage ? "hover:text-sec" : "hover:text-thr";
-  const dotClass = isProjectPage ? "bg-sec shadow-[0_0_15px_rgba(30,30,30,0.5)]" : "bg-thr shadow-[0_0_15px_rgba(212,245,52,0.5)]";
-  const pillClass = isProjectPage ? "border-sec/20 text-sec/90 hover:bg-sec hover:text-main" : "border-main/20 text-main/90 hover:bg-main hover:text-sec";
-  const massiveTextClass = isProjectPage ? "text-sec" : "text-main";
+  const textMutedClass = isProjectPage ? "text-sec/40" : "text-[#e7e7e7]/40";
+  const textNormalClass = isProjectPage ? "text-sec/90" : "text-[#e7e7e7]/90";
+  const hoverClass = isProjectPage ? "hover:text-sec" : "hover:text-[#d4f534]";
+  const dotClass = isProjectPage ? "bg-sec shadow-[0_0_15px_rgba(30,30,30,0.5)]" : "bg-[#d4f534] shadow-[0_0_15px_rgba(212,245,52,0.5)]";
+  const pillClass = isProjectPage ? "border-sec/20 text-sec/90 hover:bg-sec hover:text-main" : "border-[#e7e7e7]/20 text-[#e7e7e7]/90 hover:bg-[#e7e7e7] hover:text-[#1e1e1e]";
+  const massiveTextClass = isProjectPage ? "text-sec" : "text-[#e7e7e7]";
 
   return (
     <footer 

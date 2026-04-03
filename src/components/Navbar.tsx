@@ -1,17 +1,15 @@
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "motion/react";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import MagneticButton from "./MagneticButton";
+import { usePhase } from "../hooks/usePhase";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const { scrollY } = useScroll();
-  const location = useLocation();
-  const web3ProjectSlugs = ["harapay", "arcle", "ai-sales-inbox"];
-  const isWeb3 = location.pathname.startsWith("/web3") || 
-                 (location.pathname.startsWith("/project/") && web3ProjectSlugs.some(slug => location.pathname.includes(slug)));
+  const { isWeb3 } = usePhase();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     if (latest > 100) {
@@ -22,15 +20,18 @@ export default function Navbar() {
   });
 
   const links = isWeb3 ? [
-    { name: "Home", href: "/web3" },
-    { name: "About", href: "/web3-about" },
-    { name: "Works", href: "/web3-works" },
-    { name: "Contact", href: "https://wa.me/2347039662696" },
+    { name: "About", href: "/web3-about", state: undefined },
+    { name: "Works", href: "/web3-works", state: undefined },
+    { name: "Events", href: "/events", state: undefined },
+    { name: "Services", href: "/services", state: { phase: "web3" } },
+    { name: "Contents", href: "/blog", state: undefined },
+    { name: "Contact", href: "https://wa.me/2347039662696", state: undefined },
   ] : [
-    { name: "Home", href: "/" },
-    { name: "About", href: "/about" },
-    { name: "Works", href: "/works" },
-    { name: "Contact", href: "https://wa.me/2347039662696" },
+    { name: "About", href: "/about", state: undefined },
+    { name: "Works", href: "/works", state: undefined },
+    { name: "Services", href: "/services", state: undefined },
+    { name: "Contents", href: "/blog", state: undefined },
+    { name: "Contact", href: "https://wa.me/2347039662696", state: undefined },
   ];
 
   return (
@@ -46,11 +47,12 @@ export default function Navbar() {
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-8">
           <div className="flex items-center gap-8 mr-4">
-            {links.slice(0, 3).map((link) => (
+            {links.filter(link => link.name !== "Contact").map((link) => (
               <div key={link.name}>
                 <MagneticButton>
                   <Link
                     to={link.href}
+                    state={link.state}
                     className="text-sm font-medium hover:opacity-70 transition-opacity"
                   >
                     {link.name}
@@ -144,6 +146,7 @@ export default function Navbar() {
                     ) : (
                       <Link
                         to={link.href}
+                        state={link.state}
                         onClick={() => setIsOpen(false)}
                         className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter hover:text-main/70 transition-colors flex justify-between items-center group"
                       >
