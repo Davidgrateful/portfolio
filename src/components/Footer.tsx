@@ -2,15 +2,14 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import MagneticButton from "./MagneticButton";
 
+import { usePhase } from "../hooks/usePhase";
+
 export default function Footer() {
   const [time, setTime] = useState("");
   const [scrollHue, setScrollHue] = useState(75);
+  const { isWeb3 } = usePhase();
   const location = useLocation();
   const isProjectPage = location.pathname.startsWith('/project');
-  
-  const web3ProjectSlugs = ["harapay", "arcle", "ai-sales-inbox"];
-  const isWeb3 = location.pathname.startsWith("/web3") || 
-                 (location.pathname.startsWith("/project/") && web3ProjectSlugs.some(slug => location.pathname.includes(slug)));
 
   useEffect(() => {
     const updateTime = () => {
@@ -36,14 +35,32 @@ export default function Footer() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isProjectPage]);
 
-  const bgClass = isProjectPage ? "text-sec" : "bg-[#1e1e1e] text-[#e7e7e7]";
+  const bgClass = isProjectPage ? "text-sec" : "bg-sec text-main";
   const footerStyle = isProjectPage ? { backgroundColor: `hsl(${scrollHue}, 85%, 60%)` } : {};
-  const textMutedClass = isProjectPage ? "text-sec/40" : "text-[#e7e7e7]/40";
-  const textNormalClass = isProjectPage ? "text-sec/90" : "text-[#e7e7e7]/90";
+  const textMutedClass = isProjectPage ? "text-sec/40" : "text-main/40";
+  const textNormalClass = isProjectPage ? "text-sec/90" : "text-main/90";
   const hoverClass = isProjectPage ? "hover:text-sec" : "hover:text-[#d4f534]";
   const dotClass = isProjectPage ? "bg-sec shadow-[0_0_15px_rgba(30,30,30,0.5)]" : "bg-[#d4f534] shadow-[0_0_15px_rgba(212,245,52,0.5)]";
-  const pillClass = isProjectPage ? "border-sec/20 text-sec/90 hover:bg-sec hover:text-main" : "border-[#e7e7e7]/20 text-[#e7e7e7]/90 hover:bg-[#e7e7e7] hover:text-[#1e1e1e]";
-  const massiveTextClass = isProjectPage ? "text-sec" : "text-[#e7e7e7]";
+  const pillClass = isProjectPage ? "border-sec/20 text-sec/90 hover:bg-sec hover:text-main" : "border-main/20 text-main/90 hover:bg-main hover:text-sec";
+  const massiveTextClass = isProjectPage ? "text-sec" : "text-main";
+
+  const links = isWeb3 ? [
+    { name: "Home", href: "/web3", state: undefined },
+    { name: "Works", href: "/web3-works", state: undefined },
+    { name: "About", href: "/web3-about", state: undefined },
+    { name: "Services", href: "/services", state: { phase: "web3" } },
+    { name: "Events", href: "/events", state: undefined },
+    { name: "Blog", href: "/blog", state: { phase: "web3" } },
+    { name: "Contact", href: "https://wa.me/2347039662696", state: undefined },
+  ] : [
+    { name: "Home", href: "/", state: undefined },
+    { name: "Works", href: "/works", state: undefined },
+    { name: "About", href: "/about", state: undefined },
+    { name: "Services", href: "/services", state: undefined },
+    { name: "Events", href: "/events", state: undefined },
+    { name: "Blog", href: "/blog", state: { phase: "web2" } },
+    { name: "Contact", href: "https://wa.me/2347039662696", state: undefined },
+  ];
 
   return (
     <footer 
@@ -60,10 +77,21 @@ export default function Footer() {
             <div className="min-w-[100px]">
               <h4 className={`text-[10px] uppercase tracking-[0.2em] ${textMutedClass} font-bold mb-6`}>Links</h4>
               <ul className="space-y-3 font-medium text-sm">
-                <li><MagneticButton><Link to={isWeb3 ? "/web3" : "/"} className={`${textNormalClass} ${hoverClass} transition-colors inline-block`}>Home</Link></MagneticButton></li>
-                <li><MagneticButton><Link to={isWeb3 ? "/web3-works" : "/works"} className={`${textNormalClass} ${hoverClass} transition-colors inline-block`}>Work</Link></MagneticButton></li>
-                <li><MagneticButton><Link to={isWeb3 ? "/web3-about" : "/about"} className={`${textNormalClass} ${hoverClass} transition-colors inline-block`}>About</Link></MagneticButton></li>
-                <li><MagneticButton><a href="https://wa.me/2347039662696" target="_blank" rel="noopener noreferrer" className={`${textNormalClass} ${hoverClass} transition-colors inline-block`}>Contact</a></MagneticButton></li>
+                {links.map((link) => (
+                  <li key={link.name}>
+                    <MagneticButton>
+                      <Link 
+                        to={link.href.startsWith('http') ? "" : link.href} 
+                        state={link.state}
+                        className={`${textNormalClass} ${hoverClass} transition-colors inline-block`}
+                      >
+                        {link.href.startsWith('http') ? (
+                          <a href={link.href} target="_blank" rel="noopener noreferrer">{link.name}</a>
+                        ) : link.name}
+                      </Link>
+                    </MagneticButton>
+                  </li>
+                ))}
               </ul>
             </div>
 
