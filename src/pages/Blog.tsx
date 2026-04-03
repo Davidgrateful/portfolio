@@ -233,23 +233,27 @@ export default function Blog() {
             <FadeIn>
               <div className="bg-sec/5 border border-sec/10 p-6 rounded-2xl">
                 <div className="w-10 h-10 bg-sec text-main rounded-full flex items-center justify-center mb-5"><Mail className="w-4 h-4" /></div>
-                <h3 className="text-lg font-bold tracking-tighter uppercase mb-2">Builder's Digest</h3>
-                <p className="text-xs text-sec/50 mb-5 leading-relaxed">Weekly drops on Web3, fintech, and the actual reality of building products.</p>
+                <h3 className="text-lg font-bold font-cabinetGrotesk tracking-tighter uppercase mb-2">Builder's Digest</h3>
+                <p className="text-xs text-sec/50 mb-5 leading-relaxed font-cabinetGrotesk">Weekly drops on Web3, fintech, and the actual reality of building products.</p>
                 <form className="flex flex-col gap-2" onSubmit={(e) => e.preventDefault()}>
-                  <input type="email" placeholder="your@email.com" className="w-full bg-main border border-sec/20 rounded-xl px-4 py-2.5 text-xs text-sec placeholder:text-sec/30" />
-                  <button className="w-full bg-sec text-main font-black uppercase tracking-widest text-[10px] py-3 rounded-xl hover:bg-sec/90 transition-colors">Subscribe Free</button>
+                  <input type="email" placeholder="your@email.com" className="w-full bg-main border border-sec/20 rounded-xl px-4 py-2.5 text-xs text-sec placeholder:text-sec/30 font-cabinetGrotesk" />
+                  <button className="w-full bg-sec text-main font-black font-cabinetGrotesk uppercase tracking-widest text-[10px] py-3 rounded-xl hover:bg-sec/90 transition-colors">Subscribe Free</button>
                 </form>
               </div>
             </FadeIn>
             
-            {/* Work CTA */}
+            {/* Ad Placement CTA */}
             <FadeIn>
               <div className="bg-[#d4f534] text-[#1e1e1e] p-6 rounded-2xl">
-                <h3 className="text-lg font-bold tracking-tighter uppercase mb-2">Work With Me</h3>
-                <p className="text-xs text-[#1e1e1e]/70 mb-6 leading-relaxed">Frontend, fintech, Web3, or trading bots. Limited project slots open.</p>
-                <a href="https://wa.me/2347039662696" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 w-full bg-[#1e1e1e] text-[#e7e7e7] font-black uppercase tracking-widest text-[10px] py-3 rounded-xl">
-                  Start a Conversation <ArrowUpRight className="w-3.5 h-3.5" />
+                <h3 className="text-lg font-bold font-cabinetGrotesk tracking-tighter uppercase mb-2 leading-none">Place an Ad</h3>
+                <p className="text-[10px] font-bold font-cabinetGrotesk text-[#1e1e1e]/60 mb-6 leading-tight uppercase tracking-tight">
+                  Reach the top Web3 and fintech builders in Nigeria and beyond.
+                </p>
+                <a href="https://wa.me/2347039662696" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 w-full bg-[#1e1e1e] text-[#d4f534] font-black font-cabinetGrotesk uppercase tracking-widest text-[10px] py-3 rounded-xl hover:scale-105 transition-transform">
+                  Contact Me
+                  <ArrowUpRight className="w-3.5 h-3.5" />
                 </a>
+                <p className="text-[7px] text-center uppercase tracking-widest font-black text-[#1e1e1e]/30 mt-3 font-cabinetGrotesk">Dispatch Exclusive</p>
               </div>
             </FadeIn>
           </div>

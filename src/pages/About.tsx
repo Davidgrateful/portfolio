@@ -64,6 +64,21 @@ export default function About() {
         </div>
       </ThemeSection>
 
+      {/* Marquee Break */}
+      <div className="w-full overflow-hidden bg-main text-sec py-10 md:py-16 relative z-20 border-y border-transparent">
+        <motion.div
+          className="flex whitespace-nowrap"
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ repeat: Infinity, ease: "linear", duration: 25 }}
+        >
+          {Array(8).fill("✦ FULL-STACK DEVELOPER ✦ UI & UX ").map((text, i) => (
+            <span key={i} className="text-5xl md:text-7xl lg:text-9xl font-bold tracking-tighter uppercase pr-16 md:pr-24">
+              <span className="text-[#d4f534]">✦</span> FULL-STACK DEVELOPER <span className="text-[#d4f534]">✦</span> UI & UX{" "}
+            </span>
+          ))}
+        </motion.div>
+      </div>
+
       {/* Detailed Text & Image Section */}
       <ThemeSection mainColor="#1e1e1e" secColor="#e7e7e7" className="w-full py-32 px-6 md:px-12 lg:px-24">
         <div className="w-full flex flex-col md:flex-row gap-16 items-center">
