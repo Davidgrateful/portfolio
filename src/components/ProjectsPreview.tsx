@@ -6,34 +6,9 @@ import MagneticButton from "./MagneticButton";
 import { Link } from "react-router-dom";
 import FlowingMenu from "./FlowingMenu";
 
-const projects = [
-  {
-    title: "VexLogic ai",
-    category: "SaaS Platform",
-    image: "https://picsum.photos/seed/vexlogic/800/600",
-    link: "/project/vexlogic-ai-assistant"
-  },
-  {
-    title: "VexLogic bussiness",
-    category: "Business Solution",
-    image: "https://picsum.photos/seed/vexlogicbiz/800/600",
-    link: "/project/vexlogic-business-expander"
-  },
-  {
-    title: "Comra",
-    category: "Web Application",
-    image: "https://picsum.photos/seed/comra/800/600",
-    link: "/project/comra"
-  },
-  {
-    title: "Superhost",
-    category: "Management Dashboard",
-    image: "https://picsum.photos/seed/superhost/800/600",
-    link: "/project/superhost"
-  }
-];
+import { allProjects } from "../data/portfolio";
 
-function ProjectCard({ project, index }: { project: typeof projects[0], index: number }) {
+function ProjectCard({ project, index }: { project: typeof allProjects[0], index: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -44,11 +19,11 @@ function ProjectCard({ project, index }: { project: typeof projects[0], index: n
 
   return (
     <FadeIn delay={index * 0.1}>
-      <Link to={project.link} className="group block" data-cursor="View">
+      <Link to={`/project/${project.slug}`} className="group block" data-cursor="View">
         <div ref={ref} className="relative overflow-hidden rounded-2xl mb-6 aspect-[4/3] bg-sec/10">
           <motion.img 
             style={{ y, scale: 1.1 }}
-            src={project.image} 
+            src={project.heroImage} 
             alt={project.title}
             className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700 ease-out"
             referrerPolicy="no-referrer"
@@ -75,14 +50,12 @@ function ProjectCard({ project, index }: { project: typeof projects[0], index: n
 export default function ProjectsPreview() {
   const [view, setView] = useState<"grid" | "flowing">("grid");
 
-  useEffect(() => {
-    setView(window.innerWidth >= 768 ? "flowing" : "grid");
-  }, []);
+  const web2Projects = allProjects.filter(p => !p.isWeb3);
 
-  const flowingItems = projects.map(p => ({
-    link: p.link,
+  const flowingItems = web2Projects.map(p => ({
+    link: `/project/${p.slug}`,
     text: p.title,
-    image: p.image
+    image: p.heroImage
   }));
 
   return (
@@ -137,8 +110,8 @@ export default function ProjectsPreview() {
           </FadeIn>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-            {projects.map((project, index) => (
-              <div key={index}>
+            {web2Projects.map((project, index) => (
+              <div key={project.slug}>
                 <ProjectCard project={project} index={index} />
               </div>
             ))}

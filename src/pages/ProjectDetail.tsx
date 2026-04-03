@@ -50,6 +50,7 @@ export default function ProjectDetail() {
 
 
   const [isDismissed, setIsDismissed] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const videoSectionRef = useRef<HTMLDivElement>(null);
   const isVideoInView = useInView(videoSectionRef, { 
     amount: 0.1,
@@ -64,8 +65,10 @@ export default function ProjectDetail() {
   const currentIndex = allProjects.findIndex(p => p.slug === slug);
   const project = currentIndex !== -1 ? allProjects[currentIndex] : allProjects[0];
   
-  const nextIndex = (currentIndex + 1) % allProjects.length;
-  const nextProject = allProjects[nextIndex];
+  // Contextual Next Project (Web2 stays Web2, Web3 stays Web3)
+  const contextualProjects = allProjects.filter(p => p.isWeb3 === project.isWeb3);
+  const currentContextualIndex = contextualProjects.findIndex(p => p.slug === slug);
+  const nextProject = contextualProjects[(currentContextualIndex + 1) % contextualProjects.length];
 
   return (
     <main className="min-h-screen transition-colors duration-700">
@@ -108,8 +111,8 @@ export default function ProjectDetail() {
       </ThemeSection>
 
       {/* Intro Description & Gallery (Aziz Screenshot Layout) */}
-      <ThemeSection mainColor="#1e1e1e" secColor="#e7e7e7" className="w-full pt-16 pb-32 px-6 md:px-12 lg:px-16 xl:px-24">
-        <div className="w-full">
+      <ThemeSection mainColor="#1e1e1e" secColor="#e7e7e7" className="w-full pt-16 pb-32 px-6 md:px-12 lg:px-16 xl:px-24 flex flex-col items-center">
+        <div className="w-full max-w-6xl">
           {/* Top Intro Row */}
           <div className="flex flex-col lg:flex-row justify-between gap-16 mb-24 mt-8">
             {/* Left: Description & Button */}
@@ -124,13 +127,20 @@ export default function ProjectDetail() {
                   <MagneticButton>
                     <a 
                       href={project.liveLink} 
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="bg-[#d4f534] text-[#1e1e1e] px-8 py-4 rounded-full text-sm font-bold transition-transform duration-300 shadow-xl"
                     >
                       Live Website
                     </a>
                   </MagneticButton>
                   <MagneticButton>
-                    <a href={project.liveLink} className="bg-[#d4f534] text-[#1e1e1e] w-12 h-12 rounded-full flex items-center justify-center transition-transform duration-300 shadow-xl">
+                    <a 
+                      href={project.liveLink} 
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-[#d4f534] text-[#1e1e1e] w-12 h-12 rounded-full flex items-center justify-center transition-transform duration-300 shadow-xl"
+                    >
                       <ArrowUpRight className="w-4 h-4" strokeWidth={2.5}/>
                     </a>
                   </MagneticButton>
@@ -161,16 +171,40 @@ export default function ProjectDetail() {
             </div>
           </div>
 
-          {/* 2-Column Gallery from Screenshot */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* 2-Column Gallery (Refined Size) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto mt-16">
             <FadeIn delay={0.5}>
-              <div className="w-full aspect-[4/3] md:aspect-square rounded-[2rem] overflow-hidden bg-white/5 relative group border border-white/5">
-                <img src={project.heroImage} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" alt="Project Shot 1" />
+              <div 
+                className="w-full aspect-[4/3] rounded-[1.5rem] overflow-hidden bg-white/5 relative group border border-white/5 cursor-pointer"
+                onClick={() => setSelectedImage(project.heroImage)}
+              >
+                <img 
+                  src={project.heroImage} 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" 
+                  alt="Project Shot 1" 
+                />
+                <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                  <div className="bg-white/20 backdrop-blur-md p-3 rounded-full">
+                    <ArrowUpRight className="text-white w-5 h-5" />
+                  </div>
+                </div>
               </div>
             </FadeIn>
             <FadeIn delay={0.6}>
-              <div className="w-full aspect-[4/3] md:aspect-square rounded-[2rem] overflow-hidden bg-white/5 relative group border border-white/5">
-                <img src={project.gallery?.[0] || project.heroImage} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" alt="Project Shot 2" />
+              <div 
+                className="w-full aspect-[4/3] rounded-[1.5rem] overflow-hidden bg-white/5 relative group border border-white/5 cursor-pointer"
+                onClick={() => setSelectedImage(project.gallery?.[0] || project.heroImage)}
+              >
+                <img 
+                  src={project.gallery?.[0] || project.heroImage} 
+                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-1000" 
+                  alt="Project Shot 2" 
+                />
+                <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                  <div className="bg-white/20 backdrop-blur-md p-3 rounded-full">
+                    <ArrowUpRight className="text-white w-5 h-5" />
+                  </div>
+                </div>
               </div>
             </FadeIn>
           </div>
@@ -428,6 +462,43 @@ export default function ProjectDetail() {
                <p className="text-[10px] font-bold uppercase tracking-widest text-white/60 mb-1">Live Interaction</p>
                <p className="text-xs font-bold text-white uppercase">{project.title}</p>
             </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Image Lightbox Modal */}
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[2000] flex items-center justify-center bg-black/90 p-4 md:p-12 cursor-pointer backdrop-blur-xl"
+            onClick={() => setSelectedImage(null)}
+          >
+            <button 
+              className="absolute top-8 right-8 z-[2001] bg-white/10 hover:bg-white/20 p-4 rounded-full text-white backdrop-blur-md transition-all"
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedImage(null);
+              }}
+            >
+              <X className="w-6 h-6" />
+            </button>
+            <motion.div 
+              initial={{ scale: 0.8, opacity: 0, y: 50 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.8, opacity: 0, y: 50 }}
+              transition={{ type: "spring", damping: 30, stiffness: 300 }}
+              className="relative max-w-4xl w-full h-[90vh] flex items-center justify-center p-4 md:p-8"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img 
+                src={selectedImage} 
+                className="max-w-full max-h-full object-contain rounded-xl shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-white/10"
+                alt="Selected visual"
+              />
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

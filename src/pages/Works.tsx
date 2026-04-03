@@ -2,89 +2,20 @@ import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import { Link } from "react-router-dom";
 import { RevealLine, FadeIn } from "../components/Animations";
-import { ArrowUpRight, Grid, List } from "lucide-react";
+import { ArrowUpRight, Grid } from "lucide-react";
+import { allProjects } from "../data/portfolio";
 import FlowingMenu from "../components/FlowingMenu";
 
-const projects = [
-  {
-    title: "VexLogic AI Assistant",
-    category: "AI Solution",
-    image: "https://picsum.photos/seed/vexlogicai/800/600",
-    link: "/project/vexlogic-ai-assistant"
-  },
-  {
-    title: "VexLogic Business Expander",
-    category: "Business Solution",
-    image: "https://picsum.photos/seed/vexlogicbiz/800/600",
-    link: "/project/vexlogic-business-expander"
-  },
-  {
-    title: "Techivation",
-    category: "Web Application",
-    image: "https://picsum.photos/seed/techivation/800/600",
-    link: "/project/techivation"
-  },
-  {
-    title: "Comra",
-    category: "Web Application",
-    image: "https://picsum.photos/seed/comra/800/600",
-    link: "/project/comra"
-  },
-  {
-    title: "Comra Dashboard",
-    category: "Dashboard",
-    image: "https://picsum.photos/seed/comradash/800/600",
-    link: "/project/comra-dashboard"
-  },
-  {
-    title: "SiraDatia CV Builder",
-    category: "Web Application",
-    image: "https://picsum.photos/seed/siradatia/800/600",
-    link: "/project/siradatia-cv-builder"
-  },
-  {
-    title: "Reservado – Airbnb Clone",
-    category: "Web Application",
-    image: "https://picsum.photos/seed/reservado/800/600",
-    link: "/project/reservado-airbnb-clone"
-  },
-  {
-    title: "Superhost",
-    category: "Management Dashboard",
-    image: "https://picsum.photos/seed/superhost/800/600",
-    link: "/project/superhost"
-  },
-  {
-    title: "Fintechracy",
-    category: "Fintech App",
-    image: "https://picsum.photos/seed/fintechracy/800/600",
-    link: "/project/fintechracy"
-  },
-  {
-    title: "FTR-Client",
-    category: "Web Application",
-    image: "https://picsum.photos/seed/ftrclient/800/600",
-    link: "/project/ftr-client"
-  },
-  {
-    title: "VexLogic AI Assistant Website",
-    category: "Landing Page",
-    image: "https://picsum.photos/seed/vexlogicweb/800/600",
-    link: "/project/vexlogic-ai-assistant-website"
-  }
-];
-
 export default function Works() {
-  const [view, setView] = useState<"grid" | "flowing">("grid");
+  const [view, setView] = useState<"grid" | "flowing">("flowing");
 
-  useEffect(() => {
-    setView(window.innerWidth >= 768 ? "flowing" : "grid");
-  }, []);
+  // Filter projects for Web2 (non-Web3)
+  const web2Projects = allProjects.filter(p => !p.isWeb3);
 
-  const flowingItems = projects.map(p => ({
-    link: p.link,
+  const flowingItems = web2Projects.map(p => ({
+    link: `/project/${p.slug}`,
     text: p.title,
-    image: p.image
+    image: p.heroImage
   }));
 
   return (
@@ -128,12 +59,12 @@ export default function Works() {
           </FadeIn>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16">
-            {projects.map((project, index) => (
-              <FadeIn key={index} delay={index * 0.1}>
-                <Link to={project.link} className="group block">
+            {web2Projects.map((project, index) => (
+              <FadeIn key={project.slug} delay={index * 0.1}>
+                <Link to={`/project/${project.slug}`} className="group block">
                   <div className="relative overflow-hidden rounded-2xl mb-6 aspect-[4/3] bg-sec/10">
                     <img 
-                      src={project.image} 
+                      src={project.heroImage} 
                       alt={project.title}
                       className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700 ease-out"
                       referrerPolicy="no-referrer"

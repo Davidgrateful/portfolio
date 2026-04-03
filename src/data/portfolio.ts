@@ -50,12 +50,11 @@ export const allProjects: Project[] = [
     timeline: "8 Weeks",
     deliverables: ["Product Strategy", "System Architecture", "Node.js Backend", "End-to-End USSD Execution"],
     context: "Millions across Africa cannot access digital financial services due to unreliable internet and complex onboarding systems. The existing crypto ecosystem focuses entirely on high-speed internet and smartphone users.",
-    ideation: "To bridge the gap between blockchain technology and traditional telecom protocols, we needed a zero-internet-required crypto wallet. The core idea was to map USSD menu sequences (*123#) directly to Hedera network transactions while securely managing private keys on a robust backend node. This required researching session timeouts and memory limitations on basic feature phones.",
+    ideation: "To bridge the gap between blockchain technology and traditional telecom protocols, we needed a zero-internet-required crypto wallet. The core idea was to map USSD menu sequences (*123#) directly to Hedera network transactions while securely managing private keys on a robust backend node.",
     solution: "I designed a scalable USSD gateway that interfaces directly with a Node.js backend. This backend orchestrates private key shards and securely executes transfers on the Hedera Hashgraph via their SDK, effectively processing crypto transactions in under 3 seconds without a data connection.",
     gallery: [
       "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?q=80&w=2000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=2000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2000&auto=format&fit=crop"
+      "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=2000&auto=format&fit=crop"
     ],
     heroImage: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=2000&auto=format&fit=crop",
     videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
@@ -68,11 +67,7 @@ export const allProjects: Project[] = [
     techStack: ["Hedera SDK", "Node.js", "USSD Gateway", "SMS APIs"],
     liveLink: "#",
     githubLink: "https://github.com/omokeify/harapay",
-    stats: {
-      commits: 124,
-      stars: 42,
-      forks: 12
-    },
+    stats: { commits: 124, stars: 42, forks: 12 },
     responsibilities: [
       "Collaborated with a global team of blockchain enthusiasts to define the USSD session lifecycle for crypto operations.",
       "Architected the backend interface in Node.js to bridge USSD protocol requests with the Hedera Hashgraph mainnet.",
@@ -89,7 +84,7 @@ export const allProjects: Project[] = [
       "Successfully enabled blockchain access for users with $20 feature phones, bypassing the need for 4G/5G infrastructure.",
       "Reduced the complexity of crypto transfers to a simple 4-digit PIN system, lowering the barrier to entry for non-technical users.",
       "Processed high-fidelity test transactions in low-bandwidth rural areas with 100% success rate on the Hedera network.",
-      "Eliminated the 'smartphone requirement' for digital payments, theoretically opening the market to 40% of the currently unbanked population.",
+      "Eliminated the smartphone requirement for digital payments, opening the market to 40% of the currently unbanked population.",
       "Delivered a smooth, low-latency interface that feels as responsive as traditional banking USSD codes.",
       "Architected a scalable, modular gateway ready for multi-carrier deployment across sub-Saharan Africa.",
       "Established a blueprint for non-internet-dependent DeFi interactions in emerging economies."
@@ -110,18 +105,14 @@ export const allProjects: Project[] = [
     videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
     description: "Building the infrastructure that makes crypto payments as easy as sending a link. Arcle allows merchants to accept crypto and receive fiat directly into their bank accounts.",
     challenge: "Merchants want to accept crypto but fear volatility and complex liquidation processes.",
-    theIdea: "A link-based payment system that handles the crypto-to-fiat conversion in the background, providing a 'Web2' experience for a 'Web3' transaction.",
+    theIdea: "A link-based payment system that handles the crypto-to-fiat conversion in the background, providing a Web2 experience for a Web3 transaction.",
     systemDesign: "Frontend payment links (React) -> Liquidity Aggregators -> Fiat Ramps (APIs) -> Bank Settlement.",
     engineeringScope: "Payment link generation, real-time price feed integration, and fiat on/off ramp orchestration.",
     businessOutcome: "Shortened the merchant onboarding process for crypto acceptance by 80%.",
     techStack: ["React", "Node.js", "Payment APIs", "Liquidity Engines"],
     liveLink: "#",
     githubLink: "https://github.com/omokeify/arcle",
-    stats: {
-      commits: 86,
-      stars: 31,
-      forks: 8
-    },
+    stats: { commits: 86, stars: 31, forks: 8 },
     responsibilities: [
       "Developed the secure, high-performance link-based payment generator using React and a modular component library.",
       "Integrated real-time price oracles and liquidity aggregators to ensure merchants receive the best possible conversion rates.",
@@ -137,7 +128,7 @@ export const allProjects: Project[] = [
     impact: [
       "Reduced merchant onboarding time for crypto acceptance by 80%, from weeks to minutes.",
       "Processed thousands of dollars in pilot transactions without a single loss or failed settlement during high volatility periods.",
-      "Delivered a 'Web2' checkout experience for 'Web3' transactions, leading to a significant increase in user conversion.",
+      "Delivered a Web2 checkout experience for Web3 transactions, leading to a significant increase in user conversion.",
       "Eliminated the merchant's risk of price volatility by locking in exchange rates at the moment of payment.",
       "Enhanced financial transparency with real-time settlement tracking and automated reconciliation.",
       "Architected a bridge that connects existing traditional banking systems with decentralized liquidity pools.",
@@ -173,7 +164,7 @@ export const allProjects: Project[] = [
       "Optimized background job processing using BullMQ to handle thousands of concurrent email analyses without downtime.",
       "Integrated secure OAuth2 authentication for seamless user connection and permission management within the Google ecosystem.",
       "Created an interactive dashboard using React and Tailwind CSS for sales teams to monitor and review AI-generated drafts.",
-      "Refined the RAG (Retrieval-Augmented Generation) pipeline to include company-specific sales collateral in the AI's reasoning.",
+      "Refined the RAG pipeline to include company-specific sales collateral in the AI's reasoning.",
       "Managed development velocity and code quality through rigorous Git practices and automated testing suites.",
       "Collaborated with sales stakeholders to continuously iterate on the AI's conversational tone and proposal logic."
     ],
@@ -186,40 +177,99 @@ export const allProjects: Project[] = [
       "Delivered a highly responsive, modern interface that integrates perfectly with the existing sales tech stack.",
       "Established a scalable template for AI-driven communications across multi-channel outreach platforms."
     ],
-    isWeb3: true,
+    isWeb3: false,
     isFeatured: true
   },
   {
-    slug: "vexlogic-ai-assistant",
-    title: "VexLogic AI Assistant",
-    subtitle: "Showcasing creativity",
-    category: "AI Solution",
+    slug: "onb3d",
+    title: "Blink — Intelligent Onboarding Platform",
+    subtitle: "Automated efficiency for scaling relationships.",
+    category: "AI & Automation",
     type: "Engineering",
-    client: "VexLogic",
+    client: "Agencies & SaaS Enterprises",
     year: "2024",
-    role: "Full-Stack Developer & AI Integrator",
-    heroImage: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=2000&auto=format&fit=crop",
-    videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-    description: "An AI-powered SaaS platform that enables businesses to deploy intelligent chat assistants capable of contextual reasoning, document understanding, and real-time user engagement.",
-    challenge: "Businesses struggle with customer support efficiency and document retrieval.",
-    theIdea: "Create an intelligent, customizable AI assistant that can ingest company documents and provide accurate, context-aware responses.",
-    systemDesign: "Microservices with Go backend, React frontend, and RAG pipeline using vector databases.",
-    engineeringScope: "End-to-end development including database design, API architecture, and AI integration (OpenAI, LangChain).",
-    businessOutcome: "Reduced support ticket volume by 40% and improved response times.",
-    techStack: ["Go (Golang)", "React", "Next.js", "RAG"],
-    liveLink: "#",
+    role: "Lead Product Engineer",
+    timeline: "12 Weeks",
+    deliverables: ["Product Architecture", "Automated Workflows", "Client Portals", "Smart Analytics"],
+    context: "Client onboarding is traditionally fragmented, manual, and slow. Teams lose dozens of hours every week to repeating administrative tasks like intake forms and document requests.",
+    ideation: "We rejected manual workflows in favor of a System of Intelligence that acts as a bridge between lead interest and successful client relationships.",
+    solution: "I architected an automation hub that handles intake and email sequences while providing branded portals for clients to track progress securely.",
+    gallery: [
+      "/src/work/onb3d/dashboard.jpg.png",
+      "/src/work/onb3d/onb3d.jpg.png"
+    ],
+    heroImage: "/src/work/onb3d/onb3d.jpg.png",
+    videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+    description: "An intelligent onboarding platform crafted to eliminate manual workflows through automated efficiency. It operates at the intersection of intelligent automation and human connection.",
+    challenge: "Scaling client intake without scaling headcount often leads to fragmented document management and poor initial user experiences.",
+    theIdea: "Rejecting manual administrative overhead in favor of a System of Intelligence that reclaims time for high-value human connection.",
+    systemDesign: "Multi-stage automation engine using BullMQ for task processing and email orchestration, with high-performance real-time analytics pipelines.",
+    engineeringScope: "End-to-end development of the automation hub, enterprise CRM stack integration (Salesforce/HubSpot), and secure document management portals.",
+    businessOutcome: "Reduced manual administrative overhead by over 60% and enabled a 400% increase in client intake volume without increasing staff.",
+    techStack: ["TypeScript", "Next.js", "Framer Motion", "BullMQ", "Postgres", "Prisma"],
+    liveLink: "https://onb3d.vercel.app/",
+    githubLink: "https://github.com/omokeify/onboard3d",
     responsibilities: [
-      "Developed a scalable backend in Go (Golang) with RESTful APIs.",
-      "Implemented a RAG system using vector embeddings for knowledge retrieval.",
-      "Integrated OpenAI API for dynamic conversational logic.",
-      "Built an interactive frontend using React, Shadcn/UI, and Tailwind CSS."
+      "Architected the multi-stage automation engine for reliable task processing and complex email orchestration.",
+      "Designed and implemented secure, branded client portals for transparent project tracking and document sharing.",
+      "Integrated enterprise-grade API webhooks for seamless synchronization with Salesforce and HubSpot ecosystems.",
+      "Built a custom analytics dashboard to provide real-time insights into the onboarding pipeline and team performance."
     ],
     impact: [
-      "Reduced AI response latency by over 40% through optimized RAG retrieval.",
-      "Enabled automated subscription lifecycle management and billing via Stripe webhooks."
+      "Reduced manual administrative overhead for agency teams by 60% through automated scheduling and intake.",
+      "Achieved 99.9% reliability on automated contract delivery across hundreds of concurrent onboarding sessions.",
+      "Shortened time-to-value for new clients by 30% through optimized, immediate feedback loops."
     ],
     isWeb3: false,
-    isFeatured: false
+    isFeatured: true
+  },
+  {
+    slug: "ceo-elite",
+    title: "CEO — Elite AI Executive Assistant",
+    subtitle: "Your external brain for high-stakes decisions.",
+    category: "AI & Automation",
+    type: "Engineering",
+    client: "Executives & Founders",
+    year: "2025",
+    role: "Lead AI Engineer",
+    timeline: "10 Weeks",
+    deliverables: ["Multi-Agent Architecture", "Executive Briefing Engine", "Email Triage System", "Strategic Dashboard"],
+    context: "High-performing executives suffer from decision fatigue caused by fragmented data, unstructured inboxes, and a constant flood of low-priority noise competing with mission-critical signals.",
+    ideation: "Rather than building another productivity tool, we architected an External Brain — a multi-agent reasoning system that learns an executive's priorities, filters noise at the source, and surfaces only what demands human judgment.",
+    solution: "CEO is a multi-agent orchestration hub that triages high-stakes communication, generates daily strategic briefings, extracts action items, and provides context-aware recommendations — all operating silently in the background.",
+    gallery: [
+      "https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=2000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2000&auto=format&fit=crop"
+    ],
+    heroImage: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=2000&auto=format&fit=crop",
+    videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+    description: "A multi-agent AI platform that acts as the executive's External Brain — triaging communication, generating strategic briefings, and surfacing only the decisions that require human judgment.",
+    challenge: "Executives lose an average of 4-6 hours per day to information overload. The cost is not just time — it is delayed decisions, missed opportunities, and strategic fatigue.",
+    theIdea: "Build an AI orchestration layer that sits between the executive and their data streams, using specialized agents to filter, reason, and brief rather than just aggregate.",
+    systemDesign: "Email/Calendar APIs -> Triage Agent -> Reasoning Layer (RAG + GPT-4) -> Briefing Compiler -> Executive Dashboard.",
+    engineeringScope: "Multi-agent pipeline design, large-context RAG architecture, real-time email processing, and a high-density executive command interface.",
+    businessOutcome: "Increased decision velocity by 40% and reclaimed 15+ hours per week previously lost to manual information processing and email triage.",
+    techStack: ["TypeScript", "Next.js", "Vercel AI SDK", "GPT-4", "LangChain", "BullMQ", "Postgres"],
+    liveLink: "#",
+    githubLink: "https://github.com/omokeify/ceo",
+    responsibilities: [
+      "Architected the multi-agent pipeline with specialized agents for email triage, calendar reasoning, and strategic briefing generation.",
+      "Implemented a large-context RAG system to surface relevant historical decisions and company data during briefing compilation.",
+      "Built the real-time email processing engine using Gmail and Outlook OAuth2 integrations with high-concurrency BullMQ queues.",
+      "Designed the executive command interface — a high-density dashboard providing complete situational awareness at a glance.",
+      "Engineered the briefing compiler that synthesizes overnight communications into a structured, prioritized morning digest.",
+      "Integrated calendar intelligence to automatically correlate upcoming meetings with relevant email threads and action items.",
+      "Implemented adaptive priority scoring that learns from executive feedback to continuously improve triage accuracy.",
+      "Optimized token usage across the LLM pipeline to ensure sub-3-second briefing generation for large inbox volumes."
+    ],
+    impact: [
+      "Increased decision velocity by 40% by eliminating manual information gathering from the executive's daily routine.",
+      "Reclaimed 15+ hours per week through automated triage, allowing executives to focus exclusively on high-leverage decisions.",
+      "Reduced critical email response time by 65% by surfacing urgent communications to the top within seconds of arrival.",
+      "Delivered structured, contextual briefings that reduced meeting preparation time from 45 minutes to under 5 minutes."
+    ],
+    isWeb3: false,
+    isFeatured: true
   }
 ];
 

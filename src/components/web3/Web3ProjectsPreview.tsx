@@ -6,28 +6,9 @@ import MagneticButton from "../MagneticButton";
 import { Link } from "react-router-dom";
 import FlowingMenu from "../FlowingMenu";
 
-const projects = [
-  {
-    title: "HaraPay — Offline Crypto",
-    category: "Web3 Infrastructure",
-    image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=2000&auto=format&fit=crop",
-    link: "/project/harapay"
-  },
-  {
-    title: "Arcle — Payment Bridge",
-    category: "Fintech Rails",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2000&auto=format&fit=crop",
-    link: "/project/arcle"
-  },
-  {
-    title: "Smart Inbox — AI Sales",
-    category: "AI & Automation",
-    image: "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=2000&auto=format&fit=crop",
-    link: "/project/ai-sales-inbox"
-  }
-];
+import { allProjects } from "../../data/portfolio";
 
-function ProjectCard({ project, index }: { project: typeof projects[0], index: number }) {
+function ProjectCard({ project, index }: { project: typeof allProjects[0], index: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -38,11 +19,11 @@ function ProjectCard({ project, index }: { project: typeof projects[0], index: n
 
   return (
     <FadeIn delay={index * 0.1}>
-      <Link to={project.link} className="group block" data-cursor="View">
+      <Link to={`/project/${project.slug}`} className="group block" data-cursor="View">
         <div ref={ref} className="relative overflow-hidden rounded-2xl mb-6 aspect-[4/3] bg-sec/10">
           <motion.img 
             style={{ y, scale: 1.1 }}
-            src={project.image} 
+            src={project.heroImage} 
             alt={project.title}
             className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700 ease-out"
             referrerPolicy="no-referrer"
@@ -69,14 +50,12 @@ function ProjectCard({ project, index }: { project: typeof projects[0], index: n
 export default function Web3ProjectsPreview() {
   const [view, setView] = useState<"grid" | "flowing">("grid");
 
-  useEffect(() => {
-    setView(window.innerWidth >= 768 ? "flowing" : "grid");
-  }, []);
+  const web3Projects = allProjects.filter(p => p.isWeb3);
 
-  const flowingItems = projects.map(p => ({
-    link: p.link,
+  const flowingItems = web3Projects.map(p => ({
+    link: `/project/${p.slug}`,
     text: p.title,
-    image: p.image
+    image: p.heroImage
   }));
 
   return (
@@ -131,8 +110,8 @@ export default function Web3ProjectsPreview() {
           </FadeIn>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-            {projects.map((project, index) => (
-              <div key={index}>
+            {web3Projects.map((project, index) => (
+              <div key={project.slug}>
                 <ProjectCard project={project} index={index} />
               </div>
             ))}

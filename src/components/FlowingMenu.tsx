@@ -68,29 +68,27 @@ export default function FlowingMenu({ items }: FlowingMenuProps) {
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
           >
-            <div className="relative flex-grow overflow-hidden flex items-center">
-              {/* Normal Text */}
-              <span className={`text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter uppercase text-sec transition-all duration-500 ${hoveredIndex === index ? 'opacity-0 translate-x-4' : 'opacity-100 translate-x-0'}`}>
-                {item.text}
-              </span>
-              
-              {/* Marquee Text */}
-              <div className={`absolute inset-0 flex items-center opacity-0 transition-opacity duration-500 ${hoveredIndex === index ? 'opacity-100' : ''}`}>
-                <motion.div
-                  className="flex whitespace-nowrap"
-                  animate={hoveredIndex === index ? { x: ["0%", "-50%"] } : { x: "0%" }}
-                  transition={{ repeat: Infinity, ease: "linear", duration: 15 }}
-                >
-                  {Array(10).fill(item.text).map((text, i) => (
-                    <span key={i} className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter uppercase text-sec pr-8">
-                      {text} <span className="text-sec/30 mx-4">•</span>
-                    </span>
-                  ))}
-                </motion.div>
-              </div>
+            {/* Normal Text */}
+            <span className={`relative z-10 text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter uppercase text-sec transition-all duration-500 ${hoveredIndex === index ? 'opacity-0 translate-x-4' : 'opacity-100 translate-x-0'}`}>
+              {item.text}
+            </span>
+
+            {/* Full-Width Marquee Text on hover */}
+            <div className={`absolute inset-0 flex items-center opacity-0 transition-opacity duration-500 overflow-hidden ${hoveredIndex === index ? 'opacity-100' : ''}`}>
+              <motion.div
+                className="flex whitespace-nowrap"
+                animate={hoveredIndex === index ? { x: ["0%", "-50%"] } : { x: "0%" }}
+                transition={{ repeat: Infinity, ease: "linear", duration: 15 }}
+              >
+                {Array(10).fill(item.text).map((text, i) => (
+                  <span key={i} className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter uppercase text-sec pr-8">
+                    {text} <span className="text-sec/30 mx-4">•</span>
+                  </span>
+                ))}
+              </motion.div>
             </div>
-            
-            <span className="text-sec/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 whitespace-nowrap relative z-10 bg-main px-4 py-2 rounded-full ml-4">
+
+            <span className="text-sec/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 whitespace-nowrap relative z-10 bg-main px-4 py-2 rounded-full ml-4 shrink-0">
               View Project
             </span>
           </Link>

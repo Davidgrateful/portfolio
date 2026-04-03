@@ -3,40 +3,21 @@ import { motion } from "motion/react";
 import { Link } from "react-router-dom";
 import { RevealLine, FadeIn } from "../components/Animations";
 import { ArrowUpRight, Grid } from "lucide-react";
+import { allProjects } from "../data/portfolio";
 import FlowingMenu from "../components/FlowingMenu";
 
-const projects = [
-  {
-    title: "HaraPay — Offline Crypto Payments",
-    category: "Web3 Infrastructure",
-    image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=2000&auto=format&fit=crop",
-    link: "/project/harapay"
-  },
-  {
-    title: "Arcle — Payment Infrastructure",
-    category: "Fintech Rails",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2000&auto=format&fit=crop",
-    link: "/project/arcle"
-  },
-  {
-    title: "Smart Inbox — AI Sales Engine",
-    category: "AI & Automation",
-    image: "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=2000&auto=format&fit=crop",
-    link: "/project/ai-sales-inbox"
-  }
-];
-
 export default function Web3Works() {
-  const [view, setView] = useState<"grid" | "flowing">("grid");
+  const [view, setView] = useState<"grid" | "flowing">("flowing");
 
-  useEffect(() => {
-    setView(window.innerWidth >= 768 ? "flowing" : "grid");
-  }, []);
 
-  const flowingItems = projects.map(p => ({
-    link: p.link,
+  // Filter projects for Web3
+  const web3Projects = allProjects.filter(p => p.isWeb3);
+
+
+  const flowingItems = web3Projects.map(p => ({
+    link: `/project/${p.slug}`,
     text: p.title,
-    image: p.image
+    image: p.heroImage
   }));
 
   return (
@@ -46,7 +27,7 @@ export default function Web3Works() {
           <div>
             <RevealLine>
               <h1 className="text-6xl md:text-8xl font-bold tracking-tighter uppercase mb-6">
-                Web3 Portfolio
+                My Work
               </h1>
             </RevealLine>
             <FadeIn delay={0.2}>
@@ -80,12 +61,12 @@ export default function Web3Works() {
           </FadeIn>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16">
-            {projects.map((project, index) => (
-              <FadeIn key={index} delay={index * 0.1}>
-                <Link to={project.link} className="group block">
+            {web3Projects.map((project, index) => (
+              <FadeIn key={project.slug} delay={index * 0.1}>
+                <Link to={`/project/${project.slug}`} className="group block">
                   <div className="relative overflow-hidden rounded-2xl mb-6 aspect-[4/3] bg-sec/10">
                     <img 
-                      src={project.image} 
+                      src={project.heroImage} 
                       alt={project.title}
                       className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700 ease-out"
                       referrerPolicy="no-referrer"
