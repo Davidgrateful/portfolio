@@ -4,6 +4,7 @@ import { FadeIn, RevealLine } from "../components/Animations";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence, useInView as useInViewMotion } from "motion/react";
 import { topAds, latestPosts, mainPosts } from "../data/blogData";
+import { usePhase } from "../hooks/usePhase";
 
 interface ThemeSectionProps {
   mainColor: string;
@@ -38,6 +39,8 @@ export default function Blog() {
   const [isPopOutClosed, setIsPopOutClosed] = useState(false);
   const isVideoInView = useInViewMotion(videoRef, { amount: 0.1 });
   const [shouldFloat, setShouldFloat] = useState(false);
+  const { isWeb3 } = usePhase();
+  const phase = isWeb3 ? "web3" : "web2";
 
   useEffect(() => {
     document.title = "Contents | Fredy Omoke";
@@ -76,37 +79,42 @@ export default function Blog() {
 
   return (
     <div className="w-full min-h-screen">
-      <ThemeSection mainColor="#e7e7e7" secColor="#1e1e1e" className="pt-28 pb-4 px-6 md:px-12 lg:px-16 xl:px-24">
+      <ThemeSection mainColor="#e7e7e7" secColor="#1e1e1e" className="pt-36 pb-4 px-6 md:px-12 lg:px-16 xl:px-24">
         {/* Top Leaderboard Ad — CoinDesk style, full width, centered */}
         <FadeIn>
-          <div className="w-full flex justify-center mb-10">
-            <div className="w-full max-w-2xl h-[80px] bg-sec/5 border border-sec/10 flex items-center justify-between px-6 rounded-2xl relative overflow-hidden group cursor-pointer">
+          <div className="w-full flex justify-center mb-16">
+            <div className="w-full max-w-5xl h-[100px] md:h-[140px] bg-sec/5 border border-sec/10 rounded-xl relative overflow-hidden group cursor-pointer hover:bg-sec/[0.07] transition-all">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentAd}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  transition={{ duration: 0.4 }}
-                  className="absolute inset-0 flex items-center gap-6 px-10"
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: -20, opacity: 0 }}
+                  transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
+                  className="flex items-center justify-between h-full px-8 md:px-16"
                 >
-                  <div className="w-12 h-12 rounded-lg bg-sec/10 shrink-0 overflow-hidden">
-                    <img src={topAds[currentAd].image} alt="Ad Logo" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
+                  <div className="flex items-center gap-6 md:gap-10">
+                    <div className="w-16 h-16 md:w-24 md:h-24 rounded-md bg-sec/10 shrink-0 overflow-hidden shadow-sm">
+                      <img src={topAds[currentAd].image} alt="Sponsor" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-sec/30 text-[9px] md:text-[11px] font-bold uppercase tracking-[0.4em] mb-2">{topAds[currentAd].sponsor}</span>
+                      <p className="text-xl md:text-3xl font-black text-sec/70 group-hover:text-sec transition-colors uppercase tracking-tighter leading-none max-w-3xl">
+                        {topAds[currentAd].text}
+                      </p>
+                    </div>
                   </div>
-                  <div className="flex flex-col">
-                    <span className="text-sec/30 text-[9px] font-bold uppercase tracking-[0.3em] mb-1">{topAds[currentAd].sponsor}</span>
-                    <p className="text-base font-bold text-sec/70 group-hover:text-sec transition-colors uppercase tracking-tight line-clamp-1">
-                      {topAds[currentAd].text}
-                    </p>
+                  <div className="flex flex-col items-end gap-3 shrink-0 ml-4">
+                    <span className="text-[7px] md:text-[9px] font-bold uppercase bg-[#d4f534] text-[#1e1e1e] px-2 py-0.5 rounded leading-none">Promotion</span>
+                    <ArrowUpRight className="w-6 h-6 md:w-10 md:h-10 text-sec/20 group-hover:text-[#d4f534] transition-colors translate-x-2" />
                   </div>
-                  <ArrowUpRight className="w-5 h-5 ml-auto text-sec/20 group-hover:text-[#d4f534] transition-colors" />
                 </motion.div>
               </AnimatePresence>
-              <div className="absolute left-1/2 -translate-x-1/2 bottom-2 flex gap-1.5 z-10">
+              <div className="absolute left-1/2 -translate-x-1/2 bottom-3 flex gap-2 z-10">
                 {topAds.map((_, idx) => (
                   <div
                     key={idx}
-                    className={`h-1 rounded-full transition-all duration-300 ${idx === currentAd ? "bg-[#d4f534] w-4" : "w-1 bg-sec/20"}`}
+                    className={`h-1 rounded-full transition-all duration-300 ${idx === currentAd ? "bg-[#d4f534] w-6" : "w-1.5 bg-sec/20"}`}
                   />
                 ))}
               </div>
@@ -128,6 +136,7 @@ export default function Blog() {
                 <FadeIn key={post.id} delay={0.05 * i}>
                   <Link
                     to={`/blog/${post.id}`}
+                    state={{ phase }}
                     className="group block py-5 border-b border-sec/10 hover:pl-2 transition-all duration-300"
                   >
                     <div className="flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-widest text-sec/40 mb-2">
@@ -153,7 +162,11 @@ export default function Blog() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {mainPosts.slice(0, 6).map((post, i) => (
                 <FadeIn key={post.id} delay={0.08 * i}>
-                  <Link to={`/blog/${post.id}`} className="group flex flex-col h-full">
+                  <Link 
+                    to={`/blog/${post.id}`} 
+                    state={{ phase }}
+                    className="group flex flex-col h-full"
+                  >
                     <div className="relative overflow-hidden rounded-xl aspect-[4/3] mb-4 shrink-0">
                       <img src={post.image} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" referrerPolicy="no-referrer" />
                     </div>
@@ -198,7 +211,11 @@ export default function Blog() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {mainPosts.slice(6).map((post, i) => (
                 <FadeIn key={post.id} delay={0.08 * i}>
-                  <Link to={`/blog/${post.id}`} className="group flex flex-col h-full">
+                  <Link 
+                    to={`/blog/${post.id}`} 
+                    state={{ phase }}
+                    className="group flex flex-col h-full"
+                  >
                     <div className="relative overflow-hidden rounded-xl aspect-[4/3] mb-4 shrink-0">
                       <img src={post.image} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" referrerPolicy="no-referrer" />
                     </div>

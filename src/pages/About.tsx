@@ -3,6 +3,7 @@ import { useInView, motion } from "motion/react";
 import { RevealLine, FadeIn } from "../components/Animations";
 import MagneticButton from "../components/MagneticButton";
 import { ArrowUpRight } from "lucide-react";
+import MotionButton from "../components/ui/motion-button";
 
 interface ThemeSectionProps {
   mainColor: string;
@@ -259,9 +260,15 @@ export default function About() {
               <h2 className="text-3xl md:text-5xl font-bold tracking-tighter mb-6">
                 Ready to Build Something Exceptional?
               </h2>
-              <p className="text-base md:text-lg text-main/70 max-w-3xl mx-auto leading-relaxed">
+              <p className="text-base md:text-lg text-main/70 max-w-3xl mx-auto leading-relaxed mb-10">
                 Whether you need an AI-powered SaaS platform, an immersive 3D experience, or a high-performance web application, I bring the technical expertise and creative vision to make it happen. Let's discuss how we can turn your ambitious ideas into production-ready solutions that drive real business results.
               </p>
+              <div className="flex justify-center">
+                <MotionButton 
+                  label="Get in Touch" 
+                  href="https://wa.me/2347039662696"
+                />
+              </div>
             </div>
           </FadeIn>
         </div>

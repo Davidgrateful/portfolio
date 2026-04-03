@@ -6,6 +6,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Link } from "react-router-dom";
 
+import MotionButton from "../ui/motion-button";
+
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Web3AboutPreview() {
@@ -53,16 +55,7 @@ export default function Web3AboutPreview() {
 
         <FadeIn delay={0.3}>
           <div className="flex items-center gap-2 mt-8">
-            <MagneticButton>
-              <a href="mailto:hello@example.com" className="inline-flex items-center justify-center bg-thr text-sec px-8 py-4 rounded-full font-medium hover:bg-thr/90 transition-colors">
-                Get in Touch
-              </a>
-            </MagneticButton>
-            <MagneticButton>
-              <a href="mailto:hello@example.com" className="inline-flex items-center justify-center bg-thr text-sec w-14 h-14 rounded-full hover:bg-thr/90 transition-colors group">
-                <ArrowUpRight className="w-5 h-5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-              </a>
-            </MagneticButton>
+            <MotionButton label="Get in Touch" href="mailto:fredyomoke@gmail.com" />
           </div>
         </FadeIn>
 

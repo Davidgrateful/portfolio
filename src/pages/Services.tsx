@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { FadeIn, RevealLine } from "../components/Animations";
 import { motion, useInView, AnimatePresence } from "motion/react";
 import { ArrowUpRight, Code2, Users, Share2, PenLine, GraduationCap } from "lucide-react";
+import MotionButton from "../components/ui/motion-button";
 
 interface ThemeSectionProps {
   mainColor: string;
@@ -322,22 +323,24 @@ export default function Services() {
               </FadeIn>
             </div>
           </div>
+        </div>
 
-          {/* Scrolling Marquee */}
-          <div className="w-full overflow-hidden mb-32 bg-sec text-main py-5 -rotate-1">
-            <motion.div
-              className="flex whitespace-nowrap"
-              animate={{ x: ["0%", "-50%"] }}
-              transition={{ repeat: Infinity, ease: "linear", duration: 20 }}
-            >
-              {Array(8).fill("✦ FRONTEND ✦ AI AUTOMATION ✦ WEB3 ✦ SMART CONTRACTS ✦ COMMUNITY ✦ EDUCATION ").map((text, i) => (
-                <span key={i} className="text-2xl md:text-4xl font-black tracking-tighter uppercase pr-8">
-                  {text}
-                </span>
-              ))}
-            </motion.div>
-          </div>
+        {/* Scrolling Marquee */}
+        <div className="w-full overflow-hidden mb-32 bg-sec text-main py-5 -rotate-1 relative z-20">
+          <motion.div
+            className="flex whitespace-nowrap"
+            animate={{ x: ["0%", "-50%"] }}
+            transition={{ repeat: Infinity, ease: "linear", duration: 20 }}
+          >
+            {Array(8).fill("✦ FRONTEND ✦ AI AUTOMATION ✦ WEB3 ✦ SMART CONTRACTS ✦ COMMUNITY ✦ EDUCATION ").map((text, i) => (
+              <span key={i} className="text-2xl md:text-4xl font-black tracking-tighter uppercase pr-8">
+                {text}
+              </span>
+            ))}
+          </motion.div>
+        </div>
 
+        <div className="px-6 md:px-12 lg:px-16 xl:px-24 w-full">
           {/* Track 1: Product Engineering */}
           <div className="mb-24">
             <FadeIn>
@@ -486,12 +489,13 @@ export default function Services() {
             <p className="text-xl md:text-2xl text-sec/70 max-w-2xl mx-auto mb-14 font-medium leading-relaxed">
               Whether you need a frontend shipped, an AI workflow automated, or a Web3 community grown from zero — I get it done.
             </p>
-            <Link to="https://wa.me/2347039662696" target="_blank" className="inline-block group">
-              <div className="px-12 py-6 bg-sec text-main rounded-full font-black uppercase tracking-widest text-base shadow-2xl group-hover:scale-105 transition-all duration-300 flex items-center gap-3">
-                Start a Conversation
-                <ArrowUpRight className="w-5 h-5" />
-              </div>
-            </Link>
+            <div className="flex justify-center">
+              <MotionButton 
+                label="Get in Touch" 
+                href="https://wa.me/2347039662696"
+                classes="scale-125"
+              />
+            </div>
           </FadeIn>
         </div>
       </ThemeSection>

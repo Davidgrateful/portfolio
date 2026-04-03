@@ -5,6 +5,9 @@
   --color-main: #e7e7e7;
   --color-sec: #1e1e1e;
   --color-thr: #d4f534;
+  --color-background: var(--color-main);
+  --color-foreground: var(--color-sec);
+  --color-primary: var(--color-sec);
   --font-sans: "Cabinet Grotesk", ui-sans-serif, system-ui, sans-serif;
   --font-cabinetGrotesk: "Cabinet Grotesk", sans-serif;
 }

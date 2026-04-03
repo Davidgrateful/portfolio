@@ -4,6 +4,7 @@ import { ArrowLeft, Calendar, MapPin, Users, CheckCircle2, Trophy, Rocket, Build
 import { FadeIn, RevealLine } from "../components/Animations";
 import { eventsData } from "./Events";
 import { useInView } from "motion/react";
+import MotionButton from "../components/ui/motion-button";
 
 interface ThemeSectionProps {
   mainColor: string;
@@ -251,11 +252,13 @@ export default function EventDetail() {
             <p className="text-xl md:text-2xl text-sec/70 max-w-3xl mx-auto mb-16 font-medium leading-relaxed">
               Whether it's a hackathon, panel, or keynote, I'm always open to collaborating with communities pushing the boundaries of tech.
             </p>
-            <Link to="https://wa.me/2347039662696" target="_blank" className="inline-block group">
-              <div className="px-12 py-6 bg-sec text-main rounded-full font-black uppercase tracking-widest text-base shadow-2xl group-hover:scale-105 transition-all duration-300">
-                Get in Touch
-              </div>
-            </Link>
+            <div className="flex justify-center">
+              <MotionButton 
+                label="Get in Touch" 
+                href="https://wa.me/2347039662696"
+                classes="scale-125"
+              />
+            </div>
           </div>
         </FadeIn>
       </ThemeSection>

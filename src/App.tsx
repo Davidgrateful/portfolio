@@ -27,6 +27,7 @@ import EventDetail from "./pages/EventDetail";
 import Services from "./pages/Services";
 import Blog from "./pages/Blog";
 import BlogDetail from "./pages/BlogDetail";
+import Demo from "./pages/Demo";
 
 // Dashboard Imports
 import LoginPage from "./pages/dashboard/LoginPage";
@@ -90,6 +91,7 @@ function App() {
           <Route path="/services" element={<Services />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:id" element={<BlogDetail />} />
+          <Route path="/demo" element={<Demo />} />
 
           {/* Dashboard Hub */}
           <Route path="/login" element={<LoginPage />} />

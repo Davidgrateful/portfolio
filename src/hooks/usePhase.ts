@@ -14,9 +14,10 @@ export function usePhase() {
   const isWeb3 =
     location.pathname.startsWith("/web3") ||
     location.pathname.startsWith("/events") ||
+    ((location.pathname.startsWith("/blog") || location.pathname === "/services") &&
+      locationState?.phase === "web3") ||
     (location.pathname.startsWith("/project/") &&
-      WEB3_PROJECT_SLUGS.some((slug) => location.pathname.includes(slug))) ||
-    (location.pathname === "/services" && locationState?.phase === "web3");
+      WEB3_PROJECT_SLUGS.some((slug) => location.pathname.includes(slug)));
 
   return { isWeb3, location, locationState };
 }

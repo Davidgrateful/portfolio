@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import MagneticButton from "./MagneticButton";
 import { usePhase } from "../hooks/usePhase";
+import MotionButton from "./ui/motion-button";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,13 +25,13 @@ export default function Navbar() {
     { name: "Works", href: "/web3-works", state: undefined },
     { name: "Events", href: "/events", state: undefined },
     { name: "Services", href: "/services", state: { phase: "web3" } },
-    { name: "Contents", href: "/blog", state: undefined },
+    { name: "Contents", href: "/blog", state: { phase: "web3" } },
     { name: "Contact", href: "https://wa.me/2347039662696", state: undefined },
   ] : [
     { name: "About", href: "/about", state: undefined },
     { name: "Works", href: "/works", state: undefined },
     { name: "Services", href: "/services", state: undefined },
-    { name: "Contents", href: "/blog", state: undefined },
+    { name: "Contents", href: "/blog", state: { phase: "web2" } },
     { name: "Contact", href: "https://wa.me/2347039662696", state: undefined },
   ];
 
@@ -62,14 +63,11 @@ export default function Navbar() {
             ))}
           </div>
           
-          <MagneticButton>
-            <a href="https://wa.me/2347039662696" target="_blank" rel="noopener noreferrer" className="bg-sec text-main px-5 py-2.5 rounded-full text-sm font-medium flex items-center gap-2 hover:scale-105 transition-transform">
-              Contact
-              <div className="bg-main text-sec rounded-full p-1">
-                <ArrowUpRight className="w-3 h-3" />
-              </div>
-            </a>
-          </MagneticButton>
+          <MotionButton 
+            label="Get in Touch" 
+            href="https://wa.me/2347039662696"
+            classes="scale-90"
+          />
         </div>
 
         {/* Mobile Nav Toggle */}

@@ -1,9 +1,10 @@
 import { useEffect, useState, useRef, ReactNode } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, Clock, Twitter, Linkedin, Link as LinkIcon, Mail, PlayCircle, ArrowUpRight } from "lucide-react";
+import { ArrowLeft, Clock, Twitter, Linkedin, Link as LinkIcon, Mail, PlayCircle, ArrowUpRight, MessageCircle, Send } from "lucide-react";
 import { FadeIn, RevealLine } from "../components/Animations";
 import { mainPosts, topAds } from "../data/blogData";
 import { useInView as useInViewMotion } from "motion/react";
+import { usePhase } from "../hooks/usePhase";
 
 interface ThemeSectionProps {
   mainColor: string;
@@ -36,9 +37,10 @@ export default function BlogDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [currentAd, setCurrentAd] = useState(0);
-  
   // Find the post
   const post = mainPosts.find(p => p.id === id);
+  const { isWeb3 } = usePhase();
+  const phase = isWeb3 ? "web3" : "web2";
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -46,6 +48,36 @@ export default function BlogDetail() {
       document.title = `${post.title} | Fredy Omoke`;
     }
   }, [id, post]);
+
+  const shareUrl = window.location.href;
+  const shareTitle = post?.title || "";
+
+  const shareOnTwitter = () => {
+    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareTitle)}&url=${encodeURIComponent(shareUrl)}`, '_blank');
+  };
+
+  const shareOnLinkedin = () => {
+    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`, '_blank');
+  };
+
+  const shareOnWhatsApp = () => {
+    window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(shareTitle + ' ' + shareUrl)}`, '_blank');
+  };
+
+  const shareOnTelegram = () => {
+    window.open(`https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareTitle)}`, '_blank');
+  };
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(shareUrl);
+    // Simple feedback, can be replaced with Toast later
+    const btn = document.getElementById('copy-btn');
+    if (btn) {
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '<span class="text-[6px] font-bold uppercase">Copied</span>';
+      setTimeout(() => { btn.innerHTML = originalText; }, 2000);
+    }
+  };
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -58,7 +90,11 @@ export default function BlogDetail() {
     return (
       <div className="pt-32 pb-24 px-6 text-center min-h-screen flex flex-col items-center justify-center bg-main text-sec">
         <h1 className="text-4xl font-black uppercase mb-6 tracking-tighter">Dispatch Not Found</h1>
-        <Link to="/blog" className="px-8 py-3 bg-sec text-main font-bold uppercase tracking-widest rounded-full hover:scale-105 transition-transform">
+        <Link 
+          to="/blog" 
+          state={{ phase }}
+          className="px-8 py-3 bg-sec text-main font-bold uppercase tracking-widest rounded-full hover:scale-105 transition-transform"
+        >
           Return to News Desk
         </Link>
       </div>
@@ -68,24 +104,27 @@ export default function BlogDetail() {
   return (
     <div className="w-full min-h-screen">
       {/* SECTION 1: Header & Visual (Light) */}
-      <ThemeSection mainColor="#e7e7e7" secColor="#1e1e1e" className="pt-8 pb-2 px-6 md:px-12 lg:px-16 xl:px-20">
+      <ThemeSection mainColor="#e7e7e7" secColor="#1e1e1e" className="pt-36 pb-2 px-6 md:px-12 lg:px-16 xl:px-20">
         <div className="w-full max-w-7xl mx-auto">
           {/* Newspaper Style Header Ad */}
           <FadeIn>
-            <div className="w-full flex justify-center mb-4">
-              <div className="w-full max-w-2xl h-[40px] bg-sec/5 border border-sec/10 flex items-center justify-between px-6 rounded-lg relative overflow-hidden group cursor-pointer transition-all hover:bg-sec/[0.07]">
-                <div className="flex items-center gap-3">
-                  <div className="w-6 h-6 rounded bg-sec/10 shrink-0 overflow-hidden">
-                    <img src={topAds[currentAd].image} alt="Ad" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
+            <div className="w-full flex justify-center mb-8">
+              <div className="w-full max-w-5xl h-[100px] md:h-[120px] bg-sec/5 border border-sec/10 flex items-center justify-between px-8 md:px-12 rounded-xl relative overflow-hidden group cursor-pointer transition-all hover:bg-sec/[0.07]">
+                <div className="flex items-center gap-6 md:gap-10">
+                  <div className="w-16 h-16 md:w-20 md:h-20 rounded-md bg-sec/10 shrink-0 overflow-hidden">
+                    <img src={topAds[currentAd].image} alt="Ad" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-sec/30 text-[7px] font-bold uppercase tracking-[0.1em]">{topAds[currentAd].sponsor}</span>
-                    <p className="text-[10px] font-bold text-sec/60 group-hover:text-sec transition-colors uppercase tracking-tight leading-none">
+                    <span className="text-sec/30 text-[8px] md:text-[10px] font-bold uppercase tracking-[0.2em] mb-1">{topAds[currentAd].sponsor}</span>
+                    <p className="text-xl md:text-3xl font-black text-sec/70 group-hover:text-sec transition-colors uppercase tracking-tighter leading-none max-w-2xl">
                       {topAds[currentAd].text}
                     </p>
                   </div>
                 </div>
-                <ArrowUpRight className="w-3.5 h-3.5 text-sec/20 group-hover:text-[#d4f534] transition-colors" />
+                <div className="flex flex-col items-end gap-3 shrink-0">
+                  <span className="text-[7px] md:text-[9px] font-bold uppercase bg-[#d4f534] text-[#1e1e1e] px-2 py-0.5 rounded leading-none">Promotion</span>
+                  <ArrowUpRight className="w-6 h-6 md:w-8 md:h-8 text-sec/20 group-hover:text-[#d4f534] transition-colors translate-x-2" />
+                </div>
               </div>
             </div>
           </FadeIn>
@@ -95,6 +134,7 @@ export default function BlogDetail() {
             <div className="mb-2">
               <Link 
                 to="/blog" 
+                state={{ phase }}
                 className="inline-flex items-center gap-1.5 text-[8px] font-bold uppercase tracking-[0.2em] text-sec/40 hover:text-sec transition-colors"
               >
                 <ArrowLeft className="w-2.5 h-2.5" /> Back to Dispatch
@@ -113,13 +153,40 @@ export default function BlogDetail() {
                   <div className="absolute -top-0.5 -left-[1.5px] w-1 h-1 bg-sec/20 rounded-full" />
                   <div className="absolute -bottom-0.5 -left-[1.5px] w-1 h-1 bg-sec/20 rounded-full" />
                 </div>
-                <button className="w-7 h-7 rounded-full border border-sec/20 flex items-center justify-center text-sec/30 hover:text-main hover:bg-sec hover:border-sec transition-all">
+                <button 
+                  onClick={shareOnTwitter}
+                  title="Share on Twitter"
+                  className="w-7 h-7 rounded-full border border-sec/20 flex items-center justify-center text-sec/30 hover:text-main hover:bg-sec hover:border-sec transition-all"
+                >
                   <Twitter className="w-3 h-3" />
                 </button>
-                <button className="w-7 h-7 rounded-full border border-sec/20 flex items-center justify-center text-sec/30 hover:text-main hover:bg-sec hover:border-sec transition-all">
+                <button 
+                  onClick={shareOnLinkedin}
+                  title="Share on LinkedIn"
+                  className="w-7 h-7 rounded-full border border-sec/20 flex items-center justify-center text-sec/30 hover:text-main hover:bg-sec hover:border-sec transition-all"
+                >
                   <Linkedin className="w-3 h-3" />
                 </button>
-                <button className="w-7 h-7 rounded-full border border-sec/20 flex items-center justify-center text-sec/30 hover:text-main hover:bg-sec hover:border-sec transition-all">
+                <button 
+                  onClick={shareOnWhatsApp}
+                  title="Share on WhatsApp"
+                  className="w-7 h-7 rounded-full border border-sec/20 flex items-center justify-center text-sec/30 hover:text-main hover:bg-sec hover:border-sec transition-all"
+                >
+                  <MessageCircle className="w-3 h-3" />
+                </button>
+                <button 
+                  onClick={shareOnTelegram}
+                  title="Share on Telegram"
+                  className="w-7 h-7 rounded-full border border-sec/20 flex items-center justify-center text-sec/30 hover:text-main hover:bg-sec hover:border-sec transition-all"
+                >
+                  <Send className="w-3 h-3" />
+                </button>
+                <button 
+                  id="copy-btn"
+                  onClick={copyToClipboard}
+                  title="Copy Link"
+                  className="w-7 h-7 rounded-full border border-sec/20 flex items-center justify-center text-sec/30 hover:text-main hover:bg-sec hover:border-sec transition-all"
+                >
                   <LinkIcon className="w-3 h-3" />
                 </button>
               </div>
