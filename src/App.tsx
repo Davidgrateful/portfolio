@@ -35,6 +35,7 @@ import DashboardHome from "./pages/dashboard/DashboardHome";
 import DashboardProjects from "./pages/dashboard/DashboardProjects";
 import DashboardBlog from "./pages/dashboard/DashboardBlog";
 import DashboardEcosystem from "./pages/dashboard/DashboardEcosystem";
+import DashboardSettings from "./pages/dashboard/DashboardSettings";
 import DashboardLayout from "./pages/dashboard/DashboardLayout";
 
 function App() {
@@ -113,6 +114,11 @@ function App() {
           <Route path="/dashboard/ecosystem" element={
             <DashboardLayout>
               <DashboardEcosystem />
+            </DashboardLayout>
+          } />
+          <Route path="/dashboard/settings" element={
+            <DashboardLayout>
+              <DashboardSettings />
             </DashboardLayout>
           } />
         </Routes>

@@ -3,6 +3,7 @@ import { useInView, motion } from "motion/react";
 import { RevealLine, FadeIn } from "../components/Animations";
 import MagneticButton from "../components/MagneticButton";
 import { ArrowUpRight } from "lucide-react";
+import { useConfig } from "../context/ConfigContext";
 import MotionButton from "../components/ui/motion-button";
 
 interface ThemeSectionProps {
@@ -33,6 +34,7 @@ function ThemeSection({ mainColor, secColor, children, className = "" }: ThemeSe
 }
 
 export default function About() {
+  const { config } = useConfig();
   // Reset theme on unmount
   useEffect(() => {
     return () => {
@@ -71,9 +73,9 @@ export default function About() {
           animate={{ x: ["0%", "-50%"] }}
           transition={{ repeat: Infinity, ease: "linear", duration: 25 }}
         >
-          {Array(8).fill("✦ FULL-STACK DEVELOPER ✦ UI & UX ").map((text, i) => (
+          {Array(8).fill(config.marquees.about).map((text, i) => (
             <span key={i} className="text-5xl md:text-7xl lg:text-9xl font-bold tracking-tighter uppercase pr-16 md:pr-24">
-              <span className="text-[#d4f534]">✦</span> FULL-STACK DEVELOPER <span className="text-[#d4f534]">✦</span> UI & UX{" "}
+              <span className="text-[#d4f534]">✦</span> {text.replace(/✦/g, '').trim()} <span className="text-[#d4f534]">✦</span>
             </span>
           ))}
         </motion.div>
@@ -102,7 +104,7 @@ export default function About() {
           <div className="relative overflow-hidden h-[60vh] md:h-[80vh] w-full md:w-1/2 rounded-2xl">
             <FadeIn delay={0.6} className="w-full h-full">
               <img 
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop" 
+                src="/src/assets/fredy_omoke.jpg" 
                 alt="About Me" 
                 className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 scale-105"
                 referrerPolicy="no-referrer"
@@ -280,8 +282,8 @@ export default function About() {
               </p>
               <div className="flex justify-center">
                 <MotionButton 
-                  label="Get in Touch" 
-                  href="https://wa.me/2347039662696"
+                  label={config.cta.label} 
+                  href={config.cta.link}
                 />
               </div>
             </div>

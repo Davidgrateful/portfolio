@@ -2,8 +2,10 @@ import { motion } from "motion/react";
 import { RevealLine, FadeIn } from "./Animations";
 import MagneticButton from "./MagneticButton";
 import { Linkedin, Github } from "lucide-react";
+import { useConfig } from "../context/ConfigContext";
 
 export default function Hero() {
+  const { config } = useConfig();
   return (
     <section id="hero" className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden bg-main text-sec">
       
@@ -14,21 +16,9 @@ export default function Hero() {
 
       {/* Main Text */}
       <div className="z-10 flex flex-col items-center text-center mt-12">
-        <RevealLine delay={0.1}>
-          <h2 className="text-lg md:text-xl font-medium text-sec mb-4">
-            Hi! I'm Fredy Omoke
-          </h2>
-        </RevealLine>
-        
         <RevealLine delay={0.2}>
-          <h1 className="text-5xl md:text-7xl lg:text-[5.5rem] font-normal tracking-tight leading-[1.1] text-sec">
-            Full-stack Developer
-          </h1>
-        </RevealLine>
-        
-        <RevealLine delay={0.3}>
-          <h1 className="text-5xl md:text-7xl lg:text-[5.5rem] font-normal tracking-tight leading-[1.1] text-sec">
-            UI & UX Designer.
+          <h1 className="text-5xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tighter leading-[1.1] text-sec uppercase">
+            {config.hero.home.title}
           </h1>
         </RevealLine>
       </div>
@@ -45,7 +35,7 @@ export default function Hero() {
           </a>
         </MagneticButton>
         <MagneticButton>
-          <a href="https://wa.me/2347039662696" target="_blank" rel="noopener noreferrer" className="text-sec hover:text-sec/70 transition-colors">
+          <a href={config.cta.link} target="_blank" rel="noopener noreferrer" className="text-sec hover:text-sec/70 transition-colors">
             <svg 
               xmlns="http://www.w3.org/2000/svg" 
               width="24" 
