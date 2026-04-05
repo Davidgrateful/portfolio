@@ -57,9 +57,14 @@ export default function ProjectDetail() {
     once: false 
   });
 
-  // Reset dismissal when main video enters view again
+  // Reset dismissal AND handle music ducking based on visibility
   useEffect(() => {
-    if (isVideoInView) setIsDismissed(false);
+    if (isVideoInView) {
+      setIsDismissed(false);
+    } else {
+      // If we scroll past the video, ensure music returns to normal
+      window.dispatchEvent(new CustomEvent('music-unduck'));
+    }
   }, [isVideoInView]);
 
   const currentIndex = allProjects.findIndex(p => p.slug === slug);
@@ -171,42 +176,27 @@ export default function ProjectDetail() {
             </div>
           </div>
 
-          {/* 2-Column Gallery (Refined Size) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto mt-16">
-            <FadeIn delay={0.5}>
-              <div 
-                className="w-full aspect-[4/3] rounded-[1.5rem] overflow-hidden bg-white/5 relative group border border-white/5 cursor-pointer"
-                onClick={() => setSelectedImage(project.heroImage)}
-              >
-                <img 
-                  src={project.heroImage} 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" 
-                  alt="Project Shot 1" 
-                />
-                <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                  <div className="bg-white/20 backdrop-blur-md p-3 rounded-full">
-                    <ArrowUpRight className="text-white w-5 h-5" />
+          {/* Dynamic Gallery Grid (Assets only) */}
+          <div className={`grid grid-cols-1 ${project.gallery?.length === 1 ? 'md:grid-cols-1 max-w-4xl' : 'md:grid-cols-2 max-w-7xl'} gap-8 mx-auto mt-24`}>
+            {project.gallery?.map((img, idx) => (
+              <FadeIn key={idx} delay={0.5 + idx * 0.1}>
+                <div 
+                  className="w-full aspect-[16/10] rounded-[2rem] overflow-hidden bg-sec/5 relative group border border-sec/5 cursor-pointer"
+                  onClick={() => setSelectedImage(img)}
+                >
+                  <img 
+                    src={img} 
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" 
+                    alt={`Project Shot ${idx + 1}`} 
+                  />
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
+                    <div className="bg-white/20 backdrop-blur-xl p-4 rounded-full border border-white/20">
+                      <ArrowUpRight className="text-white w-6 h-6" />
+                    </div>
                   </div>
                 </div>
-              </div>
-            </FadeIn>
-            <FadeIn delay={0.6}>
-              <div 
-                className="w-full aspect-[4/3] rounded-[1.5rem] overflow-hidden bg-white/5 relative group border border-white/5 cursor-pointer"
-                onClick={() => setSelectedImage(project.gallery?.[0] || project.heroImage)}
-              >
-                <img 
-                  src={project.gallery?.[0] || project.heroImage} 
-                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-1000" 
-                  alt="Project Shot 2" 
-                />
-                <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                  <div className="bg-white/20 backdrop-blur-md p-3 rounded-full">
-                    <ArrowUpRight className="text-white w-5 h-5" />
-                  </div>
-                </div>
-              </div>
-            </FadeIn>
+              </FadeIn>
+            ))}
           </div>
         </div>
       </ThemeSection>
@@ -225,20 +215,33 @@ export default function ProjectDetail() {
                 ref={videoSectionRef}
                 className="w-full aspect-video rounded-2xl overflow-hidden bg-black/20 relative group border border-sec/10"
               >
-                <video 
-                  src={project.videoUrl} 
-                  controls 
-                  autoPlay
-                  muted
-                  loop
-                  onPlay={() => window.dispatchEvent(new CustomEvent('music-duck'))}
-                  onPause={() => window.dispatchEvent(new CustomEvent('music-unduck'))}
-                  onEnded={() => window.dispatchEvent(new CustomEvent('music-unduck'))}
-                  className="w-full h-full object-cover"
-                  poster={project.heroImage}
-                >
-                  Your browser does not support the video tag.
-                </video>
+                {project.videoUrl?.includes('youtube.com') || project.videoUrl?.includes('youtu.be') ? (
+                  <iframe
+                    src={`${project.videoUrl}${project.videoUrl.includes('?') ? '&' : '?'}autoplay=0&mute=0&controls=1&modestbranding=0&rel=0&iv_load_policy=3&enablejsapi=1`}
+                    title="Project Video"
+                    className="w-full h-full border-0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    onLoad={() => {
+                      // Note: Ducking will be managed by visibility and user choice
+                    }}
+                  ></iframe>
+                ) : (
+                  <video 
+                    src={project.videoUrl} 
+                    controls 
+                    autoPlay
+                    muted
+                    loop
+                    onPlay={() => window.dispatchEvent(new CustomEvent('music-duck'))}
+                    onPause={() => window.dispatchEvent(new CustomEvent('music-unduck'))}
+                    onEnded={() => window.dispatchEvent(new CustomEvent('music-unduck'))}
+                    className="w-full h-full object-cover"
+                    poster={project.heroImage}
+                  >
+                    Your browser does not support the video tag.
+                  </video>
+                )}
               </div>
             </FadeIn>
           </div>
@@ -266,13 +269,13 @@ export default function ProjectDetail() {
                 </p>
               </FadeIn>
               
-              {project.ideation && (
+              {project.theIdea && (
                 <FadeIn delay={0.3}>
                   <h3 className="text-2xl font-bold mb-4 text-sec tracking-tighter mt-8">
                     Ideation & Strategy
                   </h3>
                   <p className="text-sec/80 text-base md:text-lg leading-relaxed mb-10">
-                    {project.ideation}
+                    {project.theIdea}
                   </p>
                 </FadeIn>
               )}
@@ -446,16 +449,26 @@ export default function ProjectDetail() {
             >
               <X className="w-4 h-4" />
             </button>
-            <video 
-              src={project.videoUrl} 
-              autoPlay 
-              loop 
-              controls
-              onPlay={() => window.dispatchEvent(new CustomEvent('music-duck'))}
-              onPause={() => window.dispatchEvent(new CustomEvent('music-unduck'))}
-              onEnded={() => window.dispatchEvent(new CustomEvent('music-unduck'))}
-              className="w-full h-full object-cover pointer-events-auto"
-            />
+            {project.videoUrl?.includes('youtube.com') || project.videoUrl?.includes('youtu.be') ? (
+              <iframe
+                src={`${project.videoUrl}${project.videoUrl.includes('?') ? '&' : '?'}autoplay=1&mute=1&loop=1&playlist=${project.videoUrl.split('/').pop()?.split('v=')[1] || project.videoUrl.split('/').pop()}&controls=0&showinfo=0&rel=0`}
+                title="Floating Video Preview"
+                className="w-full h-full border-0 pointer-events-none scale-110"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            ) : (
+              <video 
+                src={project.videoUrl} 
+                autoPlay 
+                loop 
+                controls
+                onPlay={() => window.dispatchEvent(new CustomEvent('music-duck'))}
+                onPause={() => window.dispatchEvent(new CustomEvent('music-unduck'))}
+                onEnded={() => window.dispatchEvent(new CustomEvent('music-unduck'))}
+                className="w-full h-full object-cover pointer-events-auto"
+              />
+            )}
             
             {/* Overlay Info */}
             <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent pointer-events-none">
