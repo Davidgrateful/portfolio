@@ -11,12 +11,14 @@ export interface Project {
   role: string;
   heroImage: string;
   videoUrl?: string;
+  gallery?: string[];
   description: string;
   challenge: string;
   theIdea: string;
-  systemDesign: string;
-  engineeringScope: string;
-  businessOutcome: string;
+  solution: string;
+  systemDesign?: string;
+  engineeringScope?: string;
+  businessOutcome?: string;
   techStack: string[];
   liveLink: string;
   githubLink?: string;
@@ -32,9 +34,6 @@ export interface Project {
   timeline?: string;
   deliverables?: string[];
   context?: string;
-  ideation?: string;
-  solution?: string;
-  gallery?: string[];
 }
 
 export const allProjects: Project[] = [
@@ -49,18 +48,16 @@ export const allProjects: Project[] = [
     role: "Product Engineer",
     timeline: "8 Weeks",
     deliverables: ["Product Strategy", "System Architecture", "Node.js Backend", "End-to-End USSD Execution"],
-    context: "Millions across Africa cannot access digital financial services due to unreliable internet and complex onboarding systems. The existing crypto ecosystem focuses entirely on high-speed internet and smartphone users.",
-    ideation: "To bridge the gap between blockchain technology and traditional telecom protocols, we needed a zero-internet-required crypto wallet. The core idea was to map USSD menu sequences (*123#) directly to Hedera network transactions while securely managing private keys on a robust backend node.",
-    solution: "I designed a scalable USSD gateway that interfaces directly with a Node.js backend. This backend orchestrates private key shards and securely executes transfers on the Hedera Hashgraph via their SDK, effectively processing crypto transactions in under 3 seconds without a data connection.",
+    heroImage: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=2000&auto=format&fit=crop",
+    videoUrl: "https://www.youtube.com/embed/DFhqxE5jV_Y",
     gallery: [
       "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?q=80&w=2000&auto=format&fit=crop",
       "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=2000&auto=format&fit=crop"
     ],
-    heroImage: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=2000&auto=format&fit=crop",
-    videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
     description: "A USSD-powered crypto payment system that allows users to send, receive, and manage funds on the Hedera network without needing internet access. Designed for high-impact financial inclusion in emerging markets.",
     challenge: "Millions across Africa cannot access digital financial services due to unreliable internet and complex onboarding systems.",
     theIdea: "Bridge the gap between blockchain technology and traditional USSD protocols to create a zero-internet-required crypto wallet.",
+    solution: "I designed a scalable USSD gateway that interfaces directly with a Node.js backend. This backend orchestrates private key shards and securely executes transfers on the Hedera network via their SDK.",
     systemDesign: "Built a USSD gateway that interacts with a Node.js backend. The backend manages private key shards and executes transactions on the Hedera network via SDK.",
     engineeringScope: "USSD protocol design, Hedera SDK integration, secure key management, and transaction queuing systems.",
     businessOutcome: "Deployed a working prototype capable of handling sub-cent transaction fees for users without smartphones.",
@@ -106,6 +103,7 @@ export const allProjects: Project[] = [
     description: "Building the infrastructure that makes crypto payments as easy as sending a link. Arcle allows merchants to accept crypto and receive fiat directly into their bank accounts.",
     challenge: "Merchants want to accept crypto but fear volatility and complex liquidation processes.",
     theIdea: "A link-based payment system that handles the crypto-to-fiat conversion in the background, providing a Web2 experience for a Web3 transaction.",
+    solution: "We built a liquidity-bridging payment rail that manages the entire lifecycle — from wallet connection and price locking to settlement as fiat directly into merchant bank accounts.",
     systemDesign: "Frontend payment links (React) -> Liquidity Aggregators -> Fiat Ramps (APIs) -> Bank Settlement.",
     engineeringScope: "Payment link generation, real-time price feed integration, and fiat on/off ramp orchestration.",
     businessOutcome: "Shortened the merchant onboarding process for crypto acceptance by 80%.",
@@ -151,6 +149,7 @@ export const allProjects: Project[] = [
     description: "A background automation engine that turns your Gmail inbox into a high-octane sales assistant using GPT-4 and custom automation workflows.",
     challenge: "Sales teams spend 60% of their time manually sorting through emails and drafting initial proposals.",
     theIdea: "An AI agent that monitors the inbox, categorizes leads, and drafts highly personalized proposals based on previous successful deals.",
+    solution: "I implemented a background agentic system that uses Gmail webhooks and GPT-4 to autonomously triage, summarize, and draft relevant responses for incoming leads before they even reach the sales team's eyes.",
     systemDesign: "Gmail API Webhooks -> Node.js Workflow -> GPT-4 Analysis -> CRM Integration -> Draft Generation.",
     engineeringScope: "API integration, AI prompt engineering, and background job processing (BullMQ).",
     businessOutcome: "Increased sales team efficiency by 3x, allowing them to focus only on closed deals.",
@@ -191,18 +190,16 @@ export const allProjects: Project[] = [
     role: "Lead Product Engineer",
     timeline: "12 Weeks",
     deliverables: ["Product Architecture", "Automated Workflows", "Client Portals", "Smart Analytics"],
-    context: "Client onboarding is traditionally fragmented, manual, and slow. Teams lose dozens of hours every week to repeating administrative tasks like intake forms and document requests.",
-    ideation: "We rejected manual workflows in favor of a System of Intelligence that acts as a bridge between lead interest and successful client relationships.",
-    solution: "I architected an automation hub that handles intake and email sequences while providing branded portals for clients to track progress securely.",
+    heroImage: "/src/work/onb3d/onb3d.jpg.png",
     gallery: [
       "/src/work/onb3d/dashboard.jpg.png",
       "/src/work/onb3d/onb3d.jpg.png"
     ],
-    heroImage: "/src/work/onb3d/onb3d.jpg.png",
     videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
     description: "An intelligent onboarding platform crafted to eliminate manual workflows through automated efficiency. It operates at the intersection of intelligent automation and human connection.",
     challenge: "Scaling client intake without scaling headcount often leads to fragmented document management and poor initial user experiences.",
-    theIdea: "Rejecting manual administrative overhead in favor of a System of Intelligence that reclaims time for high-value human connection.",
+    theIdea: "Constructing a 'System of Intelligence' that acts as a bridge between lead interest and successful client relationships, rejecting manual administrative overhead in favor of automated efficiency.",
+    solution: "I architected an automation hub that handles intake and email sequences while providing branded portals for clients to track progress securely.",
     systemDesign: "Multi-stage automation engine using BullMQ for task processing and email orchestration, with high-performance real-time analytics pipelines.",
     engineeringScope: "End-to-end development of the automation hub, enterprise CRM stack integration (Salesforce/HubSpot), and secure document management portals.",
     businessOutcome: "Reduced manual administrative overhead by over 60% and enabled a 400% increase in client intake volume without increasing staff.",
@@ -235,17 +232,16 @@ export const allProjects: Project[] = [
     timeline: "10 Weeks",
     deliverables: ["Multi-Agent Architecture", "Executive Briefing Engine", "Email Triage System", "Strategic Dashboard"],
     context: "High-performing executives suffer from decision fatigue caused by fragmented data, unstructured inboxes, and a constant flood of low-priority noise competing with mission-critical signals.",
-    ideation: "Rather than building another productivity tool, we architected an External Brain — a multi-agent reasoning system that learns an executive's priorities, filters noise at the source, and surfaces only what demands human judgment.",
-    solution: "CEO is a multi-agent orchestration hub that triages high-stakes communication, generates daily strategic briefings, extracts action items, and provides context-aware recommendations — all operating silently in the background.",
+    heroImage: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=2000&auto=format&fit=crop",
     gallery: [
       "https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=2000&auto=format&fit=crop",
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2000&auto=format&fit=crop"
     ],
-    heroImage: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=2000&auto=format&fit=crop",
     videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
     description: "A multi-agent AI platform that acts as the executive's External Brain — triaging communication, generating strategic briefings, and surfacing only the decisions that require human judgment.",
     challenge: "Executives lose an average of 4-6 hours per day to information overload. The cost is not just time — it is delayed decisions, missed opportunities, and strategic fatigue.",
-    theIdea: "Build an AI orchestration layer that sits between the executive and their data streams, using specialized agents to filter, reason, and brief rather than just aggregate.",
+    theIdea: "Rather than building another productivity tool, we architected an External Brain — a multi-agent orchestration layer that sits between the executive and their data streams to filter, reason, and brief rather than just aggregate.",
+    solution: "Architected a multi-agent reasoning system that tracks high-stakes communication, generates strategic briefings, and surfaces only critical decision signals — all operating silently in the background.",
     systemDesign: "Email/Calendar APIs -> Triage Agent -> Reasoning Layer (RAG + GPT-4) -> Briefing Compiler -> Executive Dashboard.",
     engineeringScope: "Multi-agent pipeline design, large-context RAG architecture, real-time email processing, and a high-density executive command interface.",
     businessOutcome: "Increased decision velocity by 40% and reclaimed 15+ hours per week previously lost to manual information processing and email triage.",
@@ -269,6 +265,174 @@ export const allProjects: Project[] = [
       "Delivered structured, contextual briefings that reduced meeting preparation time from 45 minutes to under 5 minutes."
     ],
     isWeb3: false,
+    isFeatured: true
+  },
+  {
+    slug: "flippay",
+    title: "FlipPay — Digital Asset Exchange",
+    subtitle: "Crypto & Gift Card Liquidity Platform",
+    category: "Fintech / Web3",
+    type: "Engineering",
+    client: "FlipPay Africa",
+    year: "2024",
+    role: "Senior Software Engineer",
+    heroImage: "/src/work/flippay/flippay_dashboard.jpg.png",
+    videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+    gallery: [
+      "/src/work/flippay/banner.jpg.png"
+    ],
+    description: "A comprehensive fintech platform that bridges the gap between digital assets and traditional cash, enabling seamless gift card trading, crypto exchange, and utility bill payments.",
+    challenge: "Digital asset trading in emerging markets often suffers from predatory pricing, slow settlements, and lack of trust in P2P exchanges.",
+    theIdea: "Build a high-trust, automated liquidity engine that provides real-time valuations for gift cards and instant settlements into local bank accounts.",
+    solution: "An automated multi-asset wallet system featuring a proprietary gift card recognition engine and direct integrations with Nigerian banking APIs for instant payout orchestration.",
+    systemDesign: "React Native App -> Node.js Microservices -> Dynamic Rate Engine -> Automated Payout Gateway -> PostgreSQL Ledger.",
+    engineeringScope: "Frontend mobile development, backend API architecture, and secure integration with third-party verification services.",
+    businessOutcome: "Processed over $500k in digital asset trades within the first quarter, achieving a 99.9% success rate for instant settlements.",
+    techStack: ["React Native", "Node.js", "Express", "PostgreSQL", "Redis", "AWS"],
+    liveLink: "https://www.flippay.app/",
+    responsibilities: [
+      "Architected a scalable Node.js backend to handle heavy concurrent traffic during peak trading hours.",
+      "Developed a custom gift card valuation engine that updates rates in real-time based on market demand.",
+      "Implemented secure, multi-stage transaction protocols to prevent fraud and ensure asset security.",
+      "Integrated third-party banking APIs for instant Naira settlements, reducing payout time to under 60 seconds.",
+      "Built a robust admin dashboard for monitoring platform liquidity and managing user disputes.",
+      "Optimized database queries in PostgreSQL to maintain high performance as the user base scaled globally.",
+      "Mentored junior developers on secure coding practices and API documentation standards.",
+      "Executed a mobile-first UI strategy in React Native to provide a premium trading experience on lower-end devices.",
+      "Orchestrated deployments using AWS ECS and CloudFront for high availability and low latency."
+    ],
+    impact: [
+      "Reduced average gift card trade settlement time from 15 minutes to under 2 minutes.",
+      "Onboarded 5,000+ active users within the first 6 months of launch.",
+      "Automated 80% of the gift card verification process using computer vision and external APIs.",
+      "Maintained zero downtime during high-volatility market events.",
+      "Delivered a 4.5+ star rated mobile experience on both iOS and Android stores.",
+      "Secured strategic partnerships with major utility providers for integrated bill payment services."
+    ],
+    isWeb3: true,
+    isFeatured: true
+  },
+  {
+    slug: "textrp",
+    title: "TextRP — Strategic Growth Engine",
+    subtitle: "Decentralized Community Management",
+    category: "Web3 / Growth",
+    type: "Growth",
+    client: "TextRP",
+    year: "2024",
+    role: "Community Strategist",
+    heroImage: "/src/work/textrp/page.jpg.png",
+    videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+    gallery: ["/src/work/textrp/about.png"],
+    description: "Leading the community transition for a Web3-enabled unified messaging platform built on the XRP Ledger. Focused on bridging the gap between protocol utility and active user growth through tokenized engagement.",
+    challenge: "Most NFT communities suffer from fragmented communication across Discord and Twitter, where management is manual and engagement is difficult to measure or reward.",
+    theIdea: "Transform a unified messaging hub into a growth engine by incentivizing high-value community interactions using XRPL-native assets ($TXT and NFTs).",
+    solution: "Strategized and executed an NFT-gated feature access model (Feature Packs) and a token incentive program that rewarded users for verifying their assets and actively engaging with partner projects.",
+    systemDesign: "XRPL Wallet Integration -> NFT Gating Logic -> $TXT Incentive Layer -> Cross-Platform Messaging Hub.",
+    engineeringScope: "Strategic community architecture, tokenomics design for engagement incentives, and partnership growth strategy for NFT projects.",
+    businessOutcome: "Achieved a 200% increase in daily active users (DAU) within 4 months of launching the $TXT token incentive program.",
+    techStack: ["XRP Ledger", "XUMM SDK", "NFT Feature Packs", "$TXT Tokens", "Discord/Twitter API"],
+    liveLink: "https://textrp.io/",
+    responsibilities: [
+      "Designed and managed the 'Feature Pack' NFT distribution model for permissioned platform access.",
+      "Architected the $TXT token incentive program to reward high-value community contributions and messaging activity.",
+      "Facilitated strategic partnerships with over 15 XRPL-based NFT projects to integrate their communities into the TextRP hub.",
+      "Managed the migration of community governance from traditional Discord channels to the wallet-authenticated TextRP interface.",
+      "Developed the roadmap for platform-wide engagement metrics, tracking the correlation between token rewards and user retention.",
+      "Monitored and maintained community health across multiple unified channels, preventing spam and ensuring secure onboarding.",
+      "Spearheaded the technical whitepaper development focused on the utility of $TXT within the messaging ecosystem.",
+      "Coordinated with the core engineering team to prioritize features based on community feedback and partnership requirements."
+    ],
+    impact: [
+      "Doubled active daily users through the successful implementation of the $TXT engagement engine.",
+      "Onboarded 15+ external NFT projects, creating a cross-pollinated ecosystem of over 10,000 verified holders.",
+      "Increased user retention by 40% by moving core community interactions to a wallet-native messaging platform.",
+      "Successfully launched the platform's first tiered NFT-gating system for premium chat features.",
+      "Reduced community management overhead by 30% through unified messaging and automated asset verification."
+    ],
+    isWeb3: true,
+    isFeatured: true
+  },
+  {
+    slug: "cipherquest",
+    title: "CipherQuest — On-Chain Puzzle Engine",
+    subtitle: "Gamified Web3 Infrastructure",
+    category: "Web3 / Gaming",
+    type: "Engineering",
+    client: "CipherQuest",
+    year: "2024",
+    role: "Senior Web3 Developer",
+    heroImage: "http://cipherquest.xyz/cipher.jpg",
+    videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+    gallery: ["/src/work/assets/cipquest.png"],
+    description: "A trustless, on-chain quest-based puzzle platform where users solve cryptographic challenges to unlock rewards stored in secure smart contracts.",
+    challenge: "Most current quest platforms are centralized and custodial, meaning the platform can change rules or withhold rewards without transparency or accountability.",
+    theIdea: "Create a fully decentralized quest engine where reward distribution is governed by the blockchain and unlocked only through the correct cryptographic hash pre-image.",
+    solution: "Developed an EVM-compatible platform that escrowed rewards in audited smart contracts. Each puzzle committed to an on-chain hash; when a user submitted the correct solution, the contract verified the hash and instantly released the tokens to the solver's wallet.",
+    systemDesign: "Hash-Locked Escrow Contracts -> On-Chain Commitment Logic -> Front-End Code Breaker Interface -> Real-time Reward Payouts.",
+    engineeringScope: "Smart contract development (Solidity), front-end puzzle interaction (React), and secure on-chain data verification pipelines.",
+    businessOutcome: "Deployed over 50 unique quests with a 100% successful claim rate, fostering a community of developers and puzzle enthusiasts on-chain.",
+    techStack: ["Solidity", "Ethers.js", "React", "Hardhat", "Chainlink", "Polygon"],
+    liveLink: "https://cipherquest.xyz/",
+    responsibilities: [
+      "Designed and developed the core hash-locked escrow smart contracts for trustless reward distribution.",
+      "Built the front-end user experience for submitting solutions and tracking project progress on-chain.",
+      "Implemented a secure puzzle creation pipeline that hashes solutions before they are committed to the blockchain.",
+      "Optimized gas costs for quest creation and reward claiming on sidechains like Polygon and Avalanche.",
+      "Conducted internal security audits on the smart contract logic to ensure no external vulnerabilities existed for reward pool draining.",
+      "Architected the dashboard for quest creators to monitor engagement and reward pool health in a decentralized manner.",
+      "Integrated Chainlink Price Feeds to enable quest funding in multiple whitelisted ERC-20 tokens with accurate valuations.",
+      "Developed an automated indexing service to track on-chain puzzle events and surface them in a searchable web interface."
+    ],
+    impact: [
+      "Facilitated over 5,000 unique quest submissions with zero unauthorized reward withdrawals.",
+      "Secured over $50k in total value locked (TVL) during peak quest periods across the platform.",
+      "Built an active community of 2,000+ cryptographers and web3 developers solving daily on-chain puzzles.",
+      "Reduced the cost of quest creation for developers by 70% compared to custom smart contract deployment workflows.",
+      "Featured in multiple Web3 gaming summits as a leading example of trustless on-chain engagement."
+    ],
+    isWeb3: true,
+    isFeatured: true
+  },
+  {
+    slug: "traderush",
+    title: "TradeRush — Momentum Terminal",
+    subtitle: "Autonomous Signal Engine",
+    category: "Fintech / Trading",
+    type: "Engineering",
+    client: "TradeRush",
+    year: "2024",
+    role: "Lead Developer",
+    heroImage: "/src/work/assets/trade.png",
+    videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+    gallery: ["/src/work/assets/trade1.png"],
+    description: "An autonomous momentum signal engine that bridges the gap between official Telegram announcements and real-time CoinGecko price data for high-confidence trading signals.",
+    challenge: "News-based trading is traditionally manual, slow, and reactive. By the time a trader reads an announcement and verifies the price, the primary entry window has usually closed.",
+    theIdea: "Automate the synergy between social sentiment and price action by building a terminal that listens to official feeds and validates momentum against live market data instantly.",
+    solution: "I architected a real-time signal pipeline using Telethon to monitor hundreds of official project channels. The engine extracts keywords, correlates them with CoinGecko price triggers, and generates autonomous 'Strong Buy' or 'Watch' signals based on a >5% momentum threshold.",
+    systemDesign: "Telegram Monitor (Telethon) -> Keyword Extraction Layer -> CoinGecko API Sync -> Supabase Persistence -> Momentum Signaling Hub.",
+    engineeringScope: "Real-time socket communication, news extraction algorithms, multi-API orchestration, and a high-performance trading dashboard.",
+    businessOutcome: "Reduced the latency from announcement to signal generation to under 10 seconds, enabling the successful capture of hundreds of high-momentum events.",
+    techStack: ["Node.js", "Telethon", "CoinGecko API", "Supabase", "React", "Socket.io"],
+    liveLink: "https://traderush-dusky.vercel.app/",
+    responsibilities: [
+      "Architected the real-time Telegram monitoring engine using Telethon to handle concurrent WebSocket feeds from 100+ channels.",
+      "Developed an automated keyword extraction layer that filters official news to identify potential market-moving announcements.",
+      "Integrated the CoinGecko API for high-frequency price and market cap verification to provide momentum context for all signals.",
+      "Built a secure, Supabase-backed persistence layer for tracking signal history and position successes across the platform.",
+      "Engineered the signal generation logic that categories entries into tiered confidence levels (Strong Buy, Buy, Watch).",
+      "Designed a high-density, low-latency dashboard in React that provides traders with immediate situational awareness.",
+      "Implemented custom cron jobs for maintaining the CoinGecko project database and ensuring data freshness for thousands of coins.",
+      "Optimized the signal delivery pipeline to ensure sub-5-second notification latency from project announcement to terminal alert."
+    ],
+    impact: [
+      "Achieved sub-10 second average latency from announcement source to dashboard signal generation.",
+      "Processed over 500 successful momentum-based signals during the platform's pilot phase.",
+      "Reduced manual verification time for traders by 90% through automated social/price correlation.",
+      "Successfully identified 20+ high-impact events (>20% price move) before broader market awareness.",
+      "Delivered a robust, trustless signal engine with 99.9% uptime during peak market volatility."
+    ],
+    isWeb3: true,
     isFeatured: true
   }
 ];

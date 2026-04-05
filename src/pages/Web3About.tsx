@@ -65,14 +65,14 @@ export default function Web3About() {
       </ThemeSection>
 
       {/* Marquee Break */}
-      <div className="w-full overflow-hidden bg-main text-sec py-10 md:py-16 relative z-20 border-y border-transparent">
+      <div className="w-full overflow-hidden bg-main text-sec py-8 md:py-16 relative z-20 border-y border-transparent">
         <motion.div
           className="flex whitespace-nowrap"
           animate={{ x: ["0%", "-50%"] }}
           transition={{ repeat: Infinity, ease: "linear", duration: 25 }}
         >
           {Array(8).fill("✦ FULL-STACK DEVELOPER ✦ UI & UX ").map((text, i) => (
-            <span key={i} className="text-5xl md:text-7xl lg:text-9xl font-bold tracking-tighter uppercase pr-16 md:pr-24">
+            <span key={i} className="text-3xl md:text-7xl lg:text-9xl font-bold tracking-tighter uppercase pr-10 md:pr-24">
               <span className="text-[#d4f534]">✦</span> FULL-STACK DEVELOPER <span className="text-[#d4f534]">✦</span> UI & UX{" "}
             </span>
           ))}

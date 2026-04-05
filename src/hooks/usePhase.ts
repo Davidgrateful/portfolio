@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 
-const WEB3_PROJECT_SLUGS = ["harapay", "arcle", "future-of-web3-payments", "hedera-community-growth"];
+const WEB3_PROJECT_SLUGS = ["harapay", "arcle", "flippay", "textrp", "cipherquest", "traderush", "future-of-web3-payments", "hedera-community-growth"];
 
 /**
  * Single source of truth for determining which phase (Web2 vs Web3)

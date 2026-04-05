@@ -1,27 +1,32 @@
 export const topAds = [
   { 
     id: 1, 
-    text: "Have a product to build? Let's talk.", 
-    sponsor: "From Fredy", 
-    image: "https://images.unsplash.com/photo-1551288560-129a39f603c4?q=80&w=200&auto=format&fit=crop" 
+    type: 'banner',
+    text: "Seamlessly Buy & Sell Crypto via Bank Transfers.", 
+    sponsor: "FlipPay", 
+    image: "/src/work/flippay/banner.jpg.png",
+    url: "https://www.flippay.app/"
   },
   { 
     id: 2, 
-    text: "Web3 Infrastructure & Fintech Solutions", 
-    sponsor: "Services", 
-    image: "https://images.unsplash.com/photo-1639762681485-074b7f4fc8bc?q=80&w=200&auto=format&fit=crop" 
+    text: "Have a product to build? Let's talk.", 
+    sponsor: "From Fredy", 
+    image: "https://images.unsplash.com/photo-1551288560-129a39f603c4?q=80&w=200&auto=format&fit=crop",
+    url: "https://wa.me/2347039662696"
   },
   { 
     id: 3, 
-    text: "Trading Bots, DeFi Tooling & Smart Contracts", 
-    sponsor: "Available Now", 
-    image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=200&auto=format&fit=crop" 
+    text: "Web3 Infrastructure & Fintech Solutions", 
+    sponsor: "Services", 
+    image: "https://images.unsplash.com/photo-1639762681485-074b7f4fc8bc?q=80&w=200&auto=format&fit=crop",
+    url: "/work"
   },
   { 
     id: 4, 
-    text: "Community Growth Retainers — Limited Slots Open", 
-    sponsor: "Work With Me", 
-    image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=200&auto=format&fit=crop" 
+    text: "Trading Bots, DeFi Tooling & Smart Contracts", 
+    sponsor: "Available Now", 
+    image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=200&auto=format&fit=crop",
+    url: "/work"
   },
 ];
 

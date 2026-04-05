@@ -37,16 +37,51 @@ export default function MusicPlayer() {
     return cleanupListeners;
   }, []); // Only on mount
 
-  // Sync source and handle ducking
+  // Sync source and handle ducking with smooth transitions
   useEffect(() => {
-    const handleDuck = () => { if (audioRef.current) audioRef.current.volume = 0.05; };
-    const handleUnduck = () => { if (audioRef.current) audioRef.current.volume = 0.3; };
+    const fadeVolume = (target: number, duration: number = 800) => {
+      if (!audioRef.current) return;
+      const startVol = audioRef.current.volume;
+      const steps = 30;
+      const stepTime = duration / steps;
+      const stepVal = (target - startVol) / steps;
+      
+      let currentStep = 0;
+      const interval = setInterval(() => {
+        if (audioRef.current) {
+          audioRef.current.volume = Math.max(0.01, Math.min(1, startVol + stepVal * currentStep));
+        }
+        currentStep++;
+        if (currentStep > steps) {
+          clearInterval(interval);
+          if (audioRef.current) audioRef.current.volume = target;
+        }
+      }, stepTime);
+    };
 
+    const handleDuck = () => fadeVolume(0.02);
+    const handleUnduck = () => fadeVolume(0.3);
+
+    // Listen for custom events
     window.addEventListener('music-duck', handleDuck);
     window.addEventListener('music-unduck', handleUnduck);
 
+    // Listen for YouTube player state changes via postMessage (Professional IFrame Sync)
+    const handleYTMessage = (event: MessageEvent) => {
+      try {
+        const data = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
+        if (data.event === 'infoDelivery' && data.info?.playerState !== undefined) {
+          const state = data.info.playerState;
+          if (state === 1) handleDuck(); // Playing
+          if (state === 2 || state === 0) handleUnduck(); // Paused or Ended
+        }
+      } catch (e) { /* Not a YT message */ }
+    };
+
+    window.addEventListener('message', handleYTMessage);
+    
+    // Sync Source logic
     if (audioRef.current) {
-      // If source changes, update it and preserve state
       if (audioRef.current.src !== currentSource) {
         const wasPlaying = !audioRef.current.paused;
         audioRef.current.src = currentSource;
@@ -60,6 +95,7 @@ export default function MusicPlayer() {
     return () => {
       window.removeEventListener('music-duck', handleDuck);
       window.removeEventListener('music-unduck', handleUnduck);
+      window.removeEventListener('message', handleYTMessage);
     };
   }, [currentSource, isPlaying]);
 

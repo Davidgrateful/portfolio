@@ -21,6 +21,12 @@ function ThemeSection({ mainColor, secColor, children, className = "" }: ThemeSe
     if (isInView) {
       document.documentElement.style.setProperty('--color-main', mainColor);
       document.documentElement.style.setProperty('--color-sec', secColor);
+      
+      // Dynamic Accent: Shift to darker green for light background to ensure contrast
+      const isLight = mainColor.toLowerCase() === '#e7e7e7';
+      const accentColor = isLight ? '#5a8d0e' : '#d4f534';
+      document.documentElement.style.setProperty('--color-accent', accentColor);
+      
       document.body.style.backgroundColor = mainColor;
       document.body.style.color = secColor;
     }
@@ -50,7 +56,7 @@ export default function Blog() {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentAd((prev) => (prev + 1) % topAds.length);
-    }, 5000);
+    }, 20000);
     return () => clearInterval(timer);
   }, []);
 
@@ -66,15 +72,21 @@ export default function Blog() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Ducking logic for media visibility
+  useEffect(() => {
+    if (!isVideoInView) {
+       window.dispatchEvent(new CustomEvent('music-unduck'));
+    }
+  }, [isVideoInView]);
+
   const videoElement = (
-    <video
-      src="https://assets.mixkit.co/videos/preview/mixkit-close-up-of-a-keyboard-and-hands-typing-232-large.mp4"
-      autoPlay
-      loop
-      muted
-      playsInline
-      className="w-full h-full object-cover"
-    />
+    <iframe
+      src="https://www.youtube.com/embed/DFhqxE5jV_Y?autoplay=1&mute=1&loop=1&playlist=DFhqxE5jV_Y&controls=1&modestbranding=0&rel=0&enablejsapi=1"
+      title="Featured Video"
+      className="w-full h-full border-0 pointer-events-auto"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowFullScreen
+    ></iframe>
   );
 
   return (
@@ -82,8 +94,11 @@ export default function Blog() {
       <ThemeSection mainColor="#e7e7e7" secColor="#1e1e1e" className="pt-36 pb-4 px-6 md:px-12 lg:px-16 xl:px-24">
         {/* Top Leaderboard Ad — CoinDesk style, full width, centered */}
         <FadeIn>
-          <div className="w-full flex justify-center mb-16">
-            <div className="w-full max-w-5xl h-[100px] md:h-[140px] bg-sec/5 border border-sec/10 rounded-xl relative overflow-hidden group cursor-pointer hover:bg-sec/[0.07] transition-all">
+          <div className="w-full flex justify-center mb-20 px-6 sm:px-10 lg:px-12 relative group">
+            {/* Background Glow for Ad Impact */}
+            <div className="absolute -inset-1 bg-gradient-to-r from-[var(--color-accent)]/20 via-transparent to-[var(--color-accent)]/20 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+            
+            <div className="w-full max-w-7xl h-[140px] md:h-[280px] bg-sec/5 border border-sec/10 rounded-[2rem] relative overflow-hidden group cursor-pointer hover:bg-sec/[0.07] transition-all shadow-[0_20px_50px_rgba(0,0,0,0.1)] border-b-4 border-b-sec/20">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentAd}
@@ -91,30 +106,47 @@ export default function Blog() {
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: -20, opacity: 0 }}
                   transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
-                  className="flex items-center justify-between h-full px-8 md:px-16"
+                  className="h-full"
                 >
-                  <div className="flex items-center gap-6 md:gap-10">
-                    <div className="w-16 h-16 md:w-24 md:h-24 rounded-md bg-sec/10 shrink-0 overflow-hidden shadow-sm">
-                      <img src={topAds[currentAd].image} alt="Sponsor" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
-                    </div>
-                    <div className="flex flex-col">
-                      <span className="text-sec/30 text-[9px] md:text-[11px] font-bold uppercase tracking-[0.4em] mb-2">{topAds[currentAd].sponsor}</span>
-                      <p className="text-xl md:text-3xl font-black text-sec/70 group-hover:text-sec transition-colors uppercase tracking-tighter leading-none max-w-3xl">
-                        {topAds[currentAd].text}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex flex-col items-end gap-3 shrink-0 ml-4">
-                    <span className="text-[7px] md:text-[9px] font-bold uppercase bg-[#d4f534] text-[#1e1e1e] px-2 py-0.5 rounded leading-none">Promotion</span>
-                    <ArrowUpRight className="w-6 h-6 md:w-10 md:h-10 text-sec/20 group-hover:text-[#d4f534] transition-colors translate-x-2" />
-                  </div>
+                  <a 
+                    href={(topAds[currentAd] as any).url} 
+                    target={(topAds[currentAd] as any).url.startsWith('http') ? "_blank" : "_self"}
+                    rel="noopener noreferrer"
+                    className="block h-full no-underline relative group"
+                  >
+                    {(topAds[currentAd] as any).type === 'banner' ? (
+                      <img 
+                        src={topAds[currentAd].image} 
+                        alt={topAds[currentAd].sponsor} 
+                        className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-700" 
+                      />
+                    ) : (
+                      <div className="flex items-center justify-between h-full px-8 md:px-16">
+                        <div className="flex items-center gap-6 md:gap-10">
+                          <div className="w-16 h-16 md:w-24 md:h-24 rounded-md bg-sec/10 shrink-0 overflow-hidden shadow-sm">
+                            <img src={topAds[currentAd].image} alt="Sponsor" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
+                          </div>
+                          <div className="flex flex-col">
+                            <span className="text-sec/30 text-[9px] md:text-[11px] font-bold uppercase tracking-[0.4em] mb-2">{topAds[currentAd].sponsor}</span>
+                            <p className="text-xl md:text-3xl font-black text-sec/70 group-hover:text-sec transition-colors uppercase tracking-tighter leading-none max-w-3xl">
+                              {topAds[currentAd].text}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="flex flex-col items-end gap-3 shrink-0 ml-4">
+                          <span className="text-[7px] md:text-[9px] font-bold uppercase bg-[var(--color-accent)] text-[#1e1e1e] px-2 py-0.5 rounded leading-none">Promotion</span>
+                          <ArrowUpRight className="w-6 h-6 md:w-10 md:h-10 text-sec/20 group-hover:text-[var(--color-accent)] transition-colors translate-x-2" />
+                        </div>
+                      </div>
+                    )}
+                  </a>
                 </motion.div>
               </AnimatePresence>
               <div className="absolute left-1/2 -translate-x-1/2 bottom-3 flex gap-2 z-10">
                 {topAds.map((_, idx) => (
                   <div
                     key={idx}
-                    className={`h-1 rounded-full transition-all duration-300 ${idx === currentAd ? "bg-[#d4f534] w-6" : "w-1.5 bg-sec/20"}`}
+                    className={`h-1 rounded-full transition-all duration-300 ${idx === currentAd ? "bg-[var(--color-accent)] w-6" : "w-1.5 bg-sec/20"}`}
                   />
                 ))}
               </div>
@@ -170,7 +202,7 @@ export default function Blog() {
                     <div className="relative overflow-hidden rounded-xl aspect-[4/3] mb-4 shrink-0">
                       <img src={post.image} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" referrerPolicy="no-referrer" />
                     </div>
-                    <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-[#d4f534] mb-2">{post.category}</span>
+                    <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-[var(--color-accent)] mb-2">{post.category}</span>
                     <h3 className="text-base font-bold tracking-tighter mb-2 group-hover:text-sec/70 transition-colors uppercase leading-snug">{post.title}</h3>
                     <p className="text-xs text-sec/50 leading-relaxed mb-3 line-clamp-2">{post.excerpt}</p>
                     <span className="text-[9px] font-bold uppercase tracking-widest text-sec/30 mt-auto">{post.date}</span>
@@ -181,20 +213,33 @@ export default function Blog() {
           </div>
 
           {/* RIGHT: Sidebar Item (Sticky) */}
-          <div className="lg:col-span-2 flex flex-col gap-8 lg:sticky lg:top-24 lg:self-start">
-             {/* Sponsored Video */}
-            <div ref={videoRef}>
+          <div className="lg:col-span-2 flex flex-col gap-6 lg:sticky lg:top-24 lg:self-start">
+             {/* Sponsored Video Ad Slot */}
+            <div ref={videoRef} className="flex flex-col gap-4">
               <FadeIn>
-                <div className="border-b-2 border-sec pb-4 mb-4">
-                  <h2 className="text-[10px] font-bold tracking-[0.3em] uppercase text-sec/70 flex items-center gap-2">
-                    <PlayCircle className="w-3.5 h-3.5" /> Now Building
-                  </h2>
-                </div>
-                <div className="relative rounded-xl overflow-hidden aspect-video bg-sec/5">
-                  {videoElement}
-                  <div className="absolute top-3 right-3 px-2 py-1 bg-main/80 backdrop-blur-md text-sec text-[9px] font-bold uppercase tracking-widest rounded-full border border-sec/10">
-                    Live
+                <div className="relative rounded-xl overflow-hidden aspect-video bg-black shadow-lg group border border-sec/10">
+                   <div className="absolute inset-0 scale-[1.05] origin-center">
+                    {videoElement}
                   </div>
+                  <div className="absolute top-2 left-2 px-1.5 py-0.5 bg-black/50 backdrop-blur-md text-white text-[7px] font-black uppercase tracking-[0.2em] rounded z-10">
+                    AD
+                  </div>
+                </div>
+              </FadeIn>
+              
+              <FadeIn delay={0.1}>
+                <div className="flex flex-col gap-2">
+                  <h3 className="text-xs font-bold uppercase tracking-tight text-sec/90 leading-tight">
+                    Showcase your project to thousands of Web3 builders.
+                  </h3>
+                  <a 
+                    href="https://wa.me/2347039662696" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="text-[9px] font-bold uppercase tracking-[0.15em] text-[var(--color-accent)] hover:opacity-70 transition-opacity flex items-center gap-1.5"
+                  >
+                    Place your video ad here <ArrowUpRight className="w-2.5 h-2.5" />
+                  </a>
                 </div>
               </FadeIn>
             </div>
@@ -219,7 +264,7 @@ export default function Blog() {
                     <div className="relative overflow-hidden rounded-xl aspect-[4/3] mb-4 shrink-0">
                       <img src={post.image} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" referrerPolicy="no-referrer" />
                     </div>
-                    <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-[#d4f534] mb-2">{post.category}</span>
+                    <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-[var(--color-accent)] mb-2">{post.category}</span>
                     <h3 className="text-base font-bold tracking-tighter mb-2 group-hover:text-sec/70 transition-colors uppercase leading-snug">{post.title}</h3>
                     <p className="text-xs text-sec/50 leading-relaxed mb-3 line-clamp-2">{post.excerpt}</p>
                     <span className="text-[9px] font-bold uppercase tracking-widest text-sec/30 mt-auto">{post.date}</span>
@@ -249,7 +294,7 @@ export default function Blog() {
                 <p className="text-[10px] font-bold font-cabinetGrotesk text-[#1e1e1e]/60 mb-6 leading-tight uppercase tracking-tight">
                   Reach the top Web3 and fintech builders in Nigeria and beyond.
                 </p>
-                <a href="https://wa.me/2347039662696" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 w-full bg-[#1e1e1e] text-[#d4f534] font-black font-cabinetGrotesk uppercase tracking-widest text-[10px] py-3 rounded-xl hover:scale-105 transition-transform">
+                <a href="https://wa.me/2347039662696" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 w-full bg-[#1e1e1e] text-[var(--color-accent)] font-black font-cabinetGrotesk uppercase tracking-widest text-[10px] py-3 rounded-xl hover:scale-105 transition-transform">
                   Contact Me
                   <ArrowUpRight className="w-3.5 h-3.5" />
                 </a>
@@ -264,10 +309,14 @@ export default function Blog() {
       <AnimatePresence>
         {shouldFloat && !isPopOutClosed && (
           <motion.div
+            drag
+            dragMomentum={false}
+            dragElastic={0.1}
+            whileDrag={{ scale: 1.05, cursor: 'grabbing' }}
             initial={{ opacity: 0, scale: 0.8, y: 50, x: 50 }}
             animate={{ opacity: 1, scale: 1, y: 0, x: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 50, x: 50 }}
-            className="fixed bottom-24 right-8 z-[60] w-72 aspect-video bg-[#1e1e1e] rounded-xl overflow-hidden shadow-2xl border border-sec/10"
+            className="fixed bottom-24 right-8 z-[60] w-72 aspect-video bg-[#1e1e1e] rounded-xl overflow-hidden shadow-2xl border border-sec/10 cursor-grab active:cursor-grabbing touch-none"
           >
             <button 
               onClick={() => setIsPopOutClosed(true)}
