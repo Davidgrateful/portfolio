@@ -104,7 +104,7 @@ export default function About() {
           <div className="relative overflow-hidden h-[60vh] md:h-[80vh] w-full md:w-1/2 rounded-2xl">
             <FadeIn delay={0.6} className="w-full h-full">
               <img 
-                src="/src/assets/fredy_omoke.jpg" 
+                src="/assets/fredy_omoke.jpg" 
                 alt="About Me" 
                 className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 scale-105"
                 referrerPolicy="no-referrer"
