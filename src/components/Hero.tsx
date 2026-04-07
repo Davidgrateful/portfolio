@@ -15,12 +15,17 @@ export default function Hero() {
       </div>
 
       {/* Main Text */}
-      <div className="z-10 flex flex-col items-center text-center mt-12">
+      <div className="z-10 flex flex-col items-center text-center max-w-4xl px-4">
         <RevealLine delay={0.2}>
-          <h1 className="text-5xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tighter leading-[1.1] text-sec uppercase">
+          <h1 className="text-6xl md:text-8xl lg:text-[7rem] font-black tracking-tighter leading-[0.9] text-sec uppercase mb-8">
             {config.hero.home.title}
           </h1>
         </RevealLine>
+        <FadeIn delay={0.8}>
+          <p className="text-base md:text-lg text-sec/60 max-w-xl font-medium tracking-tight leading-relaxed">
+            {config.hero.home.subtitle}
+          </p>
+        </FadeIn>
       </div>
 
       {/* Left Sidebar */}
