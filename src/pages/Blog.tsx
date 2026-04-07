@@ -119,12 +119,13 @@ export default function Blog() {
                         src={topAds[currentAd].image} 
                         alt={topAds[currentAd].sponsor} 
                         className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-700" 
+                        referrerPolicy="no-referrer"
                       />
                     ) : (
                       <div className="flex items-center justify-between h-full px-8 md:px-16">
                         <div className="flex items-center gap-6 md:gap-10">
                           <div className="w-16 h-16 md:w-24 md:h-24 rounded-md bg-sec/10 shrink-0 overflow-hidden shadow-sm">
-                            <img src={topAds[currentAd].image} alt="Sponsor" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
+                            <img src={topAds[currentAd].image} alt="Sponsor" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" referrerPolicy="no-referrer" />
                           </div>
                           <div className="flex flex-col">
                             <span className="text-sec/30 text-[9px] md:text-[11px] font-bold uppercase tracking-[0.4em] mb-2">{topAds[currentAd].sponsor}</span>
