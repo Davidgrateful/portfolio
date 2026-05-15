@@ -33,14 +33,13 @@ interface ConfigContextType {
 const ConfigContext = createContext<ConfigContextType | undefined>(undefined);
 
 export const ConfigProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [config, setConfig] = useState<typeof DEFAULT_CONFIG>(() => {
-    const saved = localStorage.getItem("david_grateful_web3_growth_config");
-    return saved ? JSON.parse(saved) : DEFAULT_CONFIG;
-  });
+  const [config, setConfig] = useState<typeof DEFAULT_CONFIG>(DEFAULT_CONFIG);
 
   useEffect(() => {
-    localStorage.setItem("david_grateful_web3_growth_config", JSON.stringify(config));
-  }, [config]);
+    localStorage.removeItem("portfolio_site_config");
+    localStorage.removeItem("david_grateful_portfolio_config");
+    localStorage.removeItem("david_grateful_web3_growth_config");
+  }, []);
 
   const updateConfig: ConfigContextType["updateConfig"] = (newConfig) => {
     if (typeof newConfig === 'function') {
