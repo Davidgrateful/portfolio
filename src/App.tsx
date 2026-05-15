@@ -9,8 +9,6 @@ import Lenis from "lenis";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import CustomCursor from "./components/CustomCursor";
-import Preloader from "./components/Preloader";
-import MusicPlayer from "./components/MusicPlayer";
 import BackgroundWave from "./components/BackgroundWave";
 import ScrollToTop from "./components/ScrollToTop";
 
@@ -71,10 +69,8 @@ function App() {
         {!isDashboard && (
           <>
             <BackgroundWave />
-            <Preloader />
             <CustomCursor />
             <Navbar />
-            <MusicPlayer />
           </>
         )}
         <Routes>

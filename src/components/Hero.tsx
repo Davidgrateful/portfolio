@@ -19,7 +19,7 @@ export default function Hero() {
             </div>
           </FadeIn>
           <RevealLine delay={0.1}>
-            <h1 className="text-5xl md:text-7xl lg:text-[6.5rem] font-black tracking-tighter leading-[0.9] text-sec mb-8 max-w-6xl">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-[6.25rem] font-black tracking-tight leading-[1.05] md:leading-[0.98] text-sec mb-8 max-w-6xl">
               {config.hero.home.title}
             </h1>
           </RevealLine>
