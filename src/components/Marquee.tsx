@@ -13,10 +13,10 @@ export default function Marquee() {
         }}
       >
         <span className="text-4xl md:text-6xl font-bold uppercase tracking-tighter px-8">
-          Fredy Omoke • Fredy Omoke • Fredy Omoke • Fredy Omoke • Fredy Omoke • Fredy Omoke • Fredy Omoke • Fredy Omoke •
+          David Grateful • David Grateful • David Grateful • David Grateful • David Grateful • David Grateful • David Grateful • David Grateful •
         </span>
         <span className="text-4xl md:text-6xl font-bold uppercase tracking-tighter px-8">
-          Fredy Omoke • Fredy Omoke • Fredy Omoke • Fredy Omoke • Fredy Omoke • Fredy Omoke • Fredy Omoke • Fredy Omoke •
+          David Grateful • David Grateful • David Grateful • David Grateful • David Grateful • David Grateful • David Grateful • David Grateful •
         </span>
       </motion.div>
     </div>

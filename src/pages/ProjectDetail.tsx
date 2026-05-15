@@ -153,7 +153,7 @@ export default function ProjectDetail() {
               </FadeIn>
             </div>
 
-            {/* Right: Client & Tech Stack */}
+            {/* Right: Client & Campaign Focus */}
             <div className="lg:w-5/12 flex flex-col gap-10">
               <FadeIn delay={0.3}>
                 <div>

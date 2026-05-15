@@ -13,7 +13,6 @@ import Preloader from "./components/Preloader";
 import MusicPlayer from "./components/MusicPlayer";
 import BackgroundWave from "./components/BackgroundWave";
 import ScrollToTop from "./components/ScrollToTop";
-import Web3Badge from "./components/Web3Badge";
 
 import Home from "./pages/Home";
 import Works from "./pages/Works";
@@ -76,7 +75,6 @@ function App() {
             <CustomCursor />
             <Navbar />
             <MusicPlayer />
-            <Web3Badge />
           </>
         )}
         <Routes>

@@ -1,77 +1,78 @@
-import { motion } from "motion/react";
 import { RevealLine, FadeIn } from "./Animations";
 import MagneticButton from "./MagneticButton";
-import { Linkedin, Github } from "lucide-react";
+import { CalendarCheck, BriefcaseBusiness, MessageCircle, Users } from "lucide-react";
 import { useConfig } from "../context/ConfigContext";
+import { contact, focusAreas } from "../data/davidPortfolio";
 
 export default function Hero() {
   const { config } = useConfig();
-  return (
-    <section id="hero" className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden bg-main text-sec">
-      
-      {/* Background Blob Placeholder */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-80 z-0">
-        <div className="w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-gradient-to-tr from-purple-400 via-yellow-300 to-blue-400 rounded-full blur-3xl mix-blend-multiply animate-pulse" />
-      </div>
 
-      {/* Main Text */}
-      <div className="z-10 flex flex-col items-center text-center max-w-4xl px-4">
-        <RevealLine delay={0.2}>
-          <h1 className="text-6xl md:text-8xl lg:text-[7rem] font-black tracking-tighter leading-[0.9] text-sec uppercase mb-8">
-            {config.hero.home.title}
-          </h1>
-        </RevealLine>
-        <FadeIn delay={0.8}>
-          <p className="text-base md:text-lg text-sec/60 max-w-xl font-medium tracking-tight leading-relaxed">
-            {config.hero.home.subtitle}
-          </p>
+  return (
+    <section id="hero" className="min-h-screen flex flex-col justify-center relative overflow-hidden bg-main text-sec px-6 md:px-12 lg:px-24 pt-24">
+      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_20%_20%,rgba(37,99,235,0.16),transparent_30%),radial-gradient(circle_at_80%_15%,rgba(14,165,233,0.13),transparent_28%)]" />
+      <div className="relative z-10 grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-12 items-center">
+        <div>
+          <FadeIn>
+            <div className="inline-flex items-center gap-2 rounded-full border border-thr/20 bg-thr/10 px-4 py-2 text-[11px] font-black uppercase tracking-[0.25em] text-thr mb-8">
+              <span className="w-2 h-2 rounded-full bg-thr"></span>
+              Web3 Growth Operator
+            </div>
+          </FadeIn>
+          <RevealLine delay={0.1}>
+            <h1 className="text-5xl md:text-7xl lg:text-[6.5rem] font-black tracking-tighter leading-[0.9] text-sec mb-8 max-w-6xl">
+              {config.hero.home.title}
+            </h1>
+          </RevealLine>
+          <FadeIn delay={0.4}>
+            <p className="text-lg md:text-2xl text-sec/70 max-w-3xl font-medium leading-relaxed">
+              {config.hero.home.subtitle}
+            </p>
+          </FadeIn>
+          <FadeIn delay={0.55}>
+            <div className="flex flex-col sm:flex-row gap-4 mt-10">
+              <MagneticButton>
+                <a href={contact.calendly} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-3 bg-thr text-white px-8 py-4 rounded-full font-black uppercase tracking-[0.16em] text-xs shadow-lg shadow-blue-500/20">
+                  <CalendarCheck className="w-4 h-4" />
+                  Book a Call
+                </a>
+              </MagneticButton>
+              <MagneticButton>
+                <a href="#experience" className="inline-flex items-center justify-center gap-3 border border-sec/20 text-sec px-8 py-4 rounded-full font-black uppercase tracking-[0.16em] text-xs hover:bg-sec hover:text-white transition-colors">
+                  <BriefcaseBusiness className="w-4 h-4" />
+                  View Experience
+                </a>
+              </MagneticButton>
+            </div>
+          </FadeIn>
+        </div>
+
+        <FadeIn delay={0.35}>
+          <div className="rounded-[2rem] border border-sec/10 bg-white shadow-2xl shadow-blue-950/10 p-6 md:p-8">
+            <div className="flex items-center justify-between gap-4 border-b border-sec/10 pb-6 mb-6">
+              <div>
+                <p className="text-[10px] font-black uppercase tracking-[0.25em] text-sec/40 mb-2">Based in Nigeria</p>
+                <h2 className="text-3xl font-black tracking-tighter">Available for Web3 teams</h2>
+              </div>
+              <div className="w-14 h-14 rounded-2xl bg-thr text-white flex items-center justify-center">
+                <MessageCircle className="w-7 h-7" />
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-3 mb-6">
+              {focusAreas.slice(0, 8).map((area) => (
+                <div key={area} className="rounded-2xl bg-blue-50 border border-blue-100 px-4 py-3 text-sm font-bold text-sec/80">
+                  {area}
+                </div>
+              ))}
+            </div>
+            <div className="rounded-2xl bg-sec text-white p-5 flex items-start gap-4">
+              <Users className="w-6 h-6 text-sky-300 shrink-0 mt-1" />
+              <p className="text-sm leading-relaxed text-white/75">
+                Social-first strategy, content planning, community communication, project coordination, and campaign execution for Web3 brands.
+              </p>
+            </div>
+          </div>
         </FadeIn>
       </div>
-
-      {/* Left Sidebar */}
-      <div className="absolute left-8 top-1/2 -translate-y-1/2 flex-col items-center gap-6 z-20 hidden lg:flex">
-        <div className="w-[1px] h-48 bg-sec/30 relative mb-4">
-          <div className="absolute -top-1 -left-[1.5px] w-1 h-1 bg-sec rounded-full" />
-          <div className="absolute -bottom-1 -left-[1.5px] w-1 h-1 bg-sec rounded-full" />
-        </div>
-        <MagneticButton>
-          <a href="https://www.linkedin.com/in/fredyomoke/" target="_blank" rel="noopener noreferrer" className="text-sec hover:text-sec/70 transition-colors">
-            <Linkedin className="w-5 h-5" />
-          </a>
-        </MagneticButton>
-        <MagneticButton>
-          <a href={config.cta.link} target="_blank" rel="noopener noreferrer" className="text-sec hover:text-sec/70 transition-colors">
-            <svg 
-              xmlns="http://www.w3.org/2000/svg" 
-              width="24" 
-              height="24" 
-              viewBox="0 0 24 24" 
-              fill="none" 
-              stroke="currentColor" 
-              strokeWidth="2" 
-              strokeLinecap="round" 
-              strokeLinejoin="round" 
-              className="w-5 h-5"
-            >
-              <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" />
-              <path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1" />
-            </svg>
-          </a>
-        </MagneticButton>
-        <MagneticButton>
-          <a href="https://github.com/omokeify" target="_blank" rel="noopener noreferrer" className="text-sec hover:text-sec/70 transition-colors">
-            <Github className="w-5 h-5" />
-          </a>
-        </MagneticButton>
-      </div>
-
-      {/* Scroll Down */}
-      <FadeIn delay={1.2} className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20">
-        <span className="text-sm text-sec font-medium">
-          scroll down
-        </span>
-      </FadeIn>
-
     </section>
   );
 }

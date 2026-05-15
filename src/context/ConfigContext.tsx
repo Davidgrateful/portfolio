@@ -1,26 +1,26 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { contact } from "../data/davidPortfolio";
 
-// The base defaults as they are currently hardcoded across the app
 const DEFAULT_CONFIG = {
   marquees: {
-    home: "Driven by Passion, Built with Code ✺ Custom Web Experiences ✺ Innovative Self-Made Creations ✺ Tailored Web Development Solutions ✺ ",
-    about: "✦ FULL-STACK DEVELOPER ✦ UI & UX ",
-    blog: "✦ DECENTRALIZED WORK ✦ EXPLORE ECOSYSTEMS ",
-    services: "✦ BUILD ✦ SCALE ✦ INNOVATE ✺ HIGH-FIDELITY ARCHITECTURE "
+    home: "Web3 Strategy * Social Media Management * Community Growth * Campaign Execution * Project Coordination * ",
+    about: "* MASS COMMUNICATION * PUBLIC RELATIONS * AUDIENCE ENGAGEMENT * BRAND STORYTELLING ",
+    blog: "* WEB3 GROWTH NOTES * CAMPAIGN THINKING * COMMUNITY STRATEGY ",
+    services: "* SOCIAL * STRATEGY * COMMUNITY * CONTENT * EXECUTION "
   },
   hero: {
     home: {
-      title: "Product Engineer & Web3 Architect",
-      subtitle: "I build the digital rails and decentralized ecosystems for the next generation of finance."
+      title: "Project Manager & Social Media Manager for Web3 Brands.",
+      subtitle: "I help gaming, NFT, RWA, wallet, protocol, and community-led projects build visibility, structure, and growth through strategy, content, and execution."
     },
     about: {
-      title: "Web3 Architect",
-      text: "I build the invisible rails and manage the human ecosystems of the decentralized economy."
+      title: "Strategy, Content & Community Execution",
+      text: "I help Web3 brands communicate clearly, coordinate work, and grow active communities across fast-moving markets."
     }
   },
   cta: {
-    label: "Get in Touch",
-    link: "https://wa.me/2347039662696"
+    label: "Book a Call",
+    link: contact.calendly
   }
 };
 
@@ -34,12 +34,12 @@ const ConfigContext = createContext<ConfigContextType | undefined>(undefined);
 
 export const ConfigProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [config, setConfig] = useState<typeof DEFAULT_CONFIG>(() => {
-    const saved = localStorage.getItem("portfolio_site_config");
+    const saved = localStorage.getItem("david_grateful_web3_growth_config");
     return saved ? JSON.parse(saved) : DEFAULT_CONFIG;
   });
 
   useEffect(() => {
-    localStorage.setItem("portfolio_site_config", JSON.stringify(config));
+    localStorage.setItem("david_grateful_web3_growth_config", JSON.stringify(config));
   }, [config]);
 
   const updateConfig: ConfigContextType["updateConfig"] = (newConfig) => {

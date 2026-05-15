@@ -13,25 +13,20 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>('light');
 
   useEffect(() => {
-    // Forced Light Theme: consistently defaults to Light Theme.
-    // Removed Persistence: disabled saving to browser storage.
     setTheme('light');
   }, []);
 
   useEffect(() => {
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
-      document.documentElement.style.setProperty('--color-main', '#1e1e1e');
-      document.documentElement.style.setProperty('--color-sec', '#e7e7e7');
-    } else {
-      document.documentElement.classList.remove('dark');
-      document.documentElement.style.setProperty('--color-main', '#e7e7e7');
-      document.documentElement.style.setProperty('--color-sec', '#1e1e1e');
-    }
+    document.documentElement.classList.remove('dark');
+    document.documentElement.style.setProperty('--color-main', '#ffffff');
+    document.documentElement.style.setProperty('--color-sec', '#0f2d5c');
+    document.documentElement.style.setProperty('--color-thr', '#2563eb');
+    document.body.style.backgroundColor = '#ffffff';
+    document.body.style.color = '#0f2d5c';
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+    setTheme('light');
   };
 
   return (

@@ -1,130 +1,57 @@
-import React, { useRef } from "react";
-import { motion, useScroll, useTransform } from "motion/react";
+import { BriefcaseBusiness, Sparkles } from "lucide-react";
 import { RevealLine, FadeIn } from "./Animations";
-
-const experiences = [
-  {
-    companyName: "Techivation",
-    role: "Full Stack Developer (Part-time)",
-    date: "May 2025 – Present",
-    shortDesc: "Building and maintaining Techivation’s full web and SaaS ecosystem powering audio plugin licensing and management.",
-  },
-  {
-    companyName: "VexLogic",
-    role: "Full Stack Engineer (Part-time)",
-    date: "Jun 2025 – Present",
-    shortDesc: "Developing an AI-powered SaaS platform with real-time collaboration, billing systems, and intelligent document management.",
-  },
-  {
-    companyName: "Comra AI",
-    role: "Full Stack Developer (Full-time)",
-    date: "Nov 2024 – Present",
-    shortDesc: "Building immersive 3D virtual tour systems using React Three Fiber, Prisma, and PostgreSQL for real estate and architecture.",
-  },
-  {
-    companyName: "Digital Natives",
-    role: "Frontend Developer (Full-time)",
-    date: "Feb 2024 – Oct 2024",
-    shortDesc: "Built scalable web apps and reusable UI systems using React, Next.js, and Tailwind CSS for enterprise clients.",
-  },
-  {
-    companyName: "Fintechracy",
-    role: "Frontend Developer (Full-time)",
-    date: "Nov 2023 – Mar 2024",
-    shortDesc: "Developed a mobile-first PWA for financial management with offline storage, barcode scanning, and performance optimization.",
-  },
-  {
-    companyName: "Codintex",
-    role: "Software Engineer (Internship)",
-    date: "Jul 2022 – Sep 2023",
-    shortDesc: "Worked on enterprise desktop apps using .NET and C#, gaining foundational experience in backend systems and security.",
-  }
-];
+import { supportedBrands } from "../data/davidPortfolio";
 
 export default function Experience() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start center", "end center"]
-  });
-
-  const scaleY = useTransform(scrollYProgress, [0, 1], [0, 1]);
-
   return (
-    <section ref={containerRef} className="py-24 px-6 md:px-12 lg:px-24 bg-sec text-main relative min-h-screen">
-      <div className="max-w-4xl mx-auto text-center mb-20">
-        <RevealLine>
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tighter mb-4 uppercase">
-            Experience
-          </h2>
-        </RevealLine>
-        <FadeIn delay={0.2}>
-          <p className="text-main/70 font-medium text-lg md:text-xl">
-            Explore my journey and the technologies that define my craft.
-          </p>
-        </FadeIn>
-      </div>
+    <section id="experience" className="py-24 px-6 md:px-12 lg:px-24 bg-blue-50 text-sec relative">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-14">
+          <div>
+            <FadeIn>
+              <p className="text-thr text-[11px] font-black uppercase tracking-[0.35em] mb-4">Brands & Projects I've Supported</p>
+            </FadeIn>
+            <RevealLine>
+              <h2 className="text-4xl md:text-6xl font-black tracking-tighter max-w-4xl">
+                Experience across Web3, wallets, gaming, NFTs, protocols, and communities.
+              </h2>
+            </RevealLine>
+          </div>
+          <FadeIn delay={0.2}>
+            <div className="rounded-3xl bg-white border border-blue-100 p-6 max-w-sm shadow-sm">
+              <div className="flex items-center gap-3 text-thr font-black uppercase tracking-[0.2em] text-[10px] mb-3">
+                <Sparkles className="w-4 h-4" />
+                Social-first proof
+              </div>
+              <p className="text-sec/65 leading-relaxed">
+                These are campaign, content, coordination, and community support roles, not developer work history.
+              </p>
+            </div>
+          </FadeIn>
+        </div>
 
-      <div className="relative max-w-5xl mx-auto">
-        {/* Timeline Line */}
-        <div className="absolute left-1/2 top-0 bottom-0 w-[1px] bg-main/20 -translate-x-1/2" />
-        
-        {/* Timeline Progress */}
-        <motion.div 
-          className="absolute left-1/2 top-0 bottom-0 w-[2px] bg-thr origin-top -translate-x-1/2 shadow-[0_0_15px_rgba(212,245,52,0.5)]"
-          style={{ scaleY }}
-        />
-
-        <div className="relative z-10">
-          {experiences.map((exp, index) => {
-            const isEven = index % 2 === 0;
-            return (
-              <ExperienceItem key={index} experience={exp} isEven={isEven} index={index} />
-            );
-          })}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+          {supportedBrands.map((brand, index) => (
+            <FadeIn key={brand.name} delay={index * 0.035}>
+              <article className="h-full rounded-3xl bg-white border border-blue-100 p-6 shadow-sm hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-950/10 transition-all">
+                <div className="flex items-start justify-between gap-4 mb-6">
+                  <div>
+                    <span className="inline-flex rounded-full bg-thr/10 text-thr px-3 py-1 text-[9px] font-black uppercase tracking-[0.18em] mb-4">
+                      {brand.category}
+                    </span>
+                    <h3 className="text-2xl font-black tracking-tight">{brand.name}</h3>
+                  </div>
+                  <div className="w-10 h-10 rounded-2xl bg-blue-50 text-thr flex items-center justify-center shrink-0">
+                    <BriefcaseBusiness className="w-5 h-5" />
+                  </div>
+                </div>
+                <p className="text-sm font-black uppercase tracking-[0.16em] text-sec/45 mb-4">{brand.role}</p>
+                <p className="text-sec/65 leading-relaxed">{brand.description}</p>
+              </article>
+            </FadeIn>
+          ))}
         </div>
       </div>
     </section>
-  );
-}
-
-const ExperienceItem: React.FC<{ experience: typeof experiences[0], isEven: boolean, index: number }> = ({ experience, isEven, index }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start 80%", "center center"]
-  });
-
-  const opacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
-  const y = useTransform(scrollYProgress, [0, 1], [50, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [0, 1]);
-
-  return (
-    <div ref={ref} className={`w-full flex items-center mb-[15vh] md:mb-[25vh]`}>
-      {/* Dot */}
-      <motion.div 
-        className="absolute left-1/2 w-3 h-3 rounded-full border-2 border-main bg-sec -translate-x-1/2 z-20"
-        style={{ scale, opacity }}
-      />
-
-      {/* Content */}
-      <motion.div 
-        className={`w-full md:w-[45%] ${isEven ? 'md:pr-16 text-right' : 'md:ml-auto md:pl-16 text-left'}`}
-        style={{ opacity, y }}
-      >
-        <h3 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tighter mb-2 text-main/80">
-          {experience.companyName}
-        </h3>
-        <h4 className="text-xl md:text-2xl font-light mb-4 text-main/60">
-          {experience.role}
-        </h4>
-        <p className="text-main/50 text-sm md:text-base leading-relaxed mb-4 max-w-xl ml-auto">
-          {experience.shortDesc}
-        </p>
-        <span className="text-sm font-bold uppercase tracking-widest text-thr">
-          {experience.date}
-        </span>
-      </motion.div>
-    </div>
   );
 }

@@ -2,9 +2,9 @@
 @import "tailwindcss";
 
 @theme {
-  --color-main: #e7e7e7;
-  --color-sec: #1e1e1e;
-  --color-thr: #d4f534;
+  --color-main: #ffffff;
+  --color-sec: #0f2d5c;
+  --color-thr: #2563eb;
   --color-background: var(--color-main);
   --color-foreground: var(--color-sec);
   --color-primary: var(--color-sec);
@@ -23,18 +23,14 @@
   display: none;
 }
 
-html {
-  /* scroll-behavior: smooth; */
-}
-
 body {
   margin: 0;
   padding: 0;
-  background: #e7e7e7;
+  background: #ffffff;
   overflow-y: scroll;
   font-family: var(--font-cabinetGrotesk), sans-serif;
   transition: background-color .8s cubic-bezier(.4,0,.2,1), color .8s cubic-bezier(.4,0,.2,1);
-  color: #1e1e1e;
+  color: #0f2d5c;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -46,7 +42,7 @@ body {
 .gradient-text {
   font-size: 3rem;
   font-weight: 700;
-  background-image: linear-gradient(90deg, #ff7e5f, #feb47b);
+  background-image: linear-gradient(90deg, #2563eb, #38bdf8);
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;

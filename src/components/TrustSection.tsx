@@ -3,7 +3,7 @@ import { FadeIn } from "./Animations";
 export default function TrustSection() {
   const partners = [
     "CoinW (Ambassador)",
-    "Hedera Ecosystem (Certified Developer)",
+    "Web3 Ecosystem Growth Support",
     "Fizen (Community & Growth)",
     "Blockchain communities across Africa"
   ];
