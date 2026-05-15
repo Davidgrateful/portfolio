@@ -13,7 +13,7 @@ export default function Events() {
         </RevealLine>
         <FadeIn delay={0.2}>
           <p className="text-xl md:text-2xl text-sec/65 leading-relaxed mb-10">
-            David supports Web3 teams with event planning, X/Twitter spaces, campaign rollouts, community activations, ecosystem updates, and audience engagement moments.
+            David supports growing teams with event planning, X/Twitter spaces, campaign rollouts, community activations, ecosystem updates, and audience engagement moments.
           </p>
           <a href={contact.calendly} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full bg-thr text-white px-8 py-4 text-xs font-black uppercase tracking-[0.18em]">
             Plan a Campaign <ArrowUpRight className="w-4 h-4" />

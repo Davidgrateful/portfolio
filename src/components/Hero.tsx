@@ -15,7 +15,7 @@ export default function Hero() {
           <FadeIn>
             <div className="inline-flex items-center gap-2 rounded-full border border-thr/20 bg-thr/10 px-4 py-2 text-[11px] font-black uppercase tracking-[0.25em] text-thr mb-8">
               <span className="w-2 h-2 rounded-full bg-thr"></span>
-              Web3 Growth Operator
+              Strategy / Content / Community
             </div>
           </FadeIn>
           <RevealLine delay={0.1}>
@@ -50,8 +50,8 @@ export default function Hero() {
           <div className="rounded-[2rem] border border-sec/10 bg-white shadow-2xl shadow-blue-950/10 p-6 md:p-8">
             <div className="flex items-center justify-between gap-4 border-b border-sec/10 pb-6 mb-6">
               <div>
-                <p className="text-[10px] font-black uppercase tracking-[0.25em] text-sec/40 mb-2">Based in Nigeria</p>
-                <h2 className="text-3xl font-black tracking-tighter">Available for Web3 teams</h2>
+                <p className="text-[10px] font-black uppercase tracking-[0.25em] text-sec/40 mb-2">Open for projects</p>
+                <h2 className="text-3xl font-black tracking-tighter">Available for growing teams</h2>
               </div>
               <div className="w-14 h-14 rounded-2xl bg-thr text-white flex items-center justify-center">
                 <MessageCircle className="w-7 h-7" />

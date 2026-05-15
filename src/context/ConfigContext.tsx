@@ -10,8 +10,8 @@ const DEFAULT_CONFIG = {
   },
   hero: {
     home: {
-      title: "Project Manager & Social Media Manager for Web3 Brands.",
-      subtitle: "I help gaming, NFT, RWA, wallet, protocol, and community-led projects build visibility, structure, and growth through strategy, content, and execution."
+      title: "Helping Brands Grow With Strategy, Content, and Community.",
+      subtitle: "I help gaming, NFT, RWA, wallet, protocol, and community-led projects build visibility, structure, and growth through content planning, social media, and execution."
     },
     about: {
       title: "Strategy, Content & Community Execution",

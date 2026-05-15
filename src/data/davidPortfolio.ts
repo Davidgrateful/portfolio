@@ -28,6 +28,24 @@ export const supportedBrands = [
     description: "Managed content direction, campaign planning, community communication, brand positioning, and social media strategy around NFTs, RWAs, AI tooling, and Web3 infrastructure."
   },
   {
+    name: "Gaming on Base",
+    role: "Social Media & Growth Support",
+    category: "Gaming / Ecosystem",
+    description: "Supported gaming visibility through content strategy, game discovery, ecosystem updates, community engagement, and project promotion."
+  },
+  {
+    name: "Trade Clash",
+    role: "Project Manager",
+    category: "Gaming / Campaigns",
+    description: "Worked on project coordination, community growth, campaign planning, and communication between project goals and audience-facing execution."
+  },
+  {
+    name: "The_koll",
+    role: "Social Media & Community Support",
+    category: "Community / Brand Visibility",
+    description: "Supported content direction, community engagement, brand visibility, and audience-facing communication for a fast-moving digital community."
+  },
+  {
     name: "Kresus Wallet",
     role: "Social Media & Community Growth Support",
     category: "Wallets / Onboarding",
@@ -76,22 +94,10 @@ export const supportedBrands = [
     description: "Supported Web3 social content, community growth, promotional ideas, and engagement strategy."
   },
   {
-    name: "Trade Clash",
-    role: "Project Manager",
-    category: "Gaming / Campaigns",
-    description: "Worked on project coordination, community growth, campaign planning, and communication between project goals and audience-facing execution."
-  },
-  {
     name: "Harley Forum",
     role: "Social Media / Community Intern",
     category: "Internship",
     description: "Completed over one year of internship experience, supporting social media, communication, content planning, and community engagement."
-  },
-  {
-    name: "Gaming on Base",
-    role: "Social Media & Growth Support",
-    category: "Base Gaming",
-    description: "Supported Base gaming visibility through content strategy, game discovery, ecosystem updates, community engagement, and project promotion."
   },
   {
     name: "Muaddi on Sol",
