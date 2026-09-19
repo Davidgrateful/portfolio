@@ -1,46 +1,46 @@
-import { useEffect } from "react";
-import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from "motion/react";
+import { useEffect, useRef, useState } from "react";
+import { motion, useMotionValue, useSpring, useTransform, useScroll, useReducedMotion } from "motion/react";
 import { ArrowUpRight, ChevronDown } from "lucide-react";
 import { RevealLine, FadeIn } from "./Animations";
 import MagneticButton from "./MagneticButton";
 import DavidCharacter from "./DavidCharacter";
-import FloatingCube from "./FloatingCube";
 import { useConfig } from "../context/ConfigContext";
 import { contact } from "../data/davidPortfolio";
 
 export default function Hero() {
   const { config } = useConfig();
   const prefersReducedMotion = useReducedMotion();
+  const heroRef = useRef<HTMLElement>(null);
+
+  const [periodHover, setPeriodHover] = useState(false);
+  const [pokeCount, setPokeCount] = useState(0);
+  const [hasPoked, setHasPoked] = useState(false);
 
   const mvX = useMotionValue(0);
-  const mvY = useMotionValue(0);
 
   useEffect(() => {
     if (prefersReducedMotion) return;
     const onMove = (e: MouseEvent) => {
       mvX.set((e.clientX / window.innerWidth) * 2 - 1);
-      mvY.set((e.clientY / window.innerHeight) * 2 - 1);
     };
     window.addEventListener("mousemove", onMove);
     return () => window.removeEventListener("mousemove", onMove);
-  }, [mvX, mvY, prefersReducedMotion]);
+  }, [mvX, prefersReducedMotion]);
 
   const headlineX = useSpring(useTransform(mvX, [-1, 1], [6, -6]), { stiffness: 60, damping: 20 });
-  const cubeX = useSpring(useTransform(mvX, [-1, 1], [-20, 20]), { stiffness: 40, damping: 18 });
-  const cubeY = useSpring(useTransform(mvY, [-1, 1], [-16, 16]), { stiffness: 40, damping: 18 });
+
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
+  const exitOpacity = useTransform(scrollYProgress, [0.45, 0.85], [1, 0]);
+  const exitY = useTransform(scrollYProgress, [0.45, 0.85], [0, 70]);
+  const exitRotate = useTransform(scrollYProgress, [0.45, 0.85], [0, 12]);
 
   return (
     <section
+      ref={heroRef}
       id="hero"
       className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-main text-sec px-6 md:px-12 lg:px-24 pt-32 pb-16"
     >
       <div className="grain-overlay" />
-
-      <FloatingCube
-        className="hidden md:block absolute top-28 right-[8%] lg:right-[14%] z-0"
-        parallaxX={cubeX}
-        parallaxY={cubeY}
-      />
 
       <div className="relative z-10 max-w-6xl mx-auto w-full">
         <FadeIn>
@@ -61,13 +61,38 @@ export default function Hero() {
             >
               David
               <br />
-              Grateful<span className="text-red">.</span>
+              Grateful
+              <motion.button
+                type="button"
+                aria-label="Poke the period"
+                onHoverStart={() => setPeriodHover(true)}
+                onHoverEnd={() => setPeriodHover(false)}
+                onClick={() => {
+                  setPokeCount((p) => p + 1);
+                  setHasPoked(true);
+                }}
+                whileHover={prefersReducedMotion ? undefined : { scale: 1.2, rotate: -8 }}
+                whileTap={prefersReducedMotion ? undefined : { scale: 0.55, rotate: 0 }}
+                animate={!hasPoked && !prefersReducedMotion ? { scale: [1, 1.1, 1] } : { scale: 1 }}
+                transition={!hasPoked ? { duration: 2.2, repeat: Infinity, ease: "easeInOut" } : { type: "spring", stiffness: 400, damping: 15 }}
+                className="text-red inline-block align-baseline cursor-pointer"
+                style={{ transformOrigin: "70% 70%" }}
+              >
+                .
+              </motion.button>
             </motion.h1>
           </div>
 
-          <DavidCharacter
-            className="w-[110px] sm:w-[130px] lg:w-[150px] mt-6 mb-2 mx-auto lg:mx-0 lg:absolute lg:left-[72%] lg:bottom-0 lg:mt-0"
-          />
+          <motion.div
+            style={{
+              opacity: prefersReducedMotion ? 1 : exitOpacity,
+              y: prefersReducedMotion ? 0 : exitY,
+              rotate: prefersReducedMotion ? 0 : exitRotate,
+            }}
+            className="w-[74px] sm:w-[105px] lg:w-[145px] absolute right-[14%] sm:right-[12%] lg:right-auto lg:left-[68%] bottom-[-4%] sm:bottom-[4%] lg:bottom-0"
+          >
+            <DavidCharacter lookAt={periodHover} reactionTrigger={pokeCount} className="w-full h-full" />
+          </motion.div>
         </div>
 
         <div className="mt-8 lg:mt-4 max-w-3xl">
