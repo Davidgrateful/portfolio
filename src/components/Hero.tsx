@@ -1,77 +1,122 @@
+import { useEffect } from "react";
+import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from "motion/react";
+import { ArrowUpRight, ChevronDown } from "lucide-react";
 import { RevealLine, FadeIn } from "./Animations";
 import MagneticButton from "./MagneticButton";
-import { CalendarCheck, BriefcaseBusiness, MessageCircle, Users } from "lucide-react";
+import DavidCharacter from "./DavidCharacter";
+import FloatingCube from "./FloatingCube";
 import { useConfig } from "../context/ConfigContext";
-import { contact, focusAreas } from "../data/davidPortfolio";
+import { contact } from "../data/davidPortfolio";
 
 export default function Hero() {
   const { config } = useConfig();
+  const prefersReducedMotion = useReducedMotion();
+
+  const mvX = useMotionValue(0);
+  const mvY = useMotionValue(0);
+
+  useEffect(() => {
+    if (prefersReducedMotion) return;
+    const onMove = (e: MouseEvent) => {
+      mvX.set((e.clientX / window.innerWidth) * 2 - 1);
+      mvY.set((e.clientY / window.innerHeight) * 2 - 1);
+    };
+    window.addEventListener("mousemove", onMove);
+    return () => window.removeEventListener("mousemove", onMove);
+  }, [mvX, mvY, prefersReducedMotion]);
+
+  const headlineX = useSpring(useTransform(mvX, [-1, 1], [6, -6]), { stiffness: 60, damping: 20 });
+  const cubeX = useSpring(useTransform(mvX, [-1, 1], [-20, 20]), { stiffness: 40, damping: 18 });
+  const cubeY = useSpring(useTransform(mvY, [-1, 1], [-16, 16]), { stiffness: 40, damping: 18 });
 
   return (
-    <section id="hero" className="min-h-screen flex flex-col justify-center relative overflow-hidden bg-main text-sec px-6 md:px-12 lg:px-24 pt-24">
-      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_20%_20%,rgba(37,99,235,0.16),transparent_30%),radial-gradient(circle_at_80%_15%,rgba(14,165,233,0.13),transparent_28%)]" />
-      <div className="relative z-10 grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-12 items-center">
-        <div>
-          <FadeIn>
-            <div className="inline-flex items-center gap-2 rounded-full border border-thr/20 bg-thr/10 px-4 py-2 text-[11px] font-black uppercase tracking-[0.25em] text-thr mb-8">
-              <span className="w-2 h-2 rounded-full bg-thr"></span>
-              Strategy / Content / Community
-            </div>
-          </FadeIn>
-          <RevealLine delay={0.1}>
-            <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-[6.25rem] font-black tracking-tight leading-[1.05] md:leading-[0.98] text-sec mb-8 max-w-6xl">
+    <section
+      id="hero"
+      className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-main text-sec px-6 md:px-12 lg:px-24 pt-32 pb-16"
+    >
+      <div className="grain-overlay" />
+
+      <FloatingCube
+        className="hidden md:block absolute top-28 right-[8%] lg:right-[14%] z-0"
+        parallaxX={cubeX}
+        parallaxY={cubeY}
+      />
+
+      <div className="relative z-10 max-w-6xl mx-auto w-full">
+        <FadeIn>
+          <div className="inline-flex items-center gap-2 mb-8 text-[11px] font-mono uppercase tracking-[0.25em] text-muted">
+            <span className="w-1.5 h-1.5 rounded-full bg-red" />
+            You just entered David&rsquo;s digital world
+          </div>
+        </FadeIn>
+
+        <div className="relative">
+          <div className="overflow-hidden pb-2 -mb-2">
+            <motion.h1
+              initial={{ y: "115%" }}
+              animate={{ y: 0 }}
+              transition={{ duration: 0.9, ease: [0.4, 0, 0.2, 1], delay: 0.1 }}
+              style={{ x: headlineX }}
+              className="font-cabinetGrotesk font-black uppercase tracking-tight leading-[0.86] text-[15vw] sm:text-[13vw] md:text-[9.5vw] lg:text-[7.5rem] xl:text-[8.5rem]"
+            >
+              David
+              <br />
+              Grateful<span className="text-red">.</span>
+            </motion.h1>
+          </div>
+
+          <DavidCharacter
+            className="w-[110px] sm:w-[130px] lg:w-[150px] mt-6 mb-2 mx-auto lg:mx-0 lg:absolute lg:left-[72%] lg:bottom-0 lg:mt-0"
+          />
+        </div>
+
+        <div className="mt-8 lg:mt-4 max-w-3xl">
+          <RevealLine delay={0.15}>
+            <h2 className="font-cabinetGrotesk font-bold text-2xl sm:text-3xl md:text-4xl tracking-tight leading-[1.1] text-sec">
               {config.hero.home.title}
-            </h1>
+            </h2>
           </RevealLine>
-          <FadeIn delay={0.4}>
-            <p className="text-lg md:text-2xl text-sec/70 max-w-3xl font-medium leading-relaxed">
+          <FadeIn delay={0.3}>
+            <p className="font-sans text-base md:text-lg text-muted max-w-xl leading-relaxed mt-5">
               {config.hero.home.subtitle}
             </p>
           </FadeIn>
-          <FadeIn delay={0.55}>
-            <div className="flex flex-col sm:flex-row gap-4 mt-10">
-              <MagneticButton>
-                <a href={contact.calendly} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-3 bg-thr text-white px-8 py-4 rounded-full font-black uppercase tracking-[0.16em] text-xs shadow-lg shadow-blue-500/20">
-                  <CalendarCheck className="w-4 h-4" />
-                  Book a Call
-                </a>
-              </MagneticButton>
-              <MagneticButton>
-                <a href="#experience" className="inline-flex items-center justify-center gap-3 border border-sec/20 text-sec px-8 py-4 rounded-full font-black uppercase tracking-[0.16em] text-xs hover:bg-sec hover:text-white transition-colors">
-                  <BriefcaseBusiness className="w-4 h-4" />
-                  View Experience
-                </a>
-              </MagneticButton>
-            </div>
-          </FadeIn>
         </div>
 
-        <FadeIn delay={0.35}>
-          <div className="rounded-[2rem] border border-sec/10 bg-white shadow-2xl shadow-blue-950/10 p-6 md:p-8">
-            <div className="flex items-center justify-between gap-4 border-b border-sec/10 pb-6 mb-6">
-              <div>
-                <p className="text-[10px] font-black uppercase tracking-[0.25em] text-sec/40 mb-2">Open for projects</p>
-                <h2 className="text-3xl font-black tracking-tighter">Available for growing teams</h2>
-              </div>
-              <div className="w-14 h-14 rounded-2xl bg-thr text-white flex items-center justify-center">
-                <MessageCircle className="w-7 h-7" />
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-3 mb-6">
-              {focusAreas.slice(0, 8).map((area) => (
-                <div key={area} className="rounded-2xl bg-blue-50 border border-blue-100 px-4 py-3 text-sm font-bold text-sec/80">
-                  {area}
-                </div>
-              ))}
-            </div>
-            <div className="rounded-2xl bg-sec text-white p-5 flex items-start gap-4">
-              <Users className="w-6 h-6 text-sky-300 shrink-0 mt-1" />
-              <p className="text-sm leading-relaxed text-white/75">
-                Social-first strategy, content planning, community communication, project coordination, and campaign execution for Web3 brands.
-              </p>
-            </div>
+        <FadeIn delay={0.45}>
+          <div className="flex flex-wrap items-center gap-4 mt-10">
+            <MagneticButton>
+              <a
+                href={contact.calendly}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 bg-sec text-main px-7 py-4 rounded-full font-bold text-sm hover:bg-red transition-colors duration-300"
+              >
+                Let&rsquo;s talk
+                <ArrowUpRight className="w-4 h-4" />
+              </a>
+            </MagneticButton>
+            <MagneticButton>
+              <a
+                href="#about"
+                className="inline-flex items-center gap-2 text-sec px-7 py-4 rounded-full font-bold text-sm border border-sec/15 hover:border-sec/40 transition-colors duration-300"
+              >
+                See the work
+                <ChevronDown className="w-4 h-4" />
+              </a>
+            </MagneticButton>
           </div>
         </FadeIn>
+      </div>
+
+      <div className="relative z-10 max-w-6xl mx-auto w-full mt-16 hidden sm:flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.3em] text-muted">
+        <motion.span
+          animate={prefersReducedMotion ? undefined : { y: [0, 5, 0] }}
+          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <ChevronDown className="w-3.5 h-3.5" />
+        </motion.span>
+        Scroll
       </div>
     </section>
   );

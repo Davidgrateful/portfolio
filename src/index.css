@@ -1,15 +1,19 @@
-@import url('https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@800,500,700,400,900&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@800,500,700,400,900&f[]=general-sans@500,600,700,400&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --color-main: #ffffff;
-  --color-sec: #0f2d5c;
-  --color-thr: #2563eb;
+  --color-main: #f6f2ea;
+  --color-sec: #16161a;
+  --color-thr: #3d7bf0;
+  --color-red: #e5432a;
+  --color-muted: #8a8578;
   --color-background: var(--color-main);
   --color-foreground: var(--color-sec);
   --color-primary: var(--color-sec);
-  --font-sans: "Cabinet Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "General Sans", ui-sans-serif, system-ui, sans-serif;
   --font-cabinetGrotesk: "Cabinet Grotesk", sans-serif;
+  --font-display: "Cabinet Grotesk", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Menlo", monospace;
 }
 
 * {
@@ -26,11 +30,25 @@
 body {
   margin: 0;
   padding: 0;
-  background: #ffffff;
+  background: var(--color-main);
   overflow-y: scroll;
-  font-family: var(--font-cabinetGrotesk), sans-serif;
+  font-family: var(--font-sans), sans-serif;
   transition: background-color .8s cubic-bezier(.4,0,.2,1), color .8s cubic-bezier(.4,0,.2,1);
-  color: #0f2d5c;
+  color: var(--color-sec);
+}
+
+::selection {
+  background: var(--color-red);
+  color: var(--color-main);
+}
+
+.grain-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 @media (hover: hover) and (pointer: fine) {

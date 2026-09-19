@@ -10,8 +10,8 @@ const DEFAULT_CONFIG = {
   },
   hero: {
     home: {
-      title: "Helping Brands Grow With Strategy, Content, and Community.",
-      subtitle: "I help gaming, NFT, RWA, wallet, protocol, and community-led projects build visibility, structure, and growth through content planning, social media, and execution."
+      title: "I make things for the internet.",
+      subtitle: "Marketing. Products. Apps. Games. Content. Communities. Sometimes all at once."
     },
     about: {
       title: "Strategy, Content & Community Execution",

@@ -18,11 +18,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     document.documentElement.classList.remove('dark');
-    document.documentElement.style.setProperty('--color-main', '#ffffff');
-    document.documentElement.style.setProperty('--color-sec', '#0f2d5c');
-    document.documentElement.style.setProperty('--color-thr', '#2563eb');
-    document.body.style.backgroundColor = '#ffffff';
-    document.body.style.color = '#0f2d5c';
   }, [theme]);
 
   const toggleTheme = () => {
