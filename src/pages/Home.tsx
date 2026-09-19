@@ -1,8 +1,6 @@
 import Hero from "../components/Hero";
 import AboutPreview from "../components/AboutPreview";
-import Services from "../components/Services";
-import ProjectsPreview from "../components/ProjectsPreview";
-import Experience from "../components/Experience";
+import ChapterOne from "../components/ChapterOne";
 import CrissCrossMarquee from "../components/CrissCrossMarquee";
 
 export default function Home() {
@@ -10,9 +8,7 @@ export default function Home() {
     <main>
       <Hero />
       <AboutPreview />
-      <Services />
-      <ProjectsPreview />
-      <Experience />
+      <ChapterOne />
       <CrissCrossMarquee />
     </main>
   );

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from "motion/react";
 
 interface DavidCharacterProps {
@@ -33,6 +33,9 @@ const HOP_ANIMATE = {
  */
 export default function DavidCharacter({ className = "", float = true, lookAt = false, reactionTrigger }: DavidCharacterProps) {
   const prefersReducedMotion = useReducedMotion();
+  const uid = useId();
+  const lensLeftId = `lens-l-${uid}`;
+  const lensRightId = `lens-r-${uid}`;
   const containerRef = useRef<HTMLDivElement>(null);
   const eyeX = useMotionValue(0);
   const eyeY = useMotionValue(0);
@@ -168,19 +171,19 @@ export default function DavidCharacter({ className = "", float = true, lookAt = 
         <line x1="148" y1="98" x2="163" y2="91" stroke={RED} strokeWidth="6" strokeLinecap="round" />
         <line x1="89" y1="101" x2="111" y2="101" stroke={RED} strokeWidth="6" />
 
-        <clipPath id="lens-l">
+        <clipPath id={lensLeftId}>
           <rect x="55" y="91" width="32" height="24" rx="8" />
         </clipPath>
-        <clipPath id="lens-r">
+        <clipPath id={lensRightId}>
           <rect x="113" y="91" width="32" height="24" rx="8" />
         </clipPath>
 
-        <g clipPath="url(#lens-l)">
+        <g clipPath={`url(#${lensLeftId})`}>
           <circle cx="71" cy="103" r="11" fill="#ffffff" />
           <motion.circle cx="71" cy="103" r="5" fill={INK} style={{ x: springX, y: springY }} />
           <motion.rect x="55" y="51" width="32" height="40" rx="8" fill={BLUE} style={{ y: eyelidY }} />
         </g>
-        <g clipPath="url(#lens-r)">
+        <g clipPath={`url(#${lensRightId})`}>
           <circle cx="129" cy="103" r="11" fill="#ffffff" />
           <motion.circle cx="129" cy="103" r="5" fill={INK} style={{ x: springX, y: springY }} />
           <motion.rect x="113" y="51" width="32" height="40" rx="8" fill={BLUE} style={{ y: eyelidY }} />
