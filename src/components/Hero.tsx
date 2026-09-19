@@ -15,6 +15,21 @@ export default function Hero() {
   const [periodHover, setPeriodHover] = useState(false);
   const [pokeCount, setPokeCount] = useState(0);
   const [hasPoked, setHasPoked] = useState(false);
+  const [showHint, setShowHint] = useState(false);
+
+  // A single, brief nudge toward the period a couple seconds in — a hint to
+  // discover it, not a looping "click here" tutorial.
+  useEffect(() => {
+    if (prefersReducedMotion) return;
+    const showTimer = setTimeout(() => setShowHint(true), 1600);
+    return () => clearTimeout(showTimer);
+  }, [prefersReducedMotion]);
+
+  useEffect(() => {
+    if (!showHint) return;
+    const hideTimer = setTimeout(() => setShowHint(false), 1300);
+    return () => clearTimeout(hideTimer);
+  }, [showHint]);
 
   const mvX = useMotionValue(0);
 
@@ -50,7 +65,7 @@ export default function Hero() {
           </div>
         </FadeIn>
 
-        <div className="relative">
+        <div className="relative pb-[94px] sm:pb-[128px] lg:pb-0">
           <div className="overflow-hidden pb-2 -mb-2">
             <motion.h1
               initial={{ y: "115%" }}
@@ -73,8 +88,8 @@ export default function Hero() {
                 }}
                 whileHover={prefersReducedMotion ? undefined : { scale: 1.2, rotate: -8 }}
                 whileTap={prefersReducedMotion ? undefined : { scale: 0.55, rotate: 0 }}
-                animate={!hasPoked && !prefersReducedMotion ? { scale: [1, 1.1, 1] } : { scale: 1 }}
-                transition={!hasPoked ? { duration: 2.2, repeat: Infinity, ease: "easeInOut" } : { type: "spring", stiffness: 400, damping: 15 }}
+                animate={!hasPoked && showHint && !prefersReducedMotion ? { scale: [1, 1.1, 1] } : { scale: 1 }}
+                transition={!hasPoked && showHint ? { duration: 1.1, ease: "easeInOut" } : { type: "spring", stiffness: 400, damping: 15 }}
                 className="text-red inline-block align-baseline cursor-pointer"
                 style={{ transformOrigin: "70% 70%" }}
               >
@@ -89,7 +104,7 @@ export default function Hero() {
               y: prefersReducedMotion ? 0 : exitY,
               rotate: prefersReducedMotion ? 0 : exitRotate,
             }}
-            className="w-[74px] sm:w-[105px] lg:w-[145px] absolute right-[14%] sm:right-[12%] lg:right-auto lg:left-[68%] bottom-[-4%] sm:bottom-[4%] lg:bottom-0"
+            className="w-[70px] sm:w-[96px] lg:w-[145px] absolute bottom-0 right-[3%] sm:right-[5%] lg:right-auto lg:left-[69.5%]"
           >
             <DavidCharacter lookAt={periodHover} reactionTrigger={pokeCount} className="w-full h-full" />
           </motion.div>
