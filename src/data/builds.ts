@@ -82,4 +82,13 @@ export const builds: Build[] = [
     link: "https://on-mark.vercel.app/login",
     image: "/work/onmark.jpg",
   },
+  {
+    name: "BIFY",
+    discipline: "Web Dev",
+    summary:
+      "The website for BIFY, a marketplace for NFTs and tokenized real-world assets on Base. I also ran project management and social media for the brand.",
+    role: "Web design & ideas (assisted)",
+    link: "https://www.bify.io",
+    image: "/work/bify.jpg",
+  },
 ];

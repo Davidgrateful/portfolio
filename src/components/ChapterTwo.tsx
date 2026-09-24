@@ -2,7 +2,9 @@ import { AppWindow, ArrowUpRight, Clapperboard, Code2, Gamepad2 } from "lucide-r
 import { Link } from "react-router-dom";
 import { RevealLine, FadeIn } from "./Animations";
 import BuildCard from "./board/BuildCard";
+import VideoCard from "./board/VideoCard";
 import { builds, disciplines } from "../data/builds";
+import { videos } from "../data/videos";
 
 const icons = [Code2, AppWindow, Gamepad2, Clapperboard];
 const tones = ["bg-sky", "bg-butter", "bg-blush", "bg-sage"];
@@ -30,7 +32,8 @@ export default function ChapterTwo() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 mt-16 items-start">
           {disciplines.map((d, i) => {
             const Icon = icons[i];
-            const count = builds.filter((b) => b.discipline === d.name).length;
+            const projects = builds.filter((b) => b.discipline === d.name).length;
+            const clips = d.name === "Content & Video" ? videos.length : 0;
             return (
               <FadeIn key={d.name} delay={i * 0.08}>
                 <Link
@@ -51,9 +54,12 @@ export default function ChapterTwo() {
                         <span key={f} className="rounded-full bg-main/70 px-3 py-1 text-xs font-bold">{f}</span>
                       ))}
                     </div>
-                    {count > 0 && (
+                    {(projects > 0 || clips > 0) && (
                       <p className="mt-5 text-[10px] font-black uppercase tracking-[0.2em] text-sec/50">
-                        {count} {count === 1 ? "project" : "projects"}
+                        {[
+                          projects > 0 && `${projects} ${projects === 1 ? "project" : "projects"}`,
+                          clips > 0 && `${clips} videos`,
+                        ].filter(Boolean).join(" · ")}
                       </p>
                     )}
                   </div>
@@ -68,12 +74,39 @@ export default function ChapterTwo() {
             <RevealLine>
               <h3 className="text-3xl md:text-5xl font-black tracking-tighter mb-10">Recent builds.</h3>
             </RevealLine>
-            <div className="pin-board columns-2 lg:columns-3 gap-3 sm:gap-5">
+            <div className="pin-board columns-2 lg:columns-4 gap-3 sm:gap-5">
               {builds.slice(0, 6).map((build, i) => (
                 <FadeIn key={build.name} delay={i * 0.05}>
                   <BuildCard build={build} />
                 </FadeIn>
               ))}
+            </div>
+          </div>
+        )}
+
+        {videos.length > 0 && (
+          <div className="mt-20">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+              <RevealLine>
+                <h3 className="text-3xl md:text-5xl font-black tracking-tighter">Yes, I made another video.</h3>
+              </RevealLine>
+              <Link
+                to="/works?d=Content%20%26%20Video"
+                className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-[0.18em] text-main/70 hover:text-main transition-colors group"
+              >
+                All {videos.length} videos
+                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </Link>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-5 items-start">
+              {videos
+                .filter((v) => v.orientation === "portrait")
+                .slice(0, 4)
+                .map((video, i) => (
+                  <FadeIn key={video.id} delay={i * 0.06}>
+                    <VideoCard video={video} compact />
+                  </FadeIn>
+                ))}
             </div>
           </div>
         )}

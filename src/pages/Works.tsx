@@ -5,10 +5,14 @@ import { ArrowUpRight } from "lucide-react";
 import { RevealLine, FadeIn } from "../components/Animations";
 import PinCover, { seedOf } from "../components/board/PinCover";
 import BuildCard from "../components/board/BuildCard";
+import VideoCard from "../components/board/VideoCard";
 import { brandFilters, contact, supportedBrands } from "../data/davidPortfolio";
 import { builds, disciplines } from "../data/builds";
+import { videos } from "../data/videos";
 
 const MARKETING = "Marketing & Community";
+const VIDEO = "Content & Video";
+const videoTopics = ["All", ...Array.from(new Set(videos.map((v) => v.topic)))];
 const sections = ["Everything", MARKETING, ...disciplines.map((d) => d.name)];
 
 export default function Works() {
@@ -23,9 +27,16 @@ export default function Works() {
   const showBrands = section === "Everything" || section === MARKETING;
   const brands = !showBrands ? [] : filter === "All" ? supportedBrands : supportedBrands.filter((b) => b.tags.includes(filter));
   const shownBuilds = section === "Everything" ? builds : builds.filter((b) => b.discipline === section);
+  // "Everything" previews the latest few videos; the video lane shows them all
+  const shownVideos =
+    section === "Everything" ? videos.slice(0, 4)
+    : section !== VIDEO ? []
+    : filter === "All" ? videos : videos.filter((v) => v.topic === filter);
   const countFor = (s: string) =>
-    s === "Everything" ? supportedBrands.length + builds.length : s === MARKETING ? supportedBrands.length : builds.filter((b) => b.discipline === s).length;
-  const isEmpty = brands.length === 0 && shownBuilds.length === 0;
+    s === "Everything" ? supportedBrands.length + builds.length + videos.length
+    : s === MARKETING ? supportedBrands.length
+    : builds.filter((b) => b.discipline === s).length + (s === VIDEO ? videos.length : 0);
+  const isEmpty = brands.length === 0 && shownBuilds.length === 0 && shownVideos.length === 0;
 
   return (
     <main className="pt-36 pb-24 px-6 md:px-12 lg:px-24 bg-main text-sec min-h-screen">
@@ -67,11 +78,14 @@ export default function Works() {
         </FadeIn>
 
         {/* Brand categories, only when looking at the marketing work */}
-        {section === MARKETING ? (
+        {section === MARKETING || section === VIDEO ? (
           <div className="flex gap-2 overflow-x-auto pb-2 mb-10 -mx-6 px-6 md:mx-0 md:px-0 md:flex-wrap">
-            {brandFilters.map((f) => {
+            {(section === MARKETING ? brandFilters : videoTopics).map((f) => {
               const active = f === filter;
-              const count = f === "All" ? supportedBrands.length : supportedBrands.filter((b) => b.tags.includes(f)).length;
+              const count =
+                section === VIDEO
+                  ? f === "All" ? videos.length : videos.filter((v) => v.topic === f).length
+                  : f === "All" ? supportedBrands.length : supportedBrands.filter((b) => b.tags.includes(f)).length;
               return (
                 <button
                   key={f}
@@ -138,6 +152,36 @@ export default function Works() {
                 <BuildCard build={build} />
               </motion.div>
             ))}
+
+            {shownVideos.map((video) => (
+              <motion.div
+                key={video.id}
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.96 }}
+                transition={{ duration: 0.35 }}
+              >
+                <VideoCard video={video} />
+              </motion.div>
+            ))}
+
+            {section === "Everything" && videos.length > shownVideos.length && (
+              <motion.button
+                key="all-videos-tile"
+                onClick={() => setSection(VIDEO)}
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.96 }}
+                className="group block w-full text-left rounded-[1.4rem] sm:rounded-[1.75rem] bg-sage p-5 sm:p-7"
+              >
+                <p className="text-[10px] font-black uppercase tracking-[0.3em] text-sec/50 mb-8">Content & Video</p>
+                <p className="font-display text-5xl sm:text-6xl font-black tracking-tighter leading-none mb-2">{videos.length}</p>
+                <p className="text-sm sm:text-base text-sec/70 mb-6">videos on building in public, AI, Web3 and creator life.</p>
+                <span className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-[0.16em]">
+                  Watch them all <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </span>
+              </motion.button>
+            )}
 
             {brands.map((brand) => (
               <motion.article
