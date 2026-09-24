@@ -146,11 +146,21 @@ export default function Works() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.96 }}
                 transition={{ duration: 0.35 }}
-                className="group rounded-[1.4rem] sm:rounded-[1.75rem] bg-white p-1.5 sm:p-2.5 pb-4 sm:pb-6 shadow-[0_1px_2px_rgba(22,22,26,0.04)] hover:shadow-[0_18px_40px_-18px_rgba(22,22,26,0.3)] hover:-translate-y-1 transition-[transform,box-shadow] duration-300"
+                className="group relative rounded-[1.4rem] sm:rounded-[1.75rem] bg-white p-1.5 sm:p-2.5 pb-4 sm:pb-6 shadow-[0_1px_2px_rgba(22,22,26,0.04)] hover:shadow-[0_18px_40px_-18px_rgba(22,22,26,0.3)] hover:-translate-y-1 transition-[transform,box-shadow] duration-300"
               >
                 <PinCover seed={seedOf(brand.name)} title={brand.name} badge={brand.category} />
                 <div className="px-2 sm:px-3.5 pt-3 sm:pt-5">
-                  <h2 className="text-base sm:text-xl font-black tracking-tight leading-tight mb-1">{brand.name}</h2>
+                  <h2 className="text-base sm:text-xl font-black tracking-tight leading-tight mb-1">
+                    {brand.link ? (
+                      // Stretched link: the whole card is clickable
+                      <a href={brand.link} target="_blank" rel="noopener noreferrer" className="flex items-start justify-between gap-2 after:absolute after:inset-0">
+                        {brand.name}
+                        <ArrowUpRight className="w-4 h-4 shrink-0 mt-1 text-sec/40 group-hover:text-red transition-colors" />
+                      </a>
+                    ) : (
+                      brand.name
+                    )}
+                  </h2>
                   <p className="text-[9px] sm:text-[11px] font-black uppercase tracking-[0.14em] text-thr sm:mb-3">{brand.role}</p>
                   <p className="hidden sm:block text-sm text-sec/65 leading-relaxed">{brand.description}</p>
                 </div>

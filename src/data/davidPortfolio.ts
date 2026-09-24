@@ -27,6 +27,7 @@ export const supportedBrands = [
   {
     name: "BIFY",
     tags: ["NFTs & RWAs"],
+    link: "https://www.bify.io",
     role: "Project Manager & Social Media Manager",
     category: "NFTs / RWAs / AI / Infrastructure",
     description: "Managed content direction, campaign planning, community communication, brand positioning, and social media strategy around NFTs, RWAs, AI tooling, and Web3 infrastructure."
