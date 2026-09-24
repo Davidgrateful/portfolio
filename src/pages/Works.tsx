@@ -157,7 +157,7 @@ export default function Works() {
               </motion.article>
             ))}
 
-            {!isEmpty && filter === "All" && (
+            {showBrands && filter === "All" && (
               <motion.a
                 key="cta-tile"
                 href={contact.calendly}

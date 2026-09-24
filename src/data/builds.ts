@@ -51,4 +51,15 @@ export const disciplines: { name: Discipline; line: string; formats: string[] }[
   },
 ];
 
-export const builds: Build[] = [];
+export const builds: Build[] = [
+  {
+    name: "Raid Shooter",
+    discipline: "Games",
+    summary:
+      "A free twin-stick arcade shooter that runs in the browser. Draft upgrades, chain combos, survive hazard sectors, beat the Asteroid King and climb the leaderboard. Cosmetics settle on Base.",
+    role: "Design & development",
+    tools: ["Next.js", "HTML Canvas", "Base"],
+    link: "https://raidshooter.xyz",
+    image: "/work/raid-shooter.jpg",
+  },
+];

@@ -46,7 +46,7 @@ export default function BuildCard({ build }: { build: Build }) {
   );
 
   const className =
-    "group block rounded-[1.4rem] sm:rounded-[1.75rem] bg-white p-1.5 sm:p-2.5 pb-4 sm:pb-6 shadow-[0_1px_2px_rgba(22,22,26,0.04)] hover:shadow-[0_18px_40px_-18px_rgba(22,22,26,0.3)] hover:-translate-y-1 transition-[transform,box-shadow] duration-300";
+    "group block rounded-[1.4rem] sm:rounded-[1.75rem] bg-white text-sec p-1.5 sm:p-2.5 pb-4 sm:pb-6 shadow-[0_1px_2px_rgba(22,22,26,0.04)] hover:shadow-[0_18px_40px_-18px_rgba(22,22,26,0.3)] hover:-translate-y-1 transition-[transform,box-shadow] duration-300";
 
   return build.link ? (
     <a href={build.link} target="_blank" rel="noopener noreferrer" className={className}>
