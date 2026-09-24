@@ -22,7 +22,7 @@ export default function Footer() {
 
   const links = [
     { name: "Home", href: "/" },
-    { name: "Brands", href: "/works" },
+    { name: "Work", href: "/works" },
     { name: "About", href: "/about" },
     { name: "Services", href: "/services" },
     { name: "Notes", href: "/blog" },
@@ -35,7 +35,7 @@ export default function Footer() {
           <div>
             <p className="text-sky-300 text-[11px] font-black uppercase tracking-[0.35em] mb-5">Contact</p>
             <h2 className="text-5xl md:text-7xl font-black tracking-tighter leading-none max-w-3xl">
-              Let's build visibility, structure, and community growth.
+              Let's make something people care about.
             </h2>
           </div>
 

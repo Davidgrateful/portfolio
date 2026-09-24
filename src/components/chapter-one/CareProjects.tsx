@@ -39,7 +39,7 @@ export default function CareProjects() {
         <div className="mt-4">
           <MagneticButton>
             <Link
-              to="/works"
+              to="/works?d=Marketing%20%26%20Community"
               className="inline-flex items-center gap-2 text-sm font-black uppercase tracking-[0.18em] text-sec hover:text-thr transition-colors group"
             >
               See the rest of the brand work

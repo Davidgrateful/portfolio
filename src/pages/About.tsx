@@ -2,6 +2,7 @@ import { FadeIn, RevealLine } from "../components/Animations";
 import { GraduationCap, Network, Target } from "lucide-react";
 import DavidCharacter from "../components/DavidCharacter";
 import { focusAreas, skills, supportedBrands } from "../data/davidPortfolio";
+import { disciplines } from "../data/builds";
 
 const chipTones = ["bg-sky", "bg-butter", "bg-blush", "bg-sage", "bg-lilac", "bg-white"];
 
@@ -34,6 +35,11 @@ export default function About() {
             <FadeIn delay={0.3}>
               <p>
                 My work sits between social media management, project coordination, brand storytelling, and Web3 growth. I understand how to turn ideas into campaigns, campaigns into traction, and communities into active ecosystems.
+              </p>
+            </FadeIn>
+            <FadeIn delay={0.4}>
+              <p>
+                Then I started building the things too &mdash; websites, apps, games, and the content and video that bring them to life.
               </p>
             </FadeIn>
           </div>
@@ -87,6 +93,17 @@ export default function About() {
             <div className="rounded-[1.75rem] bg-blush p-7">
               <p className="font-display text-7xl font-black tracking-tighter leading-none mb-3">{supportedBrands.length}</p>
               <p className="text-sec/70 leading-relaxed">brands and communities supported so far &mdash; from wallets to meme coins.</p>
+            </div>
+          </FadeIn>
+
+          <FadeIn delay={0.27}>
+            <div className="rounded-[1.75rem] bg-lilac p-7">
+              <p className="text-[10px] font-black uppercase tracking-[0.3em] text-sec/50 mb-6">Also making</p>
+              <ul className="space-y-1">
+                {disciplines.map((d) => (
+                  <li key={d.name} className="font-display text-3xl font-black tracking-tighter leading-tight">{d.name}</li>
+                ))}
+              </ul>
             </div>
           </FadeIn>
 

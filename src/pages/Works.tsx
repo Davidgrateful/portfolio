@@ -1,13 +1,31 @@
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 import { RevealLine, FadeIn } from "../components/Animations";
 import PinCover, { seedOf } from "../components/board/PinCover";
+import BuildCard from "../components/board/BuildCard";
 import { brandFilters, contact, supportedBrands } from "../data/davidPortfolio";
+import { builds, disciplines } from "../data/builds";
+
+const MARKETING = "Marketing & Community";
+const sections = ["Everything", MARKETING, ...disciplines.map((d) => d.name)];
 
 export default function Works() {
+  const [params, setParams] = useSearchParams();
+  const section = sections.includes(params.get("d") ?? "") ? params.get("d")! : "Everything";
+  const setSection = (next: string) => {
+    setFilter("All");
+    setParams(next === "Everything" ? {} : { d: next }, { replace: true });
+  };
   const [filter, setFilter] = useState("All");
-  const brands = filter === "All" ? supportedBrands : supportedBrands.filter((b) => b.tags.includes(filter));
+
+  const showBrands = section === "Everything" || section === MARKETING;
+  const brands = !showBrands ? [] : filter === "All" ? supportedBrands : supportedBrands.filter((b) => b.tags.includes(filter));
+  const shownBuilds = section === "Everything" ? builds : builds.filter((b) => b.discipline === section);
+  const countFor = (s: string) =>
+    s === "Everything" ? supportedBrands.length + builds.length : s === MARKETING ? supportedBrands.length : builds.filter((b) => b.discipline === s).length;
+  const isEmpty = brands.length === 0 && shownBuilds.length === 0;
 
   return (
     <main className="pt-36 pb-24 px-6 md:px-12 lg:px-24 bg-main text-sec min-h-screen">
@@ -15,18 +33,41 @@ export default function Works() {
         <div className="mb-10">
           <RevealLine>
             <h1 className="text-5xl md:text-8xl font-black tracking-tighter uppercase mb-6">
-              Brands & Projects
+              The Work
             </h1>
           </RevealLine>
           <FadeIn delay={0.2}>
             <p className="text-xl md:text-2xl text-sec/65 max-w-3xl font-medium">
-              A board of the Web3 brands, games, wallets, protocols and communities I've helped people care about.
+              Marketing, web dev, apps, games, content and video — sometimes all at once. Pick a lane or browse the whole board.
             </p>
           </FadeIn>
         </div>
 
-        {/* Category chips */}
+        {/* Sections: what kind of work */}
         <FadeIn delay={0.25}>
+          <div className="flex gap-2 overflow-x-auto pb-2 mb-4 -mx-6 px-6 md:mx-0 md:px-0 md:flex-wrap">
+            {sections.map((s) => {
+              const active = s === section;
+              return (
+                <button
+                  key={s}
+                  onClick={() => setSection(s)}
+                  className={`shrink-0 rounded-full px-5 py-2.5 text-sm font-bold transition-all ${
+                    active ? "bg-sec text-main" : "bg-white text-sec/70 hover:bg-sec/5 hover:text-sec"
+                  }`}
+                >
+                  {s}
+                  {countFor(s) > 0 && (
+                    <span className={`ml-2 text-xs ${active ? "text-main/50" : "text-sec/35"}`}>{countFor(s)}</span>
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        </FadeIn>
+
+        {/* Brand categories, only when looking at the marketing work */}
+        {section === MARKETING ? (
           <div className="flex gap-2 overflow-x-auto pb-2 mb-10 -mx-6 px-6 md:mx-0 md:px-0 md:flex-wrap">
             {brandFilters.map((f) => {
               const active = f === filter;
@@ -35,21 +76,40 @@ export default function Works() {
                 <button
                   key={f}
                   onClick={() => setFilter(f)}
-                  className={`shrink-0 rounded-full px-5 py-2.5 text-sm font-bold transition-all ${
-                    active ? "bg-sec text-main" : "bg-white text-sec/70 hover:bg-sec/5 hover:text-sec"
+                  className={`shrink-0 rounded-full border px-4 py-1.5 text-xs font-bold transition-all ${
+                    active ? "border-sec text-sec" : "border-sec/10 text-sec/55 hover:border-sec/30 hover:text-sec"
                   }`}
                 >
                   {f}
-                  <span className={`ml-2 text-xs ${active ? "text-main/50" : "text-sec/35"}`}>{count}</span>
+                  <span className="ml-1.5 text-sec/35">{count}</span>
                 </button>
               );
             })}
           </div>
-        </FadeIn>
+        ) : (
+          <div className="mb-10" />
+        )}
+
+        {isEmpty && (
+          <div className="rounded-[1.75rem] border-2 border-dashed border-sec/15 p-8 md:p-12 mb-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div>
+              <p className="text-2xl md:text-3xl font-black tracking-tighter mb-2">{section} projects are on their way to this board.</p>
+              <p className="text-sec/60">Want to see something now? Ask me on a call.</p>
+            </div>
+            <a
+              href={contact.calendly}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 self-start md:self-auto rounded-full bg-sec text-main px-6 py-3.5 text-xs font-black uppercase tracking-[0.16em] whitespace-nowrap"
+            >
+              Book a call <ArrowUpRight className="w-4 h-4" />
+            </a>
+          </div>
+        )}
 
         <div className="pin-board columns-2 lg:columns-3 xl:columns-4 gap-3 sm:gap-5">
           <AnimatePresence initial={false}>
-            {filter === "All" && (
+            {section === "Everything" && (
               <motion.div
                 key="intro-tile"
                 initial={{ opacity: 0, scale: 0.96 }}
@@ -66,6 +126,18 @@ export default function Works() {
                 </p>
               </motion.div>
             )}
+
+            {shownBuilds.map((build) => (
+              <motion.div
+                key={build.name}
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.96 }}
+                transition={{ duration: 0.35 }}
+              >
+                <BuildCard build={build} />
+              </motion.div>
+            ))}
 
             {brands.map((brand) => (
               <motion.article
@@ -85,7 +157,7 @@ export default function Works() {
               </motion.article>
             ))}
 
-            {filter === "All" && (
+            {!isEmpty && filter === "All" && (
               <motion.a
                 key="cta-tile"
                 href={contact.calendly}
