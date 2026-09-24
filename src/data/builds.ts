@@ -62,4 +62,24 @@ export const builds: Build[] = [
     link: "https://raidshooter.xyz",
     image: "/work/raid-shooter.jpg",
   },
+  {
+    name: "Blue",
+    discipline: "Apps",
+    summary:
+      "An AI agent for tokenized finance. Buy, sell and manage tokenized real-world assets in plain English. Blue drafts a clear trade proposal, and nothing moves until you approve it.",
+    role: "Design & development",
+    tools: ["Next.js", "AI agent", "Base", "USDC"],
+    link: "https://blueai-pi.vercel.app/",
+    image: "/work/blue.jpg",
+  },
+  {
+    name: "onMark",
+    discipline: "Apps",
+    summary:
+      "A property operating system for landlords and property managers in Nigeria. Properties, rent, tenants and maintenance in one place, replacing notebooks, spreadsheets and WhatsApp threads. Renters browse without an account and reach listers directly.",
+    role: "Design & development",
+    tools: ["Next.js"],
+    link: "https://on-mark.vercel.app/login",
+    image: "/work/onmark.jpg",
+  },
 ];
