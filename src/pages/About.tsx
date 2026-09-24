@@ -1,6 +1,10 @@
 import { FadeIn, RevealLine } from "../components/Animations";
-import { GraduationCap, Megaphone, Network, Target } from "lucide-react";
-import { skills } from "../data/davidPortfolio";
+import { GraduationCap, Network, Target } from "lucide-react";
+import DavidCharacter from "../components/DavidCharacter";
+import { focusAreas, skills, supportedBrands } from "../data/davidPortfolio";
+import { disciplines } from "../data/builds";
+
+const chipTones = ["bg-sky", "bg-butter", "bg-blush", "bg-sage", "bg-lilac", "bg-white"];
 
 export default function About() {
   return (
@@ -33,38 +37,101 @@ export default function About() {
                 My work sits between social media management, project coordination, brand storytelling, and Web3 growth. I understand how to turn ideas into campaigns, campaigns into traction, and communities into active ecosystems.
               </p>
             </FadeIn>
+            <FadeIn delay={0.4}>
+              <p>
+                Then I started building the things too &mdash; websites, apps, games, and the content and video that bring them to life.
+              </p>
+            </FadeIn>
           </div>
         </section>
 
-        <section className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-24">
+        {/* Moodboard */}
+        <section className="pin-board columns-1 sm:columns-2 lg:columns-3 gap-5 mb-24">
+          <FadeIn>
+            <div className="relative overflow-hidden rounded-[1.75rem] bg-sky aspect-[4/5] flex items-center justify-center">
+              <div
+                className="absolute inset-0"
+                style={{ backgroundImage: "radial-gradient(#3d7bf033 1.6px, transparent 1.6px)", backgroundSize: "16px 16px" }}
+              />
+              <div className="relative w-2/3 aspect-square">
+                <DavidCharacter className="w-full h-full" />
+              </div>
+              <span className="absolute bottom-5 left-5 rounded-full bg-main/85 px-3 py-1 text-[9px] font-black uppercase tracking-[0.18em]">
+                Yes, that's me. Roughly.
+              </span>
+            </div>
+          </FadeIn>
+
+          <FadeIn delay={0.06}>
+            <div className="rounded-[1.75rem] bg-sec text-main p-8">
+              <p className="text-red text-5xl font-black leading-none mb-2">&ldquo;</p>
+              <p className="text-2xl font-black tracking-tight leading-snug">
+                Ideas are easy. Getting someone to stop scrolling and actually care &mdash; that&rsquo;s the interesting part.
+              </p>
+            </div>
+          </FadeIn>
+
           {[
-            { icon: GraduationCap, title: "B.Sc. Mass Communication", text: "Focus areas: marketing, public relations, media communication, storytelling, and audience engagement." },
-            { icon: Target, title: "Strategic Positioning", text: "I help projects explain what they do in language communities, users, and partners can understand." },
-            { icon: Network, title: "Community-Led Growth", text: "I connect social presence, content rhythm, campaigns, and community communication into one operating system." }
+            { icon: GraduationCap, tone: "bg-butter", title: "B.Sc. Mass Communication", text: "Focus areas: marketing, public relations, media communication, storytelling, and audience engagement." },
+            { icon: Target, tone: "bg-white", title: "Strategic Positioning", text: "I help projects explain what they do in language communities, users, and partners can understand." },
           ].map((item, index) => {
             const Icon = item.icon;
             return (
-              <FadeIn key={item.title} delay={index * 0.08}>
-                <div className="h-full rounded-3xl border border-blue-100 bg-white p-7 shadow-sm">
-                  <div className="w-12 h-12 rounded-2xl bg-thr/10 text-thr flex items-center justify-center mb-7">
-                    <Icon className="w-6 h-6" />
+              <FadeIn key={item.title} delay={0.12 + index * 0.06}>
+                <div className={`rounded-[1.75rem] ${item.tone} p-7`}>
+                  <div className="w-12 h-12 rounded-full bg-main/80 flex items-center justify-center mb-10">
+                    <Icon className="w-5 h-5" />
                   </div>
-                  <h2 className="text-2xl font-black tracking-tight mb-4">{item.title}</h2>
-                  <p className="text-sec/65 leading-relaxed">{item.text}</p>
+                  <h2 className="text-2xl font-black tracking-tight mb-3">{item.title}</h2>
+                  <p className="text-sec/70 leading-relaxed">{item.text}</p>
                 </div>
               </FadeIn>
             );
           })}
+
+          <FadeIn delay={0.24}>
+            <div className="rounded-[1.75rem] bg-blush p-7">
+              <p className="font-display text-7xl font-black tracking-tighter leading-none mb-3">{supportedBrands.length}</p>
+              <p className="text-sec/70 leading-relaxed">brands and communities supported so far &mdash; from wallets to meme coins.</p>
+            </div>
+          </FadeIn>
+
+          <FadeIn delay={0.27}>
+            <div className="rounded-[1.75rem] bg-lilac p-7">
+              <p className="text-[10px] font-black uppercase tracking-[0.3em] text-sec/50 mb-6">Also making</p>
+              <ul className="space-y-1">
+                {disciplines.map((d) => (
+                  <li key={d.name} className="font-display text-3xl font-black tracking-tighter leading-tight">{d.name}</li>
+                ))}
+              </ul>
+            </div>
+          </FadeIn>
+
+          <FadeIn delay={0.3}>
+            <div className="rounded-[1.75rem] bg-sage p-7">
+              <div className="w-12 h-12 rounded-full bg-main/80 flex items-center justify-center mb-10">
+                <Network className="w-5 h-5" />
+              </div>
+              <h2 className="text-2xl font-black tracking-tight mb-3">Community-Led Growth</h2>
+              <p className="text-sec/70 leading-relaxed mb-6">
+                I connect social presence, content rhythm, campaigns, and community communication into one operating system.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {focusAreas.slice(0, 7).map((area) => (
+                  <span key={area} className="rounded-full bg-main/70 px-3 py-1 text-xs font-bold">{area}</span>
+                ))}
+              </div>
+            </div>
+          </FadeIn>
         </section>
 
         <section>
-          <div className="flex items-center gap-3 mb-8">
-            <Megaphone className="w-6 h-6 text-thr" />
-            <h2 className="text-4xl md:text-5xl font-black tracking-tighter">Skills</h2>
-          </div>
+          <RevealLine>
+            <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-8">Skills</h2>
+          </RevealLine>
           <div className="flex flex-wrap gap-3">
-            {skills.map((skill) => (
-              <span key={skill} className="rounded-full bg-blue-50 border border-blue-100 px-5 py-3 text-sm font-bold text-sec/75">
+            {skills.map((skill, i) => (
+              <span key={skill} className={`rounded-full ${chipTones[i % chipTones.length]} px-5 py-3 text-sm font-bold text-sec/80`}>
                 {skill}
               </span>
             ))}

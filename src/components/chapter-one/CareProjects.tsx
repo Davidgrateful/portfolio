@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { RevealLine, FadeIn } from "../Animations";
 import MagneticButton from "../MagneticButton";
 import { careProjects } from "../../data/chapterOne";
+import PinCover, { seedOf } from "../board/PinCover";
 
 export default function CareProjects() {
   return (
@@ -23,16 +24,11 @@ export default function CareProjects() {
       <div className="flex gap-5 overflow-x-auto snap-x snap-mandatory pb-6 -mx-6 px-6 md:-mx-12 md:px-12 lg:-mx-24 lg:px-24">
         {careProjects.map((project, i) => (
           <FadeIn key={project.slug} delay={i * 0.05} className="shrink-0 snap-start">
-            <article className="group w-[280px] sm:w-[340px] h-full rounded-3xl border border-sec/10 bg-white p-7 flex flex-col shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-thr/30 transition-all duration-300">
-              <span className="inline-flex self-start rounded-full bg-blue-50 text-thr px-3 py-1 text-[9px] font-black uppercase tracking-[0.18em] mb-6">
-                {project.category}
-              </span>
-              <h4 className="text-2xl font-black tracking-tight mb-2">{project.name}</h4>
-              <p className="text-[11px] font-black uppercase tracking-[0.15em] text-muted mb-4">{project.role}</p>
-              <p className="text-sec/65 leading-relaxed text-sm flex-1">{project.description}</p>
-              <div className="mt-6 flex items-center gap-1.5 text-thr text-xs font-black uppercase tracking-[0.16em] opacity-0 group-hover:opacity-100 transition-opacity">
-                Role & focus
-                <ArrowUpRight className="w-3.5 h-3.5" />
+            <article className="group w-[280px] sm:w-[320px] h-full rounded-[1.75rem] bg-white p-2.5 pb-6 flex flex-col shadow-[0_1px_2px_rgba(22,22,26,0.04)] hover:shadow-[0_18px_40px_-18px_rgba(22,22,26,0.3)] hover:-translate-y-1 transition-[transform,box-shadow] duration-300">
+              <PinCover seed={seedOf(project.name)} title={project.name} badge={project.category} compact />
+              <div className="px-3.5 pt-5 flex flex-col flex-1">
+                <p className="text-[11px] font-black uppercase tracking-[0.14em] text-thr mb-3">{project.role}</p>
+                <p className="text-sec/65 leading-relaxed text-sm">{project.description}</p>
               </div>
             </article>
           </FadeIn>
@@ -43,7 +39,7 @@ export default function CareProjects() {
         <div className="mt-4">
           <MagneticButton>
             <Link
-              to="/works"
+              to="/works?d=Marketing%20%26%20Community"
               className="inline-flex items-center gap-2 text-sm font-black uppercase tracking-[0.18em] text-sec hover:text-thr transition-colors group"
             >
               See the rest of the brand work

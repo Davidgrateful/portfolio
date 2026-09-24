@@ -1,6 +1,7 @@
 import Hero from "../components/Hero";
 import AboutPreview from "../components/AboutPreview";
 import ChapterOne from "../components/ChapterOne";
+import ChapterTwo from "../components/ChapterTwo";
 import CrissCrossMarquee from "../components/CrissCrossMarquee";
 
 export default function Home() {
@@ -9,6 +10,7 @@ export default function Home() {
       <Hero />
       <AboutPreview />
       <ChapterOne />
+      <ChapterTwo />
       <CrissCrossMarquee />
     </main>
   );

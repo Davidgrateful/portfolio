@@ -20,99 +20,119 @@ export const focusAreas = [
   "Campaign Execution"
 ];
 
+// Filter groups shown as chips on the Brands board
+export const brandFilters = ["All", "Gaming", "Community", "Base", "Solana", "Wallets", "NFTs & RWAs", "Protocols", "Memes"];
+
 export const supportedBrands = [
   {
     name: "BIFY",
+    tags: ["NFTs & RWAs"],
+    link: "https://www.bify.io",
     role: "Project Manager & Social Media Manager",
     category: "NFTs / RWAs / AI / Infrastructure",
     description: "Managed content direction, campaign planning, community communication, brand positioning, and social media strategy around NFTs, RWAs, AI tooling, and Web3 infrastructure."
   },
   {
     name: "Gaming on Base",
+    tags: ["Gaming", "Base"],
     role: "Social Media & Growth Support",
     category: "Gaming / Ecosystem",
     description: "Supported gaming visibility through content strategy, game discovery, ecosystem updates, community engagement, and project promotion."
   },
   {
     name: "Trade Clash",
+    tags: ["Gaming"],
     role: "Project Manager",
     category: "Gaming / Campaigns",
     description: "Worked on project coordination, community growth, campaign planning, and communication between project goals and audience-facing execution."
   },
   {
     name: "The_koll",
+    tags: ["Community"],
     role: "Social Media & Community Support",
     category: "Community / Brand Visibility",
     description: "Supported content direction, community engagement, brand visibility, and audience-facing communication for a fast-moving digital community."
   },
   {
     name: "Kresus Wallet",
+    tags: ["Wallets"],
     role: "Social Media & Community Growth Support",
     category: "Wallets / Onboarding",
     description: "Supported wallet-focused content, community education, campaign awareness, Web3 onboarding, and social media communication around user adoption."
   },
   {
     name: "Candyland Carnage",
+    tags: ["Gaming"],
     role: "Gaming Content & Community Support",
     category: "Web3 Gaming",
     description: "Supported gaming-related content, community engagement, promotional strategy, and social visibility for a Web3 gaming project."
   },
   {
     name: "PartyIcons",
+    tags: ["Community"],
     role: "Social Media & Brand Visibility Support",
     category: "Entertainment / Culture",
     description: "Worked on brand visibility, social content, campaign ideas, and community engagement within the Web3 entertainment and culture space."
   },
   {
     name: "Ithaca Protocol",
+    tags: ["Protocols"],
     role: "Content & Community Communication Support",
     category: "Protocol",
     description: "Supported content planning, protocol awareness, Web3 positioning, and community communication."
   },
   {
     name: "Gampongamp",
+    tags: ["Community"],
     role: "Social Content & Community Support",
     category: "Community",
     description: "Worked on social content, engagement ideas, campaign support, and community-facing communication."
   },
   {
     name: "Tadaio",
+    tags: ["Community"],
     role: "Social Media & Campaign Support",
     category: "Campaigns",
     description: "Supported social media visibility, project communication, campaign-style content, and audience engagement."
   },
   {
     name: "Reignslterworld",
+    tags: ["Community"],
     role: "Content & Community Engagement Support",
     category: "Brand Awareness",
     description: "Worked on content support, community engagement, brand awareness, and social communication."
   },
   {
     name: "champzErc",
+    tags: ["Community"],
     role: "Web3 Social Content & Community Growth Support",
     category: "Web3 Community",
     description: "Supported Web3 social content, community growth, promotional ideas, and engagement strategy."
   },
   {
     name: "Harley Forum",
+    tags: ["Community"],
     role: "Social Media / Community Intern",
     category: "Internship",
     description: "Completed over one year of internship experience, supporting social media, communication, content planning, and community engagement."
   },
   {
     name: "Muaddi on Sol",
+    tags: ["Solana"],
     role: "Intern / Community Support",
     category: "Solana",
     description: "Worked within the Solana ecosystem, supporting content, community activity, and brand visibility."
   },
   {
     name: "Boss Base",
+    tags: ["Base"],
     role: "Social Media / Brand Support",
     category: "Base",
     description: "Contributed to Base ecosystem content, community activity, and social positioning."
   },
   {
     name: "Base & Solana Meme Projects",
+    tags: ["Memes", "Base", "Solana"],
     role: "Social Media / Community Contributor",
     category: "Meme Communities",
     description: "Worked with multiple meme and community brands across Base and Solana, helping with content direction, engagement, visibility, and campaign ideas."
@@ -120,6 +140,7 @@ export const supportedBrands = [
 ];
 
 export const skills = [
+  "Web Development",
   "Project Management",
   "Social Media Management",
   "Content Strategy",
@@ -142,6 +163,10 @@ export const skills = [
 ];
 
 export const services = [
+  {
+    title: "Web Development",
+    description: "I design and build websites and landing pages, from first idea to a live link, with messaging that lands, because marketing is where I started."
+  },
   {
     title: "Social Media Management",
     description: "I help brands stay active, consistent, and relevant across social platforms with structured content planning, posting systems, and engagement strategies."
