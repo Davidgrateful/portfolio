@@ -7,6 +7,12 @@
   --color-thr: #3d7bf0;
   --color-red: #e5432a;
   --color-muted: #8a8578;
+  /* Moodboard pastels — soft tiles that sit on the cream page */
+  --color-butter: #f3df95;
+  --color-sage: #cbd9b8;
+  --color-blush: #f4c9bc;
+  --color-sky: #c3d7f6;
+  --color-lilac: #d9cff0;
   --color-background: var(--color-main);
   --color-foreground: var(--color-sec);
   --color-primary: var(--color-sec);
@@ -77,4 +83,9 @@ body {
 
 .animate-marquee-reverse {
   animation: marquee 40s linear infinite reverse;
+}
+/* Masonry board: tiles flow top-to-bottom in columns, like a pinboard */
+.pin-board > * {
+  break-inside: avoid;
+  margin-bottom: 1.25rem;
 }

@@ -4,7 +4,7 @@
  */
 
 import { useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Lenis from "lenis";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -15,25 +15,10 @@ import ScrollToTop from "./components/ScrollToTop";
 import Home from "./pages/Home";
 import Works from "./pages/Works";
 import About from "./pages/About";
-import ProjectDetail from "./pages/ProjectDetail";
-import Web3Portfolio from "./pages/Web3Portfolio";
-import Web3Works from "./pages/Web3Works";
-import Web3About from "./pages/Web3About";
 import Events from "./pages/Events";
-import EventDetail from "./pages/EventDetail";
 import Services from "./pages/Services";
 import Blog from "./pages/Blog";
-import BlogDetail from "./pages/BlogDetail";
-import Demo from "./pages/Demo";
 import NotFound from "./pages/NotFound";
-
-// Dashboard Imports
-import LoginPage from "./pages/dashboard/LoginPage";
-import DashboardHome from "./pages/dashboard/DashboardHome";
-import DashboardProjects from "./pages/dashboard/DashboardProjects";
-import DashboardBlog from "./pages/dashboard/DashboardBlog";
-import DashboardEcosystem from "./pages/dashboard/DashboardEcosystem";
-import DashboardSettings from "./pages/dashboard/DashboardSettings";
 
 function App() {
   useEffect(() => {
@@ -59,45 +44,29 @@ function App() {
     };
   }, []);
 
-  const location = useLocation();
-  const isDashboard = location.pathname.startsWith('/dashboard') || location.pathname === '/login';
-
   return (
     <>
       <ScrollToTop />
-      <div className={`text-sec min-h-screen font-sans selection:bg-sec selection:text-main transition-colors duration-700 ${isDashboard ? 'bg-[#0a0a0a]' : 'bg-main'}`}>
-        {!isDashboard && (
-          <>
-            <BackgroundWave />
-            <CustomCursor />
-            <Navbar />
-          </>
-        )}
+      <div className="text-sec min-h-screen font-sans selection:bg-sec selection:text-main transition-colors duration-700 bg-main">
+        <BackgroundWave />
+        <CustomCursor />
+        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/works" element={<Works />} />
           <Route path="/about" element={<About />} />
-          <Route path="/project/:slug" element={<ProjectDetail />} />
-          <Route path="/web3" element={<Web3Portfolio />} />
-          <Route path="/web3-works" element={<Web3Works />} />
-          <Route path="/web3-about" element={<Web3About />} />
-          <Route path="/events" element={<Events />} />
-          <Route path="/events/:slug" element={<EventDetail />} />
           <Route path="/services" element={<Services />} />
           <Route path="/blog" element={<Blog />} />
-          <Route path="/blog/:id" element={<BlogDetail />} />
-          <Route path="/demo" element={<Demo />} />
+          <Route path="/events" element={<Events />} />
 
-          {/* Dashboard Hub */}
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/dashboard" element={<DashboardHome />} />
-          <Route path="/dashboard/projects" element={<DashboardProjects />} />
-          <Route path="/dashboard/blog" element={<DashboardBlog />} />
-          <Route path="/dashboard/ecosystem" element={<DashboardEcosystem />} />
-          <Route path="/dashboard/settings" element={<DashboardSettings />} />
+          {/* Old links from the previous template point to the current pages */}
+          <Route path="/web3" element={<Navigate to="/" replace />} />
+          <Route path="/web3-works" element={<Navigate to="/works" replace />} />
+          <Route path="/web3-about" element={<Navigate to="/about" replace />} />
+
           <Route path="*" element={<NotFound />} />
         </Routes>
-        {!isDashboard && <Footer />}
+        <Footer />
       </div>
     </>
   );
