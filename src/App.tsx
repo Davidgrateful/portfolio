@@ -25,6 +25,7 @@ import Services from "./pages/Services";
 import Blog from "./pages/Blog";
 import BlogDetail from "./pages/BlogDetail";
 import Demo from "./pages/Demo";
+import NotFound from "./pages/NotFound";
 
 // Dashboard Imports
 import LoginPage from "./pages/dashboard/LoginPage";
@@ -33,7 +34,6 @@ import DashboardProjects from "./pages/dashboard/DashboardProjects";
 import DashboardBlog from "./pages/dashboard/DashboardBlog";
 import DashboardEcosystem from "./pages/dashboard/DashboardEcosystem";
 import DashboardSettings from "./pages/dashboard/DashboardSettings";
-import DashboardLayout from "./pages/dashboard/DashboardLayout";
 
 function App() {
   useEffect(() => {
@@ -90,31 +90,12 @@ function App() {
 
           {/* Dashboard Hub */}
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/dashboard" element={
-            <DashboardLayout>
-              <DashboardHome />
-            </DashboardLayout>
-          } />
-          <Route path="/dashboard/projects" element={
-            <DashboardLayout>
-              <DashboardProjects />
-            </DashboardLayout>
-          } />
-          <Route path="/dashboard/blog" element={
-            <DashboardLayout>
-              <DashboardBlog />
-            </DashboardLayout>
-          } />
-          <Route path="/dashboard/ecosystem" element={
-            <DashboardLayout>
-              <DashboardEcosystem />
-            </DashboardLayout>
-          } />
-          <Route path="/dashboard/settings" element={
-            <DashboardLayout>
-              <DashboardSettings />
-            </DashboardLayout>
-          } />
+          <Route path="/dashboard" element={<DashboardHome />} />
+          <Route path="/dashboard/projects" element={<DashboardProjects />} />
+          <Route path="/dashboard/blog" element={<DashboardBlog />} />
+          <Route path="/dashboard/ecosystem" element={<DashboardEcosystem />} />
+          <Route path="/dashboard/settings" element={<DashboardSettings />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
         {!isDashboard && <Footer />}
       </div>
