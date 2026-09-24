@@ -139,6 +139,7 @@ export const supportedBrands = [
 ];
 
 export const skills = [
+  "Web Development",
   "Project Management",
   "Social Media Management",
   "Content Strategy",
@@ -161,6 +162,10 @@ export const skills = [
 ];
 
 export const services = [
+  {
+    title: "Web Development",
+    description: "I design and build websites and landing pages, from first idea to a live link, with messaging that lands, because marketing is where I started."
+  },
   {
     title: "Social Media Management",
     description: "I help brands stay active, consistent, and relevant across social platforms with structured content planning, posting systems, and engagement strategies."

@@ -1,16 +1,16 @@
-import { ArrowUpRight, CalendarDays, Megaphone, PenLine, Target, Users, Workflow } from "lucide-react";
+import { ArrowUpRight, CalendarDays, Code2, Megaphone, PenLine, Target, Users, Workflow } from "lucide-react";
 import { FadeIn, RevealLine } from "../components/Animations";
 import { contact, services } from "../data/davidPortfolio";
 
-const icons = [Megaphone, Workflow, PenLine, Users, Target, CalendarDays];
-const tones = ["bg-sky", "bg-butter", "bg-white", "bg-sage", "bg-blush", "bg-lilac"];
+const icons = [Code2, Megaphone, Workflow, PenLine, Users, Target, CalendarDays];
+const tones = ["bg-sky", "bg-butter", "bg-white", "bg-sage", "bg-blush", "bg-lilac", "bg-white"];
 // Alternating tile heights keep the board from reading as a flat grid
-const padding = ["pb-24", "pb-10", "pb-16", "pb-10", "pb-20", "pb-12"];
+const padding = ["pb-24", "pb-10", "pb-16", "pb-10", "pb-20", "pb-12", "pb-14"];
 
 const steps = [
   { title: "Listen", text: "What the project is, who it's for, and why anyone should care." },
-  { title: "Shape", text: "Positioning, content pillars, and a calendar the team can actually keep." },
-  { title: "Ship", text: "Posts, spaces, campaigns and community moments, every week." },
+  { title: "Shape", text: "Positioning and a plan: a content calendar, a site map, whatever the job needs." },
+  { title: "Ship", text: "Pages and features, or posts, spaces and campaigns. Something real, every week." },
   { title: "Learn", text: "What landed, what didn't, and what we try next." },
 ];
 
@@ -26,7 +26,7 @@ export default function Services() {
           </RevealLine>
           <FadeIn delay={0.2}>
             <p className="text-xl md:text-2xl text-sec/65 max-w-3xl font-medium">
-              Social media, project coordination, content, community, positioning and campaigns — for Web3 brands that want to be understood.
+              Websites, social media, project coordination, content, community, positioning and campaigns, for brands that want to be understood.
             </p>
           </FadeIn>
         </div>
@@ -56,9 +56,9 @@ export default function Services() {
               rel="noopener noreferrer"
               className="group block rounded-[1.75rem] bg-sec text-main p-7"
             >
-              <p className="text-sky text-[10px] font-black uppercase tracking-[0.3em] mb-10">Ready to organize growth?</p>
+              <p className="text-sky text-[10px] font-black uppercase tracking-[0.3em] mb-10">Ready to start?</p>
               <h2 className="text-3xl font-black tracking-tighter leading-[1.05] mb-8">
-                Bring structure, content, and community momentum to your project.
+                Need a website, or people to care about the one you have? Let's talk.
               </h2>
               <span className="inline-flex items-center gap-2 rounded-full bg-main text-sec px-5 py-3 text-xs font-black uppercase tracking-[0.16em]">
                 Book a call
