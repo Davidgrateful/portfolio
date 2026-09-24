@@ -77,7 +77,7 @@ export const builds: Build[] = [
     discipline: "Apps",
     summary:
       "A property operating system for landlords and property managers in Nigeria. Properties, rent, tenants and maintenance in one place, replacing notebooks, spreadsheets and WhatsApp threads. Renters browse without an account and reach listers directly.",
-    role: "Design & development",
+    role: "Founder & builder",
     tools: ["Next.js"],
     link: "https://on-mark.vercel.app/login",
     image: "/work/onmark.jpg",
@@ -90,5 +90,24 @@ export const builds: Build[] = [
     role: "Web design & ideas (assisted)",
     link: "https://www.bify.io",
     image: "/work/bify.jpg",
+  },
+  {
+    name: "ONYIX TradeAI",
+    discipline: "Apps",
+    summary:
+      "An AI trading terminal: MT5-style charts, an Auto-Trade that draws its plan and trades with risk controls you can edit or switch off, wallet connect, and Naira pricing for Nigeria. Free to start on a $100k paper account.",
+    role: "Design & development",
+    tools: ["Next.js", "AI trading", "Web3 wallet"],
+    link: "https://onyix-tradeai.vercel.app/",
+    image: "/work/onyix.jpg",
+  },
+  {
+    name: "Maple Marksman",
+    discipline: "Games",
+    summary:
+      "A forest target-range game built for the Verse8 hackathon. Take aim, keep your streak alive, and hit small targets under time pressure. Built with AI-assisted tools.",
+    role: "Design & development",
+    tools: ["Verse8", "AI-assisted"],
+    image: "/work/maple-marksman.jpg",
   },
 ];
